@@ -3,8 +3,47 @@
     <style name="Base.Theme.AwesomeGroupAlarm" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary"></item>
+        <item name="colorPrimary">@color/blue_sea</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="Theme.AwesomeGroupAlarm" parent="Base.Theme.AwesomeGroupAlarm" />
+    <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
+
+    <style name="Base.AGA.Button" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.EditText" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.BottomSheet" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.DatePicker" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.Switch" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.Chip" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.BottomNavigationView" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.FloatingActionButton" parent="Base.AGA">
+
+    </style>
+
+    <style name="Base.AGA.ProgressBar" parent="Base.AGA">
+
+    </style>
+
 </resources>

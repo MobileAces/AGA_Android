@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue_dark_deep_sea">#2C84FF</color>
+    <color name="blue_deep_sea">#559CFF</color>
+    <color name="blue_sea">#84B7FF</color>
+    <color name="blue_light_sea">#B1D1FF</color>
+    <color name="blue_bright_light_sea">#D3E5FF</color>
 </resources>
