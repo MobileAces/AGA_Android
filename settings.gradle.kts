@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "AwesomeGroupAlarm"
 include(":app")
+include(":data")
+include(":domain")
