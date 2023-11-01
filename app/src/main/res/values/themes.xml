@@ -10,7 +10,7 @@
 
     <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
 
-    <style name="Base.AGA.Button" parent="Ele">
+    <style name="Base.AGA.Button" parent="Base.AGA">
         <item name="elevation">10dp</item>
 
     </style>
@@ -36,7 +36,12 @@
     </style>
 
     <style name="Base.AGA.BottomNavigationView" parent="Base.AGA">
-
+        <item name="backgroundTint">@color/white</item>
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemActiveIndicatorStyle">@null</item>
+        <item name="itemRippleColor">@null</item>
+        <item name="elevation">5dp</item>
+        <item name="compatShadowEnabled">true</item>
     </style>
 
     <style name="Base.AGA.FloatingActionButton" parent="Base.AGA">
