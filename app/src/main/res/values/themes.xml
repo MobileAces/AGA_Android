@@ -40,8 +40,11 @@
     </style>
 
     <style name="Base.AGA.FloatingActionButton" parent="Base.AGA">
-
+        <item name="backgroundTint">@color/blue_deep_sea</item>
+        <item name="tint">@color/white</item>
     </style>
+
+
 
     <style name="Base.AGA.ProgressBar" parent="Base.AGA">
         <item name="trackColor">@color/blue_bright_light_sea</item>
