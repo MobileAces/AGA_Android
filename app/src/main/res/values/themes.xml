@@ -3,7 +3,7 @@
     <style name="Base.Theme.AwesomeGroupAlarm" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">@color/blue_sea</item>
+        <item name="colorPrimary">@color/blue_deep_sea</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
@@ -44,7 +44,8 @@
     </style>
 
     <style name="Base.AGA.ProgressBar" parent="Base.AGA">
-
+        <item name="trackColor">@color/blue_bright_light_sea</item>
+        <item name="trackThickness">6dp</item>
     </style>
 
 </resources>
