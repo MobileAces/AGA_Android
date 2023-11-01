@@ -10,7 +10,8 @@
 
     <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
 
-    <style name="Base.AGA.Button" parent="Base.AGA">
+    <style name="Base.AGA.Button" parent="Ele">
+        <item name="elevation">10dp</item>
 
     </style>
 
