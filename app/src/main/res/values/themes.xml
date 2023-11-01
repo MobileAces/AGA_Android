@@ -27,8 +27,8 @@
 
     </style>
 
-    <style name="Base.AGA.Switch" parent="Base.AGA">
-
+    <style name="Base.AGA.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="trackTint">@color/blue_light_sea</item>
     </style>
 
     <style name="Base.AGA.Chip" parent="Base.AGA">
