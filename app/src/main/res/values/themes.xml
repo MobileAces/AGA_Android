@@ -12,10 +12,15 @@
 
     <style name="Base.AGA.Button" parent="Base.AGA">
         <item name="elevation">10dp</item>
-
     </style>
 
-    <style name="Base.AGA.EditText" parent="Base.AGA">
+    <style name="Base.AGA.TextInputLayout" parent="Base.AGA">
+        <item name="boxStrokeColor">@color/til_stroke</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidthFocused">3dp</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@color/til_stroke</item>
+        <item name="counterEnabled">true</item>
 
     </style>
 
