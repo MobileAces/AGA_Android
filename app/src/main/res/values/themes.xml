@@ -10,13 +10,15 @@
 
     <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
 
-    <style name="Base.AGA.Button" parent="Ele">
-        <item name="elevation">10dp</item>
-
+    <style name="Base.AGA.Button" parent="Base.AGA">
+        <item name="android:elevation">10dp</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 
+    <!-- 아래스타일은 TextInputLayout에 적용 -->
     <style name="Base.AGA.EditText" parent="Base.AGA">
-
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="endIconMode">password_toggle</item>
     </style>
 
     <style name="Base.AGA.BottomSheet" parent="Base.AGA">
