@@ -7,4 +7,7 @@
     <color name="blue_sea">#84B7FF</color>
     <color name="blue_light_sea">#B1D1FF</color>
     <color name="blue_bright_light_sea">#D3E5FF</color>
+
+    <!-- TextInputLayout -->
+    <color name="til_stroke">#79747E</color>
 </resources>
