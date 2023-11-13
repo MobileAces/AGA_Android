@@ -3,7 +3,7 @@
     <style name="Base.Theme.AwesomeGroupAlarm" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">@color/blue_sea</item>
+        <item name="colorPrimary">@color/blue_deep_sea</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
@@ -11,11 +11,24 @@
     <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
 
     <style name="Base.AGA.Button" parent="Base.AGA">
-
+        <item name="android:elevation">10dp</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 
+    <!-- 아래스타일은 TextInputLayout에 적용 -->
     <style name="Base.AGA.EditText" parent="Base.AGA">
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="endIconMode">password_toggle</item>
+        <item name="elevation">10dp</item>
+    </style>
 
+    <style name="Base.AGA.TextInputLayout" parent="Base.AGA">
+        <item name="boxStrokeColor">@color/til_stroke</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidthFocused">3dp</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@color/til_stroke</item>
+        <item name="counterEnabled">true</item>
     </style>
 
     <style name="Base.AGA.BottomSheet" parent="Base.AGA">
@@ -26,8 +39,8 @@
 
     </style>
 
-    <style name="Base.AGA.Switch" parent="Base.AGA">
-
+    <style name="Base.AGA.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="trackTint">@color/blue_light_sea</item>
     </style>
 
     <style name="Base.AGA.Chip" parent="Base.AGA">
@@ -35,15 +48,24 @@
     </style>
 
     <style name="Base.AGA.BottomNavigationView" parent="Base.AGA">
-
+        <item name="backgroundTint">@color/white</item>
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemActiveIndicatorStyle">@null</item>
+        <item name="itemRippleColor">@null</item>
+        <item name="elevation">5dp</item>
+        <item name="compatShadowEnabled">true</item>
     </style>
 
     <style name="Base.AGA.FloatingActionButton" parent="Base.AGA">
-
+        <item name="backgroundTint">@color/blue_deep_sea</item>
+        <item name="tint">@color/white</item>
     </style>
 
-    <style name="Base.AGA.ProgressBar" parent="Base.AGA">
 
+
+    <style name="Base.AGA.ProgressBar" parent="Base.AGA">
+        <item name="trackColor">@color/blue_bright_light_sea</item>
+        <item name="trackThickness">6dp</item>
     </style>
 
 </resources>
