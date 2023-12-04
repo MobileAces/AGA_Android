@@ -10,9 +10,16 @@
 
     <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
 
+    <style name="Base.AGA.TEXT" parent="Base.AGA">
+        <item name="fontFamily">@font/font_nexon_lv2_gothic</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
     <style name="Base.AGA.Button" parent="Base.AGA">
         <item name="android:elevation">10dp</item>
         <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAppearance">@style/Base.AGA.TEXT</item>
     </style>
 
     <!-- 아래스타일은 TextInputLayout에 적용 -->
@@ -28,7 +35,8 @@
         <item name="boxStrokeWidthFocused">3dp</item>
         <item name="endIconMode">clear_text</item>
         <item name="endIconTint">@color/til_stroke</item>
-        <item name="counterEnabled">true</item>
+        <item name="android:textAppearance">@style/Base.AGA.TEXT</item>
+        <item name="hintTextAppearance">@style/Base.AGA.TEXT</item>
     </style>
 
     <style name="Base.AGA.BottomSheet" parent="Base.AGA">
@@ -66,6 +74,10 @@
     <style name="Base.AGA.ProgressBar" parent="Base.AGA">
         <item name="trackColor">@color/blue_bright_light_sea</item>
         <item name="trackThickness">6dp</item>
+    </style>
+
+    <style name="Base.AGA.CheckBox" parent="Base.AGA">
+        <item name="android:textAppearance">@style/Base.AGA.TEXT</item>
     </style>
 
 </resources>
