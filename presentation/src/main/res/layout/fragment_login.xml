@@ -106,10 +106,7 @@
             android:text="@string/login_join"
             android:textAppearance="@style/Base.AGA.TEXT"
             android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textStyle="bold"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
