@@ -2,7 +2,7 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/ic_filled_graph">
     <target
-        android:animation="@animator/ani_rotate_setting"
+        android:animation="@animator/ani_popup_graph"
         android:name="graph"/>
 </animated-vector>
 
