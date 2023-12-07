@@ -5,7 +5,7 @@
         android:state_checked="true"/>
 
     <item android:id="@+id/state_off"
-        android:drawable="@drawable/ic_nonfilled_clock"
+        android:drawable="@drawable/ic_outline_clock"
         android:state_checked="false"/>
 
     <transition
