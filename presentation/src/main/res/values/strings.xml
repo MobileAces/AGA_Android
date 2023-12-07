@@ -13,5 +13,6 @@
     <string name="bottomnav_setting">설정</string>
     
     <string name="alarm_setting_members">알람 설정 현황</string>
+    <string name="alarm_title">알람 이름</string>
 
 </resources>
