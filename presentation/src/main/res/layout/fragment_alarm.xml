@@ -8,6 +8,7 @@
     tools:context=".AlarmFragment">
 
     <TextView
+        android:id="@+id/tv_nearest_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_nexon_lv2_gothic_medium"
@@ -17,6 +18,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="3시간 25분 뒤\n알람이 울립니다" />
+
+    <ImageButton
+        android:id="@+id/ib_add_new_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/ic_add_alarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_nearest_alarm" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_alarm_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ib_add_new_alarm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
