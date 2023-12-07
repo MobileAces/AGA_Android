@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000"
+    android:interpolator="@android:interpolator/fast_out_slow_in"
+    android:propertyName="pathData"
+    android:valueFrom="M20,210 L20,210 L75,210 L75,210 Z M92.5,210 L92.5,210 L147.5,210 L147.5,210 Z M165,210L165,210L220,210L220,210Z"
+    android:valueTo="M20,210 L20,90 L75,90 L75,210 Z M92.5,210 L92.5,30 L147.5,30 L147.5,210 Z M165,210L165,110L220,110L220,210Z"
+    android:valueType="pathType"
+    />
+
+

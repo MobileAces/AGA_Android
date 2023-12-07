@@ -1,0 +1,12 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+  <group>
+    <path
+        android:name="graph"
+        android:pathData="M20,210 L20,90 L75,90 L75,210 Z M92.5,210 L92.5,30 L147.5,30 L147.5,210 Z M165,210L165,110L220,110L220,210Z"
+        android:fillColor="#559CFF"/>
+  </group>
+</vector>
