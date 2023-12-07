@@ -11,5 +11,7 @@
     <string name="bottomnav_alarm">알람</string>
     <string name="bottomnav_statistics">통계</string>
     <string name="bottomnav_setting">설정</string>
+    
+    <string name="alarm_setting_members">알람 설정 현황</string>
 
 </resources>
