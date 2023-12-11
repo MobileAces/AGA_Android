@@ -14,4 +14,6 @@
     <color name="divider_gray">#878787</color>
 
     <color name="text_gray">#606060</color>
+
+    <color name="arrow_gray">#676767</color>
 </resources>
