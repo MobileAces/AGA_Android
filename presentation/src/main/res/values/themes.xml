@@ -73,11 +73,17 @@
 
     <style name="Base.AGA.ProgressBar" parent="Base.AGA">
         <item name="trackColor">@color/blue_bright_light_sea</item>
-        <item name="trackThickness">6dp</item>
+        <item name="trackThickness">4dp</item>
     </style>
 
     <style name="Base.AGA.CheckBox" parent="Base.AGA">
         <item name="android:textAppearance">@style/Base.AGA.TEXT</item>
+    </style>
+    
+    <style name="Text.RvItem.Statistics.Daily" parent="Base.AGA">
+        <item name="fontFamily">@font/font_nexon_lv2_gothic_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

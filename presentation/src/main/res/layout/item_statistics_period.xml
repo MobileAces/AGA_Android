@@ -13,18 +13,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:fontFamily="@font/nexon_lv2_gothic_medium"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textAppearance="@style/Text.RvItem.Statistics.Daily"
         android:text="홍유준"/>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
+        style="@style/Base.AGA.ProgressBar"
         android:id="@+id/pb_statistics"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="6"
-        android:max="10"
-        android:progress="6"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"/>
 
@@ -33,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="10/17"
+        android:text="0/100"
         android:fontFamily="@font/nexon_lv2_gothic_medium"
         android:textColor="@color/text_gray"
         android:textSize="12sp"/>
