@@ -14,5 +14,6 @@
     
     <string name="alarm_setting_members">알람 설정 현황</string>
     <string name="alarm_title">알람 이름</string>
+    <string name="alarm_week_day">요일</string>
 
 </resources>
