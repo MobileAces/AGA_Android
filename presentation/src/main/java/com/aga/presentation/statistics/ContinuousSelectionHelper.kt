@@ -1,4 +1,4 @@
-package com.steelzoo.presentation.statistics
+package com.aga.presentation.statistics
 
 import com.kizitonwose.calendar.core.atStartOfMonth
 import com.kizitonwose.calendar.core.nextMonth

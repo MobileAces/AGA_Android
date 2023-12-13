@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.steelzoo.data"
+    namespace = "com.aga.data"
     compileSdk = 33
 
     defaultConfig {

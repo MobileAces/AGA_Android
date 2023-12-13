@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.steelzoo.presentation"
+    namespace = "com.aga.presentation"
     compileSdk = 33
 
     defaultConfig {

@@ -1,4 +1,4 @@
-package com.steelzoo.presentation.statistics
+package com.aga.presentation.statistics
 
 import android.content.Context
 import java.time.DayOfWeek
