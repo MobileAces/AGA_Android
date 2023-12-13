@@ -22,4 +22,12 @@
     <string name="item_statistics_daily_detail_weather">비 예보 알림</string>
     <string name="item_statistics_daily_detail_memo">메모 알림</string>
 
+    <string name="all_sunday_one">일</string>
+    <string name="all_monday_one">월</string>
+    <string name="all_tuesday_one">화</string>
+    <string name="all_wednesday_one">수</string>
+    <string name="all_thursday_one">목</string>
+    <string name="all_friday_one">금</string>
+    <string name="all_saturday_one">토</string>
+
 </resources>
