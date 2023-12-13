@@ -33,6 +33,7 @@
     <string name="item_statistics_daily_detail_weather">비 예보 알림</string>
     <string name="item_statistics_daily_detail_memo">메모 알림</string>
 
+
     <!-- SettingFragment 에서 사용할 string resource -->
     <string name="setting_member">멤버</string>
     <string name="setting_change">설정 변경</string>
@@ -44,5 +45,13 @@
     <string name="setting_change_group_introduction">그룹 소개</string>
     <string name="setting_change_group_reg_date">그룹 개설일</string>
     <string name="setting_change_member">멤버</string>
+
+    <string name="all_sunday_one">일</string>
+    <string name="all_monday_one">월</string>
+    <string name="all_tuesday_one">화</string>
+    <string name="all_wednesday_one">수</string>
+    <string name="all_thursday_one">목</string>
+    <string name="all_friday_one">금</string>
+    <string name="all_saturday_one">토</string>
 
 </resources>
