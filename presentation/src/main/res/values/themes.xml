@@ -11,15 +11,17 @@
     <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
 
     <style name="Base.AGA.TEXT" parent="Base.AGA">
-        <item name="fontFamily">@font/font_nexon_lv2_gothic</item>
+        <item name="fontFamily">@font/font_nexon_lv2_gothic_medium</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Base.AGA.Button" parent="Base.AGA">
-        <item name="android:elevation">10dp</item>
+    <style name="Base.AGA.Button" parent="@style/Widget.Material3.Button.ElevatedButton">
+        <item name="backgroundTint">@color/blue_deep_sea</item>
+        <item name="android:elevation">2dp</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:textAppearance">@style/Base.AGA.TEXT</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <!-- 아래스타일은 TextInputLayout에 적용 -->
@@ -39,8 +41,7 @@
         <item name="hintTextAppearance">@style/Base.AGA.TEXT</item>
     </style>
 
-    <style name="Base.AGA.BottomSheet" parent="Base.AGA">
-
+    <style name="Base.AGA.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
     </style>
 
     <style name="Base.AGA.DatePicker" parent="Base.AGA">
@@ -51,8 +52,10 @@
         <item name="trackTint">@color/color_switch_tracktint</item>
     </style>
 
-    <style name="Base.AGA.Chip" parent="Base.AGA">
-
+    <style name="Base.AGA.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@drawable/chip_bg</item>
+        <item name="checkedIconTint">@color/white</item>
+        <item name="android:textColor">@drawable/chip_text_color</item>
     </style>
 
     <style name="Base.AGA.BottomNavigationView" parent="Base.AGA">

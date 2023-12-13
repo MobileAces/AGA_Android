@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import com.steelzoo.presentation.statistics.BottomSheetStatisticsFilter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +37,15 @@ class StatisticsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_statistics, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val btnFilter = view.findViewById<ImageView>(R.id.iv_filter)
+        btnFilter.setOnClickListener {
+            BottomSheetStatisticsFilter().show(requireActivity().supportFragmentManager, "")
+        }
     }
 
     companion object {

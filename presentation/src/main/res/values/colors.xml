@@ -16,4 +16,11 @@
     <color name="text_gray">#606060</color>
 
     <color name="arrow_gray">#676767</color>
+
+    <color name="chip_non_selected">#C7C7C7</color>
+
+    <color name="bottomsheet_bg">#F5F9FF</color>
+
+    <color name="calendar_red">#F44336</color>
+    <color name="calendar_blue">#2196F3</color>
 </resources>
