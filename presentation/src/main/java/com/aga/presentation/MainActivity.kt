@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val frame = findViewById<FrameLayout>(R.id.fl_main)
-        supportFragmentManager.beginTransaction().replace(R.id.fl_main, LoginFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fl_main, StatisticsFragment()).commit()
     }
 }

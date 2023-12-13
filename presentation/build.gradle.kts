@@ -65,4 +65,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+
+    val calendarVersion = "2.0.0"
+    implementation ("com.kizitonwose.calendar:view:$calendarVersion")
 }
