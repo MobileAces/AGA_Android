@@ -117,12 +117,10 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
 
             init {
                 view.setOnClickListener {
-                    if (day.position == DayPosition.MonthDate) {
+                    if (day.position == DayPosition.MonthDate && !day.date.isAfter(today)) {
                         selection = getSelection(clickedDate = day.date, dateSelection = selection)
                         this@BottomSheetStatisticsFilter.binding.calendarPeriod.notifyCalendarChanged()
                         bindSummaryViews()
-                    }else{
-
                     }
                 }
             }
@@ -145,14 +143,10 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
                 when (data.position) {
                     DayPosition.MonthDate -> {
                         textView.text = data.date.dayOfMonth.toString()
-                        if (data.position == DayPosition.MonthDate) {
-                            container.binding.tvDay.setTextColor(Color.LTGRAY)
-                        } else {
-                            container.binding.tvDay.setTextColor(Color.BLACK)
-                        }
-
-
                         when {
+                            data.date.isAfter(today) -> {
+                                textView.setTextColorRes(R.color.divider_gray)
+                            }
                             startDate == data.date && endDate == null -> {
                                 textView.setTextColorRes(R.color.white)
                                 roundBgView.applyBackground(singleBackground)
@@ -181,6 +175,8 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
                     }
 
                     DayPosition.InDate ->{
+                        textView.text = data.date.dayOfMonth.toString()
+                        textView.setTextColorRes(R.color.divider_gray)
                         if (startDate != null && endDate != null &&
                             isInDateBetweenSelection(data.date, startDate, endDate)
                         ) {
@@ -189,12 +185,15 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
                     }
 
 
-                    DayPosition.OutDate ->
+                    DayPosition.OutDate -> {
+                        textView.text = data.date.dayOfMonth.toString()
+                        textView.setTextColorRes(R.color.divider_gray)
                         if (startDate != null && endDate != null &&
                             isOutDateBetweenSelection(data.date, startDate, endDate)
                         ) {
                             continuousBgView.applyBackground(rangeMiddleBackground)
                         }
+                    }
                 }
             }
 
