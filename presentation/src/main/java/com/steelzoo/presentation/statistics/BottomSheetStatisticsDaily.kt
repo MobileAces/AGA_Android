@@ -47,6 +47,8 @@ class BottomSheetStatisticsDaily: BottomSheetDialogFragment() {
         val endMonth = currentMonth.plusMonths(0)  // Adjust as needed
         val daysOfWeek = daysOfWeek()
 
+        binding.btnApplyFilter.isEnabled = false
+
         binding.calendarWeekday.root.children.forEachIndexed { index, child ->
             (child as TextView).apply {
                 text = daysOfWeek[index].displayText()
@@ -75,9 +77,11 @@ class BottomSheetStatisticsDaily: BottomSheetDialogFragment() {
             binding.calendarDaily.notifyDateChanged(date)
             binding.tvPeriodStart.text = headerDateFormatter.format(date)
         }
+        binding.btnApplyFilter.isEnabled = selectedDate != null
     }
 
     private fun configureBinders() {
+
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
             val binding = CalendarDayLayoutBinding.bind(view)
