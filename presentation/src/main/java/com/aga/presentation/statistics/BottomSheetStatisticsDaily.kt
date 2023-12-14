@@ -1,7 +1,6 @@
-package com.steelzoo.presentation.statistics
+package com.aga.presentation.statistics
 
-import android.graphics.Color
-import android.graphics.drawable.Drawable
+
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -17,13 +16,10 @@ import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
-import com.steelzoo.presentation.R
-import com.steelzoo.presentation.databinding.BottomsheetStatisticsDailyBinding
-import com.steelzoo.presentation.databinding.CalendarDayLayoutBinding
-import com.steelzoo.presentation.databinding.CalendarHeaderBinding
-import com.steelzoo.presentation.statistics.ContinuousSelectionHelper.getSelection
-import com.steelzoo.presentation.statistics.ContinuousSelectionHelper.isInDateBetweenSelection
-import com.steelzoo.presentation.statistics.ContinuousSelectionHelper.isOutDateBetweenSelection
+import com.aga.presentation.databinding.BottomsheetStatisticsDailyBinding
+import com.aga.presentation.databinding.CalendarDayLayoutBinding
+import com.aga.presentation.databinding.CalendarHeaderBinding
+import com.aga.presentation.R
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter

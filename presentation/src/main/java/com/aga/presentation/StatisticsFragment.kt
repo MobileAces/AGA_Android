@@ -1,4 +1,4 @@
-package com.steelzoo.presentation
+package com.aga.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import com.aga.presentation.statistics.BottomSheetStatisticsDaily
 import com.aga.presentation.statistics.BottomSheetStatisticsFilter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,7 +43,7 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnFilter = view.findViewById<ImageView>(R.id.iv_filter)
+        val btnFilter = view.findViewById<ImageView>(R.id.iv_statistics_period)
         btnFilter.setOnClickListener {
             BottomSheetStatisticsFilter().show(requireActivity().supportFragmentManager, "")
         }
