@@ -27,7 +27,7 @@
             android:textSize="20sp"/>
 
         <ImageView
-            android:id="@+id/iv_filter"
+            android:id="@+id/iv_statistics_period"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_filter" />
@@ -116,7 +116,7 @@
             android:textSize="20sp"/>
 
         <ImageView
-            android:id="@+id/iv_calendar"
+            android:id="@+id/iv_statistics_daily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_calendar"/>
