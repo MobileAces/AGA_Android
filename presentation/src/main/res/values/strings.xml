@@ -5,6 +5,14 @@
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</string>
     <string name="btn_apply">적용</string>
 
+    <string name="all_sunday_one">일</string>
+    <string name="all_monday_one">월</string>
+    <string name="all_tuesday_one">화</string>
+    <string name="all_wednesday_one">수</string>
+    <string name="all_thursday_one">목</string>
+    <string name="all_friday_one">금</string>
+    <string name="all_saturday_one">토</string>
+
     <!-- LoginFragment 에서 사용할 string resource -->
     <string name="all_id">아이디</string>
     <string name="all_pw">비밀번호</string>
@@ -45,13 +53,5 @@
     <string name="setting_change_group_introduction">그룹 소개</string>
     <string name="setting_change_group_reg_date">그룹 개설일</string>
     <string name="setting_change_member">멤버</string>
-
-    <string name="all_sunday_one">일</string>
-    <string name="all_monday_one">월</string>
-    <string name="all_tuesday_one">화</string>
-    <string name="all_wednesday_one">수</string>
-    <string name="all_thursday_one">목</string>
-    <string name="all_friday_one">금</string>
-    <string name="all_saturday_one">토</string>
 
 </resources>
