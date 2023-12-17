@@ -22,4 +22,10 @@
     <string name="item_statistics_daily_detail_weather">비 예보 알림</string>
     <string name="item_statistics_daily_detail_memo">메모 알림</string>
 
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</string>
+
+    <string name="setting_change">설정 변경</string>
+    <string name="setting_exit_group">그룹 나가기</string>
+    <string name="setting_delete_group">그룹 삭제</string>
+
 </resources>
