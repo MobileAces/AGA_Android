@@ -41,7 +41,6 @@
     <string name="item_statistics_daily_detail_weather">비 예보 알림</string>
     <string name="item_statistics_daily_detail_memo">메모 알림</string>
 
-
     <!-- SettingFragment 에서 사용할 string resource -->
     <string name="setting_member">멤버</string>
     <string name="setting_change">설정 변경</string>
