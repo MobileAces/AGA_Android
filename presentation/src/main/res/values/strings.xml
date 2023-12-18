@@ -5,6 +5,14 @@
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</string>
     <string name="btn_apply">적용</string>
 
+    <string name="all_sunday_one">일</string>
+    <string name="all_monday_one">월</string>
+    <string name="all_tuesday_one">화</string>
+    <string name="all_wednesday_one">수</string>
+    <string name="all_thursday_one">목</string>
+    <string name="all_friday_one">금</string>
+    <string name="all_saturday_one">토</string>
+
     <!-- LoginFragment 에서 사용할 string resource -->
     <string name="all_id">아이디</string>
     <string name="all_pw">비밀번호</string>
@@ -19,6 +27,14 @@
 
     <!-- AlarmFragment 에서 사용할 string resource -->
     <string name="alarm_setting_members">알람 설정 현황</string>
+
+    <!-- AlarmSettingFragment 에서 사용할 string resource -->
+    <string name="alarm_setting_sound">알람음</string>
+    <string name="alarm_setting_vibrate">진동</string>
+    <string name="alarm_setting_repeat">다시 울리기</string>
+    <string name="alarm_setting_rain_voice">비 예보 음성 알림</string>
+    <string name="alarm_setting_memo_voice">메모 음성 알림</string>
+    <string name="alarm_setting_save">저장</string>
 
     <!-- dialog_alarm_create 에서 사용할 string resource -->
     <string name="alarm_title">알람 이름</string>
