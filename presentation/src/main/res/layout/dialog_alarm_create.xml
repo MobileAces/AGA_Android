@@ -52,6 +52,8 @@
                 style="@style/Base.AGA.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="15"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,14 +85,39 @@
                 app:layout_constraintStart_toEndOf="@id/iv_select_day"
                 app:layout_constraintTop_toTopOf="@id/iv_select_day" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/layout_week_day"
+            <include
+                android:id="@+id/layout_select_week"
+                layout="@layout/layout_select_weekday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_select_day" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_select_day">
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/font_nexon_lv2_gothic_medium"
+                android:text="@string/alarm_cancel"
+                android:textColor="@color/text_gray"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_create"
+                app:layout_constraintEnd_toStartOf="@id/tv_create" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                android:id="@+id/tv_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/font_nexon_lv2_gothic_medium"
+                android:text="@string/alarm_create"
+                android:textColor="@color/blue_dark_deep_sea"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_select_week" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
