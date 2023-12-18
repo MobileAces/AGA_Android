@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/blue_deep_sea</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorBackground">@color/white</item>
     </style>
 
     <style name="Base.AGA" parent="Base.Theme.AwesomeGroupAlarm" />
