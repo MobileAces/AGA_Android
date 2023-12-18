@@ -1,59 +1,61 @@
 package com.aga.presentation
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.NumberPicker
+import android.widget.TextView
+import com.aga.presentation.databinding.FragmentAlarmSettingBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AlarmSettingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AlarmSettingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding: FragmentAlarmSettingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alarm_setting, container, false)
+        binding = FragmentAlarmSettingBinding.inflate(layoutInflater, container,false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AlarmSettingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AlarmSettingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setNumberpicker()
+    }
+
+    private fun setNumberpicker(){
+        binding.npAmpm.apply {
+            minValue = 0
+            maxValue = 1
+            displayedValues = arrayOf("오전","오후")
+        }
+        binding.npHour.apply {
+            minValue = 1
+            maxValue = 12
+            wrapSelectorWheel = true
+            setOnValueChangedListener { picker, oldVal, newVal ->
+                // 11시에서 12시로 넘어가거나 그 반대의 경우에 '오전/오후' 상태를 변경
+                if ((oldVal == 11 && newVal == 12) || (oldVal == 12 && newVal == 11)) {
+                    binding.npAmpm.value = if (binding.npAmpm.value == 0) 1 else 0
                 }
             }
+        }
+        binding.npMinute.apply {
+            minValue = 0
+            maxValue = 59
+            displayedValues = (0..59).map { it.toString().let { if (it.length == 1){"0"+it} else it } }.toTypedArray()
+            wrapSelectorWheel = true
+        }
     }
+
 }
