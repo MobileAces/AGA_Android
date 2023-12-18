@@ -28,6 +28,14 @@
     <!-- AlarmFragment 에서 사용할 string resource -->
     <string name="alarm_setting_members">알람 설정 현황</string>
 
+    <!-- AlarmSettingFragment 에서 사용할 string resource -->
+    <string name="alarm_setting_sound">알람음</string>
+    <string name="alarm_setting_vibrate">진동</string>
+    <string name="alarm_setting_repeat">다시 울리기</string>
+    <string name="alarm_setting_rain_voice">비 예보 음성 알림</string>
+    <string name="alarm_setting_memo_voice">메모 음성 알림</string>
+    <string name="alarm_setting_save">저장</string>
+
     <!-- dialog_alarm_create 에서 사용할 string resource -->
     <string name="alarm_title">알람 이름</string>
     <string name="alarm_week_day">요일</string>
