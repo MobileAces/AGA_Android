@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="40dp"
-            android:text="@string/login_join"
+            android:text="@string/all_join"
             android:textAppearance="@style/Base.AGA.TEXT"
             android:textSize="16sp"
             android:textStyle="bold"/>

@@ -40,6 +40,12 @@
         <item name="endIconTint">@color/til_stroke</item>
         <item name="android:textAppearance">@style/Base.AGA.TEXT</item>
         <item name="hintTextAppearance">@style/Base.AGA.TEXT</item>
+        <item name="helperTextTextAppearance">@style/Base.AGA.TEXT.HelperText</item>
+    </style>
+
+    <style name="Base.AGA.TEXT.HelperText" parent="Base.AGA.TEXT">
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="Base.AGA.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
