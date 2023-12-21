@@ -1,4 +1,4 @@
-package com.aga.presentation.join
+package com.aga.presentation.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
