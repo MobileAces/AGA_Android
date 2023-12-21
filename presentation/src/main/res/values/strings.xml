@@ -17,8 +17,25 @@
     <string name="all_id">아이디</string>
     <string name="all_pw">비밀번호</string>
     <string name="login_auto_login">자동로그인</string>
-    <string name="login_join">회원가입</string>
+    <string name="all_join">회원가입</string>
     <string name="login_login">로그인</string>
+
+    <!-- JoinFragment 에서 사용할 string resource -->
+    <string name="join_btn_next">다음</string>
+    <string name="join_btn_finish">완료</string>
+    <string name="join_input_id">아이디를 입력해 주세요</string>
+    <string name="join_rule_id">5~12자, 영문 숫자로 이루어져야 합니다.</string>
+    <string name="join_input_pw">비밀번호를 입력해 주세요</string>
+    <string name="join_rule_pw">8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.</string>
+    <string name="join_input_pw_re">비밀번호 확인</string>
+    <string name="join_rule_pw_re_hint">비밀번호를 다시 입력해 주세요.</string>
+    <string name="join_input_phone">핸드폰 번호를 입력해 주세요</string>
+    <string name="join_rule_phone">010-xxxx-xxxx의 형식으로 입력해 주세요.</string>
+    <string name="join_btn_validation_code">인증번호 발송</string>
+    <string name="join_input_validation_code">인증번호를 입력해 주세요</string>
+    <string name="join_input_nickname">닉네임을 입력해 주세요</string>
+    <string name="join_rule_nickname">10자 이내, 문자와 숫자로 이루어져야 합니다.</string>
+
 
     <!-- BottomNavigation 에서 사용할 string resource -->
     <string name="bottomnav_alarm">알람</string>
