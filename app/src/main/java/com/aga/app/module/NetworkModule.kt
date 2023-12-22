@@ -1,4 +1,4 @@
-package module
+package com.aga.app.module
 
 import dagger.Module
 import dagger.hilt.InstallIn
