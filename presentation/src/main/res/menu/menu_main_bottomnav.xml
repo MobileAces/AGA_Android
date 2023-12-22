@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/third"
+        android:id="@+id/alarm"
         android:enabled="true"
         android:icon="@drawable/ic_selector_clock"
         android:title="@string/bottomnav_alarm"
@@ -17,7 +17,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/second"
+        android:id="@+id/setting"
         android:enabled="true"
         android:icon="@drawable/ic_selector_setting"
         android:title="@string/bottomnav_setting"
