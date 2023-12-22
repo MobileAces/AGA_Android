@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    tools:context=".login.LoginFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -40,6 +40,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_id"
             style="@style/Base.AGA.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -61,6 +62,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_pw"
             style="@style/Base.AGA.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,6 +74,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
+            android:id="@+id/cb_auto_login"
             style="@style/Base.AGA.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +82,7 @@
             android:text="@string/login_auto_login" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_login"
             style="@style/Base.AGA.Button"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
