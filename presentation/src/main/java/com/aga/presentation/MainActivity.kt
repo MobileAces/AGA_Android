@@ -45,11 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
     fun navigate(id: Int){
         when(id){
-            LOGIN_TO_JOIN -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fl_login, JoinOneFragment())
-                    .commitAllowingStateLoss()
-            }
+
         }
     }
 }
