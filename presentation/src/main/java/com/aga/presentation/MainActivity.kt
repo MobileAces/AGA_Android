@@ -1,15 +1,55 @@
 package com.aga.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.FrameLayout
+import com.aga.presentation.base.BaseActivity
+import com.aga.presentation.base.Constants.LOGIN_TO_JOIN
+import com.aga.presentation.databinding.ActivityMainBinding
+import com.aga.presentation.login.JoinOneFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>(
+    ActivityMainBinding::inflate
+) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val frame = findViewById<FrameLayout>(R.id.fl_main)
-        supportFragmentManager.beginTransaction().replace(R.id.fl_main, SettingChangeFragment()).commit()
+        initBottomNavigation()
+    }
+
+    private fun initBottomNavigation() {
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fl_main, AlarmFragment())
+            .commitAllowingStateLoss()
+
+        binding.bnvMain.setOnItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.alarm -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fl_main, AlarmFragment())
+                        .commitAllowingStateLoss()
+                }
+                R.id.statistics -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fl_main, StatisticsFragment())
+                        .commitAllowingStateLoss()
+                }
+                R.id.setting -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fl_main, SettingFragment())
+                        .commitAllowingStateLoss()
+                }
+            }
+            true
+        }
+    }
+
+    fun navigate(id: Int){
+        when(id){
+            LOGIN_TO_JOIN -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_login, JoinOneFragment())
+                    .commitAllowingStateLoss()
+            }
+        }
     }
 }
