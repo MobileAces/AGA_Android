@@ -1,60 +1,136 @@
 package com.aga.presentation.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.aga.presentation.LoginActivity
 import com.aga.presentation.R
+import com.aga.presentation.base.BaseFragment
+import com.aga.presentation.base.Constants
+import com.aga.presentation.base.Constants.JOINONE_TO_JOINTWO
+import com.aga.presentation.databinding.FragmentJoinOneBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val TAG = "JoinOneFragment_AGA"
+class JoinOneFragment : BaseFragment<FragmentJoinOneBinding>(
+    FragmentJoinOneBinding::bind, R.layout.fragment_join_one
+) {
+    private val viewModel: JoinViewModel by activityViewModels()
+    private lateinit var activity: LoginActivity
 
-/**
- * A simple [Fragment] subclass.
- * Use the [JoinOneFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class JoinOneFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity = _activity as LoginActivity
+        binding.btnNext.isEnabled = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        registerObserver()
+        registerListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val userCache = viewModel.userInfo
+        if (userCache.id != ""){
+            binding.etId.editText!!.setText(userCache.id)
+            binding.etPw.editText!!.setText(userCache.pw)
+            binding.etPwRe.editText!!.setText(userCache.pw)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_join_one, container, false)
+    private fun registerObserver(){
+        viewModel.isValidId.observe(viewLifecycleOwner){
+            //유효한 아이디
+            if (it == JoinViewModel.ID_VALID){
+                binding.etId.isErrorEnabled = false
+                binding.etId.helperText = it
+            }else{
+                binding.etId.isErrorEnabled = true
+                binding.etId.helperText = ""
+                binding.etId.error = it
+            }
+        }
+
+        viewModel.isValidPw.observe(viewLifecycleOwner){
+            viewModel.isValidateAllInput()
+            if (it == JoinViewModel.PW_VALID) {
+                binding.etPw.helperText = it
+            }
+            else{
+                binding.etPw.isErrorEnabled = true
+                binding.etPw.helperText = ""
+                binding.etPw.error = it
+            }
+        }
+
+        viewModel.isValidAllInput.observe(viewLifecycleOwner){
+            binding.btnNext.isEnabled = it
+            Log.d(TAG, "registerObserver: $it")
+        }
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment JoinOneFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            JoinOneFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun registerListener(){
+        binding.btnNext.setOnClickListener {
+            viewModel.finishPageOne(
+                binding.etId.editText!!.text.toString().trim(),
+                binding.etPwRe.editText!!.text.toString().trim()
+            )
+
+            activity.navigate(JOINONE_TO_JOINTWO)
+        }
+
+        binding.etId.editText!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.isValidateId(p0.toString().trim())
             }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
+        binding.etPw.editText!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.isValidPw(p0.toString().trim())
+                isSamePw(p0.toString().trim(), binding.etPwRe.editText!!.text.toString().trim())
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
+        binding.etPwRe.editText!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                isSamePw(binding.etPw.editText!!.text.toString().trim(), p0.toString().trim())
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+    }
+
+    private fun isSamePw(pw: String, pwRe: String){
+        if (pwRe == ""){
+            viewModel.isValidatePwRe(false)
+            return
+        }
+        if (pw == pwRe){
+            binding.etPwRe.isErrorEnabled = false
+            binding.etPwRe.helperText = getString(R.string.join_rule_pw_re_same)
+            viewModel.isValidatePwRe(true)
+        }else{
+            binding.etPwRe.isErrorEnabled = true
+            binding.etPwRe.helperText = ""
+            binding.etPwRe.error = getString(R.string.join_rule_pw_re_non_same)
+            viewModel.isValidatePwRe(false)
+        }
     }
 }

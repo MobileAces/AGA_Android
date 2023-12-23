@@ -24,11 +24,13 @@
     <string name="join_btn_next">다음</string>
     <string name="join_btn_finish">완료</string>
     <string name="join_input_id">아이디를 입력해 주세요</string>
-    <string name="join_rule_id">5~12자, 영문 숫자로 이루어져야 합니다.</string>
+    <string name="join_rule_id">5~20자, 영문 숫자로 이루어져야 합니다.</string>
     <string name="join_input_pw">비밀번호를 입력해 주세요</string>
     <string name="join_rule_pw">8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.</string>
     <string name="join_input_pw_re">비밀번호 확인</string>
     <string name="join_rule_pw_re_hint">비밀번호를 다시 입력해 주세요.</string>
+    <string name="join_rule_pw_re_same">비밀번호가 일치합니다.</string>
+    <string name="join_rule_pw_re_non_same">비밀번호가 일치하지 않습니다.</string>
     <string name="join_input_phone">핸드폰 번호를 입력해 주세요</string>
     <string name="join_rule_phone">010-xxxx-xxxx의 형식으로 입력해 주세요.</string>
     <string name="join_btn_validation_code">인증번호 발송</string>

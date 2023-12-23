@@ -12,4 +12,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
     override suspend fun login(user: User): User {
         return userService.login(user.toUserRequest()).toUser()
     }
+
+    override suspend fun isDuplicatedId(id: String): Boolean {
+        return userService.isDuplicatedId(id)
+    }
 }
