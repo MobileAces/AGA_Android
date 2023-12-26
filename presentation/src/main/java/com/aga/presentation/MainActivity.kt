@@ -2,9 +2,8 @@ package com.aga.presentation
 
 import android.os.Bundle
 import com.aga.presentation.base.BaseActivity
-import com.aga.presentation.base.Constants.LOGIN_TO_JOIN
 import com.aga.presentation.databinding.ActivityMainBinding
-import com.aga.presentation.login.JoinOneFragment
+import com.aga.presentation.setting.SettingFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
     ActivityMainBinding::inflate
