@@ -1,60 +1,82 @@
 package com.aga.presentation.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import com.aga.domain.model.User
+import com.aga.presentation.LoginActivity
 import com.aga.presentation.R
+import com.aga.presentation.base.BaseFragment
+import com.aga.presentation.base.Constants
+import com.aga.presentation.base.Constants.JOIN_TO_LOGIN
+import com.aga.presentation.databinding.FragmentJoinThreeBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [JoinThreeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class JoinThreeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class JoinThreeFragment : BaseFragment<FragmentJoinThreeBinding>(
+    FragmentJoinThreeBinding::bind, R.layout.fragment_join_three
+) {
+    private val viewModel: JoinViewModel by activityViewModels()
+    private lateinit var activity: LoginActivity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity = _activity as LoginActivity
+
+        binding.btnNext.isEnabled = false
+
+        registerObserver()
+        registerListener()
+    }
+
+    private fun registerObserver(){
+        viewModel.isValidNick.observe(viewLifecycleOwner){
+            if (it == JoinViewModel.NICK_VALID){
+                binding.etNickname.isErrorEnabled = false
+                binding.etNickname.helperText = it
+                binding.btnNext.isEnabled = true
+            }else{
+                binding.etNickname.isErrorEnabled = true
+                binding.etNickname.error = it
+                binding.etNickname.helperText = ""
+                binding.btnNext.isEnabled = false
+            }
+        }
+
+        viewModel.joinResult.observe(viewLifecycleOwner){
+            if (it == JoinViewModel.JOIN_SUCCESS){
+                showToast(it)
+                activity.navigate(JOIN_TO_LOGIN)
+            }else{
+                showToast(it)
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_join_three, container, false)
-    }
+    private fun registerListener(){
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment JoinThreeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            JoinThreeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        binding.etNickname.editText!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.isValidateNickname(p0.toString().trim())
             }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
+        binding.btnNext.setOnClickListener {
+            val user = User(
+                viewModel.userInfo.id,
+                viewModel.userInfo.pw,
+                binding.etNickname.editText!!.text.toString(),
+                viewModel.userInfo.phone
+            )
+            viewModel.join(user)
+        }
     }
 }

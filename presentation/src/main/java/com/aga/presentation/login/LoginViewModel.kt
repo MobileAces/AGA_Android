@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aga.domain.model.User
 import com.aga.domain.usecase.user.LoginUseCase
+import com.aga.presentation.base.Constants
+import com.aga.presentation.base.Constants.NET_ERR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,7 +49,6 @@ class LoginViewModel @Inject constructor(
     companion object{
         const val LOGIN_SUCCESS = "환영합니다."
         const val LOGIN_FAIL = "계정 정보가 잘못 되었습니다."
-        const val NET_ERR = "네트워크에 문제가 있습니다."
 
         const val WRONG_ACCOUNT_INFO = "NOT FOUND"
     }

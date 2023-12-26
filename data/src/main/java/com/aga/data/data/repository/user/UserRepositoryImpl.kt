@@ -11,4 +11,20 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun login(user: User): User {
         return remoteDataSource.login(user)
     }
+
+    override suspend fun isDuplicatedId(id: String): Boolean {
+        return remoteDataSource.isDuplicatedId(id)
+    }
+
+    override suspend fun isDuplicatedPhone(phone: String): Boolean {
+        return remoteDataSource.isDuplicatedPhone(phone)
+    }
+
+    override suspend fun isDuplicatedNickname(nickname: String): Boolean {
+        return remoteDataSource.isDuplicatedNickname(nickname)
+    }
+
+    override suspend fun join(user: User): User {
+        return remoteDataSource.join(user)
+    }
 }

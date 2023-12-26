@@ -44,8 +44,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
     }
 
     private fun registerListener(){
-        @SuppressLint("ResourceType")
-        val vibration = AnimationUtils.loadAnimation(requireContext(), R.animator.ani_vibratation)
 
         binding.btnLogin.setOnClickListener {
             val intent = Intent(activity, MainActivity::class.java)
