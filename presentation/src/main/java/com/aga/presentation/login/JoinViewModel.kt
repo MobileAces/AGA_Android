@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aga.domain.model.User
 import com.aga.domain.usecase.user.IdDuplicatedUseCase
-import com.aga.domain.usecase.user.phoneDuplicatedUseCase
-import com.aga.presentation.base.Constants
+import com.aga.domain.usecase.user.NicknameDuplicatedUseCase
+import com.aga.domain.usecase.user.PhoneDuplicatedUseCase
 import com.aga.presentation.base.Constants.NET_ERR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,7 +19,8 @@ private const val TAG = "JoinViewModel_AGA"
 @HiltViewModel
 class JoinViewModel @Inject constructor(
     private val idDuplicatedUseCase: IdDuplicatedUseCase,
-    private val phoneDuplicatedUseCase: phoneDuplicatedUseCase
+    private val phoneDuplicatedUseCase: PhoneDuplicatedUseCase,
+    private val nicknameDuplicatedUseCase: NicknameDuplicatedUseCase
 ): ViewModel() {
 
     var userInfo = User("","","","")
@@ -39,6 +40,10 @@ class JoinViewModel @Inject constructor(
     private val _isValidPhone = MutableLiveData<String>()
     val isValidPhone: LiveData<String>
         get() = _isValidPhone
+
+    private val _isValidNick = MutableLiveData<String>()
+    val isValidNick: LiveData<String>
+        get() = _isValidNick
 
     private var idCheck = false
     private var pwCheck = false
@@ -128,6 +133,31 @@ class JoinViewModel @Inject constructor(
         userInfo.phone = phone
     }
 
+    //여기부터 세번째 페이지
+    fun isValidateNickname(nickname: String){
+        viewModelScope.launch {
+            try {
+                //유효성에 맞지 않을 때
+                if(!(Pattern.matches(NICK_REG, nickname))) {
+                    _isValidNick.value = NICK_RULE
+                }
+                else{
+                    //유효성에 맞지만 중복된 아이디일 때
+                    if (nicknameDuplicatedUseCase.invoke(nickname)) {
+                        _isValidNick.value = NICK_DUP
+                    }
+                    //유효하고 중복 되지 않은 아이디일 때
+                    else {
+                        _isValidNick.value = NICK_VALID
+                    }
+                }
+            }catch (e: Exception){
+                Log.d(TAG, "isValidateNick: ${e.printStackTrace()}")
+                _isValidNick.value = NET_ERR
+            }
+        }
+    }
+
 
     companion object{
         const val ID_REG = "^[a-zA-Z0-9]{5,12}\$"
@@ -143,5 +173,11 @@ class JoinViewModel @Inject constructor(
         const val PHONE_DUP = "이미 가입된 핸드폰 번호입니다."
         const val PHONE_RULE = "010-xxxx-xxxx의 형식으로 입력해주세요."
         const val PHONE_VALID = "사용 가능한 핸드폰 번호입니다."
+
+        const val NICK_REG = "^[a-zA-Z0-9가-힣]{2,10}\$"
+        const val NICK_DUP = "중복된 닉네임입니다."
+        const val NICK_RULE = "10자 이내, 문자와 숫자로 이루어져야 합니다."
+        const val NICK_VALID = "사용 가능한 닉네임입니다."
+
     }
 }

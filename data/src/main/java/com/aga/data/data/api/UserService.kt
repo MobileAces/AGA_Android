@@ -23,5 +23,9 @@ interface UserService {
         @Query("phoneNumber") phone: String
     ): Boolean
 
+    @GET("users/nickname-duplicate")
+    suspend fun isDuplicatedNickname(
+        @Query("userNickname") nickname: String
+    ): Boolean
 
 }

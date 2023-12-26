@@ -8,4 +8,6 @@ interface UserRepository {
     suspend fun isDuplicatedId(id: String): Boolean
 
     suspend fun isDuplicatedPhone(phone: String): Boolean
+
+    suspend fun isDuplicatedNickname(nickname: String): Boolean
 }
