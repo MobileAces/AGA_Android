@@ -3,6 +3,7 @@ package com.aga.presentation
 import android.os.Bundle
 import com.aga.presentation.base.BaseActivity
 import com.aga.presentation.databinding.ActivityGroupBinding
+import com.aga.presentation.group.GroupFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
