@@ -1,10 +1,11 @@
 package com.aga.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aga.presentation.base.BaseActivity
 import com.aga.presentation.databinding.ActivityGroupBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GroupActivity : BaseActivity<ActivityGroupBinding>(
     ActivityGroupBinding::inflate
 ) {
