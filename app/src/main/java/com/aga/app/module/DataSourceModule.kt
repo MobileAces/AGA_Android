@@ -1,5 +1,7 @@
 package com.aga.app.module
 
+import com.aga.data.data.repository.team.remote.TeamRemoteDataSource
+import com.aga.data.data.repository.team.remote.TeamRemoteDataSourceImpl
 import com.aga.data.data.repository.user.remote.UserRemoteDataSource
 import com.aga.data.data.repository.user.remote.UserRemoteDataSourceImpl
 import dagger.Binds
@@ -14,4 +16,8 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun bindUserRemoteDataSource(userRemoteDataSourceImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindTeamRemoteDataSource(teamRemoteDataSourceImpl: TeamRemoteDataSourceImpl): TeamRemoteDataSource
 }
