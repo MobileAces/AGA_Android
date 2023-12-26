@@ -8,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.aga.domain.model.User
 import com.aga.presentation.LoginActivity
 import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
+import com.aga.presentation.base.Constants
+import com.aga.presentation.base.Constants.JOIN_TO_LOGIN
 import com.aga.presentation.databinding.FragmentJoinThreeBinding
 
 
@@ -43,6 +46,15 @@ class JoinThreeFragment : BaseFragment<FragmentJoinThreeBinding>(
                 binding.btnNext.isEnabled = false
             }
         }
+
+        viewModel.joinResult.observe(viewLifecycleOwner){
+            if (it == JoinViewModel.JOIN_SUCCESS){
+                showToast(it)
+                activity.navigate(JOIN_TO_LOGIN)
+            }else{
+                showToast(it)
+            }
+        }
     }
 
     private fun registerListener(){
@@ -58,7 +70,13 @@ class JoinThreeFragment : BaseFragment<FragmentJoinThreeBinding>(
         })
 
         binding.btnNext.setOnClickListener {
-
+            val user = User(
+                viewModel.userInfo.id,
+                viewModel.userInfo.pw,
+                binding.etNickname.editText!!.text.toString(),
+                viewModel.userInfo.phone
+            )
+            viewModel.join(user)
         }
     }
 }

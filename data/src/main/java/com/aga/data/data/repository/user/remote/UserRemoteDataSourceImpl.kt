@@ -1,8 +1,9 @@
 package com.aga.data.data.repository.user.remote
 
 import com.aga.data.data.api.UserService
+import com.aga.data.data.model.mapper.toJoinRequest
+import com.aga.data.data.model.mapper.toLoginRequest
 import com.aga.data.data.model.mapper.toUser
-import com.aga.data.data.model.mapper.toUserRequest
 import com.aga.domain.model.User
 import javax.inject.Inject
 
@@ -10,7 +11,12 @@ class UserRemoteDataSourceImpl @Inject constructor(
     private val userService: UserService
 ): UserRemoteDataSource {
     override suspend fun login(user: User): User {
-        return userService.login(user.toUserRequest()).toUser()
+        val response = userService.login(user.toLoginRequest())
+        return if(response.code == 200){
+            response.data!!.toUser()
+        }else{
+            User("FAIL","","","")
+        }
     }
 
     override suspend fun isDuplicatedId(id: String): Boolean {
@@ -23,5 +29,14 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun isDuplicatedNickname(nickname: String): Boolean {
         return userService.isDuplicatedNickname(nickname)
+    }
+
+    override suspend fun join(user: User): User {
+        val response = userService.join(user.toJoinRequest())
+        return if(response.code == 201){
+            response.data!!.toUser()
+        }else{
+            User("FAIL","","","")
+        }
     }
 }

@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aga.domain.model.User
 import com.aga.domain.usecase.user.IdDuplicatedUseCase
+import com.aga.domain.usecase.user.JoinUseCase
+import com.aga.domain.usecase.user.LoginUseCase
 import com.aga.domain.usecase.user.NicknameDuplicatedUseCase
 import com.aga.domain.usecase.user.PhoneDuplicatedUseCase
 import com.aga.presentation.base.Constants.NET_ERR
@@ -20,7 +22,8 @@ private const val TAG = "JoinViewModel_AGA"
 class JoinViewModel @Inject constructor(
     private val idDuplicatedUseCase: IdDuplicatedUseCase,
     private val phoneDuplicatedUseCase: PhoneDuplicatedUseCase,
-    private val nicknameDuplicatedUseCase: NicknameDuplicatedUseCase
+    private val nicknameDuplicatedUseCase: NicknameDuplicatedUseCase,
+    private val joinUseCase: JoinUseCase
 ): ViewModel() {
 
     var userInfo = User("","","","")
@@ -44,6 +47,10 @@ class JoinViewModel @Inject constructor(
     private val _isValidNick = MutableLiveData<String>()
     val isValidNick: LiveData<String>
         get() = _isValidNick
+
+    private val _joinResult = MutableLiveData<String>()
+    val joinResult: LiveData<String>
+        get() = _joinResult
 
     private var idCheck = false
     private var pwCheck = false
@@ -158,6 +165,20 @@ class JoinViewModel @Inject constructor(
         }
     }
 
+    fun join(user: User){
+        viewModelScope.launch {
+            try {
+                if (joinUseCase.invoke(user).id != "FAIL"){
+                    _joinResult.value = JOIN_SUCCESS
+                }else{
+                    _joinResult.value = JOIN_FAIL
+                }
+            } catch (e: Exception){
+                _joinResult.value = NET_ERR
+            }
+        }
+    }
+
 
     companion object{
         const val ID_REG = "^[a-zA-Z0-9]{5,12}\$"
@@ -179,5 +200,7 @@ class JoinViewModel @Inject constructor(
         const val NICK_RULE = "10자 이내, 문자와 숫자로 이루어져야 합니다."
         const val NICK_VALID = "사용 가능한 닉네임입니다."
 
+        const val JOIN_SUCCESS = "회원가입이 되었습니다."
+        const val JOIN_FAIL = "회원가입에 실패했습니다."
     }
 }

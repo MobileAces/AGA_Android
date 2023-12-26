@@ -10,4 +10,6 @@ interface UserRemoteDataSource {
     suspend fun isDuplicatedPhone(phone: String): Boolean
 
     suspend fun isDuplicatedNickname(nickname: String): Boolean
+
+    suspend fun join(user: User): User
 }

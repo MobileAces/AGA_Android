@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import com.aga.presentation.base.BaseActivity
 import com.aga.presentation.base.Constants.JOINONE_TO_JOINTWO
 import com.aga.presentation.base.Constants.JOINTWO_TO_JOINTHREE
+import com.aga.presentation.base.Constants.JOIN_TO_LOGIN
 import com.aga.presentation.base.Constants.LOGIN_TO_JOIN
 import com.aga.presentation.base.Constants.PREF_AUTO_LOGIN
 import com.aga.presentation.base.PrefManager
@@ -58,6 +59,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_login, JoinThreeFragment())
                     .addToBackStack("join_three")
+                    .commit()
+            }
+            JOIN_TO_LOGIN -> {
+                supportFragmentManager.clearBackStack("join")
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_login, LoginFragment())
                     .commit()
             }
         }
