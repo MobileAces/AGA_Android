@@ -16,4 +16,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
     override suspend fun isDuplicatedId(id: String): Boolean {
         return userService.isDuplicatedId(id)
     }
+
+    override suspend fun isDuplicatedPhone(phone: String): Boolean {
+        return userService.isDuplicatedPhone(phone)
+    }
 }

@@ -5,11 +5,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.aga.presentation.base.BaseActivity
 import com.aga.presentation.base.Constants.JOINONE_TO_JOINTWO
+import com.aga.presentation.base.Constants.JOINTWO_TO_JOINTHREE
 import com.aga.presentation.base.Constants.LOGIN_TO_JOIN
 import com.aga.presentation.base.Constants.PREF_AUTO_LOGIN
 import com.aga.presentation.base.PrefManager
 import com.aga.presentation.databinding.ActivityLoginBinding
 import com.aga.presentation.login.JoinOneFragment
+import com.aga.presentation.login.JoinThreeFragment
 import com.aga.presentation.login.JoinTwoFragment
 import com.aga.presentation.login.JoinViewModel
 import com.aga.presentation.login.LoginFragment
@@ -49,6 +51,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_login, JoinTwoFragment())
                     .addToBackStack("join_two")
+                    .commit()
+            }
+
+            JOINTWO_TO_JOINTHREE -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_login, JoinThreeFragment())
+                    .addToBackStack("join_three")
                     .commit()
             }
         }

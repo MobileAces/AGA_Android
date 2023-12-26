@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aga.domain.model.User
 import com.aga.domain.usecase.user.IdDuplicatedUseCase
+import com.aga.domain.usecase.user.phoneDuplicatedUseCase
 import com.aga.presentation.base.Constants
 import com.aga.presentation.base.Constants.NET_ERR
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,8 @@ import javax.inject.Inject
 private const val TAG = "JoinViewModel_AGA"
 @HiltViewModel
 class JoinViewModel @Inject constructor(
-    private val idDuplicatedUseCase: IdDuplicatedUseCase
+    private val idDuplicatedUseCase: IdDuplicatedUseCase,
+    private val phoneDuplicatedUseCase: phoneDuplicatedUseCase
 ): ViewModel() {
 
     var userInfo = User("","","","")
@@ -34,10 +36,15 @@ class JoinViewModel @Inject constructor(
     val isValidAllInput: LiveData<Boolean>
         get() = _isValidAllInput
 
+    private val _isValidPhone = MutableLiveData<String>()
+    val isValidPhone: LiveData<String>
+        get() = _isValidPhone
+
     private var idCheck = false
     private var pwCheck = false
     private var pwReCheck = false
-    
+
+    //여기부터 첫번째 페이지
     fun isValidateId(id: String){
         viewModelScope.launch {
             try {
@@ -92,6 +99,36 @@ class JoinViewModel @Inject constructor(
         userInfo.pw = pw
     }
 
+    //여기부터 두번째 페이지
+    fun isValidatePhone(phone: String){
+        viewModelScope.launch {
+            try {
+                //유효성에 맞지 않을 때
+                if(!(Pattern.matches(PHONE_REG, phone))) {
+                    _isValidPhone.value = PHONE_RULE
+                }
+                else{
+                    //유효성에 맞지만 중복된 아이디일 때
+                    if (phoneDuplicatedUseCase.invoke(phone)) {
+                        _isValidPhone.value = PHONE_DUP
+                    }
+                    //유효하고 중복 되지 않은 아이디일 때
+                    else {
+                        _isValidPhone.value = PHONE_VALID
+                    }
+                }
+            }catch (e: Exception){
+                Log.d(TAG, "isValidatePhone: ${e.printStackTrace()}")
+                _isValidPhone.value = NET_ERR
+            }
+        }
+    }
+
+    fun finishPageTwo(phone: String){
+        userInfo.phone = phone
+    }
+
+
     companion object{
         const val ID_REG = "^[a-zA-Z0-9]{5,12}\$"
         const val ID_DUP = "중복된 아이디입니다."
@@ -101,5 +138,10 @@ class JoinViewModel @Inject constructor(
         const val PW_REG = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#\$%^&*()_+])[a-zA-Z0-9!@#\$%^&*()_+]{8,}\$"
         const val PW_RULE = "8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다."
         const val PW_VALID = "유효한 비밀번호입니다."
+
+        const val PHONE_REG = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}\$"
+        const val PHONE_DUP = "이미 가입된 핸드폰 번호입니다."
+        const val PHONE_RULE = "010-xxxx-xxxx의 형식으로 입력해주세요."
+        const val PHONE_VALID = "사용 가능한 핸드폰 번호입니다."
     }
 }

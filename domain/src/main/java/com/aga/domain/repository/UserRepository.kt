@@ -6,4 +6,6 @@ interface UserRepository {
     suspend fun login(user: User): User
 
     suspend fun isDuplicatedId(id: String): Boolean
+
+    suspend fun isDuplicatedPhone(phone: String): Boolean
 }

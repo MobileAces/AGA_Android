@@ -17,4 +17,11 @@ interface UserService {
     suspend fun isDuplicatedId(
         @Query("userId") id: String
     ): Boolean
+
+    @GET("users/phone-duplicate")
+    suspend fun isDuplicatedPhone(
+        @Query("phoneNumber") phone: String
+    ): Boolean
+
+
 }
