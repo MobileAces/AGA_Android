@@ -1,6 +1,7 @@
 package com.aga.app.module
 
 import com.aga.data.data.api.ApiClient.BASE_URL
+import com.aga.data.data.api.TeamService
 import com.aga.data.data.api.UserService
 import com.aga.data.data.repository.user.UserRepositoryImpl
 import com.aga.domain.repository.UserRepository
@@ -37,8 +38,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAnswerService(retrofit: Retrofit): UserService {
+    fun provideUserService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTeamService(retrofit: Retrofit): TeamService{
+        return retrofit.create(TeamService::class.java)
     }
 
 
