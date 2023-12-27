@@ -14,13 +14,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="25dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
         <TextView
             android:id="@+id/tv_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="개쩌는 그룹 1"
+            android:text="그룹 이름"
             android:textAppearance="@style/Base.AGA.TEXT"
             android:textSize="24sp"/>
 
@@ -28,9 +30,12 @@
             android:id="@+id/tv_group_introduction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lorem_ipsum"
+            android:minHeight="80dp"
+            android:text="그룹 소개"
             android:fontFamily="@font/font_nexon_lv2_gothic"
-            android:layout_marginTop="12dp"/>
+            android:textSize="15sp"
+            android:layout_marginTop="12dp"
+            android:lineSpacingMultiplier="1.5"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -40,7 +45,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/ll_group"
-        android:layout_margin="25dp">
+        android:layout_margin="30dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -82,13 +87,14 @@
             android:id="@+id/tv_member_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6명"
+            android:text="-명"
             android:layout_margin="5dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_member"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="200dp"
             android:layout_margin="5dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/item_setting_member"

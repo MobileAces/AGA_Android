@@ -4,7 +4,9 @@ import android.os.Bundle
 import com.aga.presentation.base.BaseActivity
 import com.aga.presentation.databinding.ActivityMainBinding
 import com.aga.presentation.setting.SettingFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(
     ActivityMainBinding::inflate
 ) {
