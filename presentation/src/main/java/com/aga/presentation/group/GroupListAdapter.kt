@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
+import com.aga.presentation.R
 import com.aga.presentation.databinding.ItemMyGroupBinding
 
 class GroupListAdapter(
@@ -26,25 +27,44 @@ class GroupListAdapter(
         holder.bind(groupList[position])
     }
 
+    fun changeDataSet(groupList: List<TeamWithMember>){
+        this.groupList = groupList
+        notifyDataSetChanged()
+    }
+
     class GroupListViewHolder(private val binding: ItemMyGroupBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private var memberListAdapter: GroupMemberListAdapter? = null
+
         fun bind(teamWithMember: TeamWithMember) {
             binding.tvGroupName.text = teamWithMember.teamName
             binding.tvGroupIntroduction.text = teamWithMember.teamInfo
             binding.tvGroupOwner.text = teamWithMember.teamMaster
-            binding.ivShowMember.setOnClickListener {
-                if (binding.rvMember.visibility == View.GONE) {
-                    binding.rvMember.visibility = View.VISIBLE
-                } else if (binding.rvMember.visibility == View.VISIBLE) {
-                    binding.rvMember.visibility = View.GONE
-                }
-            }
+            setShowMemberButton()
             setMemberListAdapter(teamWithMember.memberList)
         }
 
         private fun setMemberListAdapter(memberList: List<TeamMember>){
-            if (binding.rvMember.adapter == null){
-                binding.rvMember.adapter = GroupMemberListAdapter(memberList)
+            if (memberListAdapter == null){
+                memberListAdapter = GroupMemberListAdapter(memberList)
+            }
+            binding.rvMember.adapter = memberListAdapter
+        }
+
+        private fun setShowMemberButton(){
+            binding.ivShowMember.setOnClickListener {
+                if (binding.rvMember.visibility == View.GONE) {
+                    binding.rvMember.visibility = View.VISIBLE
+                    binding.ivShowMember.setImageResource(
+                        R.drawable.ic_arrow_up
+                    )
+                } else if (binding.rvMember.visibility == View.VISIBLE) {
+                    binding.rvMember.visibility = View.GONE
+                    binding.ivShowMember.setImageResource(
+                        R.drawable.ic_arrow_down
+                    )
+                }
             }
         }
     }
