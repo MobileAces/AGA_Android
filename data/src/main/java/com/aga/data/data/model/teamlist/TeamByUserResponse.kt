@@ -2,7 +2,7 @@ package com.aga.data.data.model.teamlist
 
 import com.aga.data.data.model.member.TeamMemberDataResponse
 
-data class TeamByUser(
+data class TeamByUserResponse(
     val teamId: Int,
     val teamName: String,
     val teamInfo: String,
