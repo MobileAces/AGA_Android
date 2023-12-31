@@ -14,5 +14,8 @@ object Constants {
     const val SETTING_TO_SETTINGCHANGE = 20001
     const val SETTINGCHANGE_TO_SETTING = 20002
 
+    const val GROUP_TO_PROFILE = 30001
+    const val PROFILE_TO_PROFILECHANGE = 30002
+
     const val NET_ERR = "네트워크에 문제가 있습니다."
 }

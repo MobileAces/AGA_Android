@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.aga.domain.model.TeamWithMember
+import com.aga.presentation.GroupActivity
 import com.aga.presentation.MainActivity
 import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
@@ -19,6 +20,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
 ) {
     private val groupViewModel: GroupViewModel by viewModels()
     private var groupListAdapter: GroupListAdapter? = null
+    private lateinit var activity: GroupActivity
 
     private val groupClickListener: (TeamWithMember) -> Unit = {
         startActivity(Intent(requireContext(),MainActivity::class.java).apply {
@@ -28,6 +30,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity = _activity as GroupActivity
 
         registerListener()
         registerObserve()
@@ -36,7 +39,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
     }
 
     private fun registerListener() {
-
+        binding.ivProfile.setOnClickListener {
+            activity.navigate(Constants.GROUP_TO_PROFILE)
+        }
     }
 
     private fun registerObserve() {
