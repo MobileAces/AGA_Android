@@ -83,4 +83,13 @@
     <string name="setting_change_group_reg_date">그룹 개설일</string>
     <string name="setting_change_member">멤버</string>
 
+    <!-- Profile에서 사용할 string resource -->
+    <string name="profile_info">내 정보</string>
+    <string name="profile_change">정보 수정</string>
+    <string name="profile_logout">로그아웃</string>
+    <string name="profile_quit">회원 탈퇴</string>
+    <string name="profile_id">ID</string>
+    <string name="profile_nickname">닉네임</string>
+    <string name="profile_phone">핸드폰번호</string>
+
 </resources>
