@@ -1,60 +1,77 @@
 package com.aga.presentation.profile
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.aga.presentation.GroupActivity
+import com.aga.presentation.LoginActivity
 import com.aga.presentation.R
+import com.aga.presentation.base.BaseFragment
+import com.aga.presentation.base.Constants
+import com.aga.presentation.base.PrefManager
+import com.aga.presentation.databinding.FragmentProfileBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+@AndroidEntryPoint
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(
+    FragmentProfileBinding::bind, R.layout.fragment_profile
+) {
+    private val viewModel: ProfileViewModel by viewModels()
+    private lateinit var activity: GroupActivity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = _activity as GroupActivity
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getUserInfo(PrefManager.read(Constants.PREF_USER_ID, "")!!)
+        registerObserver()
+        registerListener()
+    }
+
+    private fun registerObserver(){
+        viewModel.userInfo.observe(viewLifecycleOwner){
+            binding.tvId.setText(it.id)
+            binding.tvNickname.setText(it.nickname)
+            binding.tvPhone.setText(it.phone)
+        }
+
+        viewModel.toastMsg.observe(viewLifecycleOwner){
+            showToast(it)
+        }
+
+        viewModel.deleteAccountResult.observe(viewLifecycleOwner){
+            if (it){
+                PrefManager.clear()
+                val intent = Intent(activity, LoginActivity::class.java)
+                startActivity(intent)
+                activity.finish()
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
+    private fun registerListener(){
+        binding.btnDeleteAccount.setOnClickListener {
+            viewModel.deleteAccount(PrefManager.read(Constants.PREF_USER_ID, "")!!)
+        }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        binding.btnEditProfile.setOnClickListener {
+
+        }
+
+        binding.btnLogout.setOnClickListener {
+            PrefManager.clear()
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+            activity.finish()
+        }
     }
 }

@@ -47,4 +47,8 @@ object PrefManager {
         val prefsEditor = pref!!.edit()
         prefsEditor.putInt(key, value!!).apply()
     }
+
+    fun clear(){
+        pref!!.edit().clear().commit()
+    }
 }

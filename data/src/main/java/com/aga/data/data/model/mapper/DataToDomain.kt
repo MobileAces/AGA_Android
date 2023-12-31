@@ -7,6 +7,7 @@ import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.team.TeamDataResponse
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
+import com.aga.data.data.model.user.UserDataResponse
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
@@ -70,4 +71,13 @@ fun List<TeamByUserResponse>.toTeamWithMemberList(): List<TeamWithMember>{
             teamByUserResponse.userLists.toTeamMemberList()
         )
     }
+}
+
+fun UserDataResponse.toUser(): User{
+    return User(
+        this.userId,
+        "",
+        this.userNickname,
+        this.userPhone
+    )
 }

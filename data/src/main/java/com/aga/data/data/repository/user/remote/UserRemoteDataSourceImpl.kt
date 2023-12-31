@@ -39,4 +39,17 @@ class UserRemoteDataSourceImpl @Inject constructor(
             User("FAIL","","","")
         }
     }
+
+    override suspend fun getUserInfo(id: String): User {
+        val response = userService.getUserInfo(id)
+        return if (response.code == 200){
+            response.data!!.toUser()
+        }else{
+            User("FAIL","","","")
+        }
+    }
+
+    override suspend fun deleteUser(id: String): Boolean {
+        return userService.deleteUser(id) == "Success"
+    }
 }

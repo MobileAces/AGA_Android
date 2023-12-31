@@ -4,9 +4,12 @@ import com.aga.data.data.model.join.JoinRequest
 import com.aga.data.data.model.join.JoinResponse
 import com.aga.data.data.model.login.LoginRequest
 import com.aga.data.data.model.login.LoginResponse
+import com.aga.data.data.model.user.UserResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserService {
@@ -34,5 +37,15 @@ interface UserService {
     suspend fun join(
         @Body user: JoinRequest
     ): JoinResponse
+
+    @GET("users/{userId}")
+    suspend fun getUserInfo(
+        @Path(value = "userId") id: String
+    ): UserResponse
+
+    @DELETE("users/{userId}")
+    suspend fun deleteUser(
+        @Path(value = "userId") id: String
+    ): String
 
 }
