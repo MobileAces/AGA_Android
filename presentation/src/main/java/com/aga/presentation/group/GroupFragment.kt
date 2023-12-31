@@ -11,6 +11,7 @@ import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
 import com.aga.presentation.databinding.FragmentGroupBinding
+import com.leinardi.android.speeddial.SpeedDialActionItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +30,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setFabSpeedDialUi()
         registerListener()
         registerObserve()
 
@@ -48,5 +50,22 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
                 groupListAdapter?.changeDataSet(it)
             }
         }
+    }
+
+    private fun setFabSpeedDialUi(){
+        binding.fabAddGroup.addActionItem(
+            SpeedDialActionItem.Builder(
+                R.id.fab_create_croup,R.drawable.ic_grouplist_create_group
+            )
+                .setLabel(getString(R.string.group_create))
+                .create()
+        )
+        binding.fabAddGroup.addActionItem(
+            SpeedDialActionItem.Builder(
+                R.id.fab_join_croup,R.drawable.ic_grouplist_join_group
+            )
+                .setLabel(getString(R.string.group_join))
+                .create()
+        )
     }
 }
