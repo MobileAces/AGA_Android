@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import com.aga.domain.model.User
+import com.aga.presentation.GroupActivity
 import com.aga.presentation.LoginActivity
 import com.aga.presentation.MainActivity
 import com.aga.presentation.R
@@ -99,7 +100,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 PrefManager.write(PREF_AUTO_LOGIN, autoLogin)
 
                 Handler().postDelayed({
-                    val intent = Intent(activity, MainActivity::class.java)
+                    val intent = Intent(activity, GroupActivity::class.java)
                     startActivity(intent)
                     activity.finish()
                 }, 500)
