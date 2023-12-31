@@ -1,8 +1,13 @@
 package com.aga.presentation
 
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
 import com.aga.presentation.base.BaseActivity
+import com.aga.presentation.base.Constants
+import com.aga.presentation.base.Constants.SETTINGCHANGE_TO_SETTING
+import com.aga.presentation.base.Constants.SETTING_TO_SETTINGCHANGE
 import com.aga.presentation.databinding.ActivityMainBinding
+import com.aga.presentation.setting.SettingChangeFragment
 import com.aga.presentation.setting.SettingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,7 +51,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
     fun navigate(id: Int){
         when(id){
-
+            SETTING_TO_SETTINGCHANGE -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_main, SettingChangeFragment())
+                    .addToBackStack("setting_change")
+                    .commitAllowingStateLoss()
+            }
+            SETTINGCHANGE_TO_SETTING -> {
+                supportFragmentManager.popBackStack("setting_change", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_main, SettingFragment())
+                    .commitAllowingStateLoss()
+            }
         }
     }
 }

@@ -10,5 +10,8 @@ object Constants {
     const val JOINTWO_TO_JOINTHREE = 10003
     const val JOIN_TO_LOGIN = 10004
 
+    const val SETTING_TO_SETTINGCHANGE = 20001
+    const val SETTINGCHANGE_TO_SETTING = 20002
+
     const val NET_ERR = "네트워크에 문제가 있습니다."
 }

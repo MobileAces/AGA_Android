@@ -5,4 +5,6 @@ import com.aga.domain.model.TeamMember
 interface TeamMemberRemoteDataSource {
 
     suspend fun getTeamMembersByTeamId(teamId: String): List<TeamMember>
+
+    suspend fun deleteTeamMember(teamId: String, userId: String): Boolean
 }
