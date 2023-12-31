@@ -3,6 +3,7 @@ package com.aga.presentation.group
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView.OnGroupClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
@@ -10,7 +11,8 @@ import com.aga.presentation.R
 import com.aga.presentation.databinding.ItemMyGroupBinding
 
 class GroupListAdapter(
-    private var groupList: List<TeamWithMember>
+    private var groupList: List<TeamWithMember>,
+    private var groupClickListener: (TeamWithMember) -> Unit
 ) : RecyclerView.Adapter<GroupListAdapter.GroupListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupListViewHolder {
@@ -24,7 +26,7 @@ class GroupListAdapter(
     }
 
     override fun onBindViewHolder(holder: GroupListViewHolder, position: Int) {
-        holder.bind(groupList[position])
+        holder.bind(groupList[position],groupClickListener)
     }
 
     fun changeDataSet(groupList: List<TeamWithMember>){
@@ -37,12 +39,16 @@ class GroupListAdapter(
 
         private var memberListAdapter: GroupMemberListAdapter? = null
 
-        fun bind(teamWithMember: TeamWithMember) {
+        fun bind(teamWithMember: TeamWithMember,groupClickListener: (TeamWithMember) -> Unit) {
             binding.tvGroupName.text = teamWithMember.teamName
             binding.tvGroupIntroduction.text = teamWithMember.teamInfo
             binding.tvGroupOwner.text = teamWithMember.teamMaster
             setShowMemberButton()
             setMemberListAdapter(teamWithMember.memberList)
+            // 카드 클릭 리스너, 액티비티 전환코드를 프래그먼트에서 작성
+            binding.cvGroup.setOnClickListener {
+                groupClickListener(teamWithMember)
+            }
         }
 
         private fun setMemberListAdapter(memberList: List<TeamMember>){

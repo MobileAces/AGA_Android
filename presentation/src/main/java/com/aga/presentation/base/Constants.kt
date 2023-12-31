@@ -4,6 +4,7 @@ object Constants {
     const val PREF_NAME = "pref_aga"
     const val PREF_USER_ID = "user_id"
     const val PREF_AUTO_LOGIN = "auto_login"
+    const val PREF_GROUP_ID = "group_id"
 
     const val LOGIN_TO_JOIN = 10001
     const val JOINONE_TO_JOINTWO =10002
