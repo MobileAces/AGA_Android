@@ -83,4 +83,8 @@
     <string name="setting_change_group_reg_date">그룹 개설일</string>
     <string name="setting_change_member">멤버</string>
 
+    <!-- GroupFragment 에서 사용할 string resource -->
+    <string name="group_create">생성</string>
+    <string name="group_join">참여</string>
+
 </resources>
