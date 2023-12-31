@@ -1,6 +1,7 @@
 package com.aga.presentation.group
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.aga.presentation.R
@@ -18,9 +19,10 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        groupViewModel.getGroupList()
         registerListener()
         registerObserve()
+
+        groupViewModel.getGroupList()
     }
 
     private fun registerListener() {
@@ -31,6 +33,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
         groupViewModel.groupList.observe(viewLifecycleOwner){
             if (groupListAdapter == null){
                 groupListAdapter = GroupListAdapter(it)
+                binding.rvGroup.adapter = groupListAdapter
             } else {
                 groupListAdapter?.changeDataSet(it)
             }
