@@ -6,8 +6,10 @@ import com.aga.data.data.model.login.LoginResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.team.TeamDataResponse
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
+import com.aga.data.data.model.teamlist.TeamByUserResponse
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
+import com.aga.domain.model.TeamWithMember
 import com.aga.domain.model.User
 
 fun LoginDataResponse.toUser(): User{
@@ -56,4 +58,16 @@ fun TeamInfoChangeDataResponse.toTeam(): Team{
         this.teamInfo,
         ""
     )
+}
+
+fun List<TeamByUserResponse>.toTeamWithMemberList(): List<TeamWithMember>{
+    return this.map {teamByUserResponse ->
+        TeamWithMember(
+            teamByUserResponse.teamId,
+            teamByUserResponse.teamName,
+            teamByUserResponse.teamInfo,
+            teamByUserResponse.teamMaster,
+            teamByUserResponse.userLists.toTeamMemberList()
+        )
+    }
 }
