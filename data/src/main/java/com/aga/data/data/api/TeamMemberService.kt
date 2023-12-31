@@ -20,7 +20,7 @@ interface TeamMemberService {
         @Path(value = "userId") userId: String
     ): String
 
-    @GET("members/team")
+    @GET("members/teams")
     suspend fun getTeamMemberByUserId(
         @Query("id") userId: String
     ) : Response<TeamListByUserResponse>
