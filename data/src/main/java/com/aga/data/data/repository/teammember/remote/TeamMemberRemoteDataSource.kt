@@ -8,4 +8,6 @@ interface TeamMemberRemoteDataSource {
     suspend fun getTeamMembersByTeamId(teamId: String): List<TeamMember>
 
     suspend fun getTeamMemberByUserId(userId: String): List<TeamWithMember>
+
+    suspend fun deleteTeamMember(teamId: String, userId: String): Boolean
 }

@@ -2,6 +2,7 @@ package com.aga.data.data.repository.team.remote
 
 import com.aga.data.data.api.TeamService
 import com.aga.data.data.model.mapper.toTeam
+import com.aga.data.data.model.mapper.toTeamInfoChangeRequest
 import com.aga.domain.model.Team
 import javax.inject.Inject
 
@@ -15,6 +16,15 @@ class TeamRemoteDataSourceImpl @Inject constructor(
         }else{
             Team("FAIL", "", "", "", "")
         }
+    }
+
+    override suspend fun modifyTeamInfo(team: Team): Boolean {
+        val response = teamService.modifyTeamInfo(team.toTeamInfoChangeRequest())
+        return response.code == 200
+    }
+
+    override suspend fun deleteTeam(teamId: String): Boolean {
+        return teamService.deleteTeam(teamId) == "Success"
     }
 
 }

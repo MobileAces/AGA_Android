@@ -13,6 +13,10 @@ class TeamMemberRepositoryImpl @Inject constructor(
         return remoteDataSource.getTeamMembersByTeamId(teamId)
     }
 
+    override suspend fun leaveTeam(teamId: String, userId: String): Boolean {
+        return remoteDataSource.deleteTeamMember(teamId, userId)
+    }
+
     override suspend fun getTeamMemberByUserId(userId: String): List<TeamWithMember> {
         return remoteDataSource.getTeamMemberByUserId(userId)
     }

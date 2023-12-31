@@ -14,7 +14,10 @@ import com.aga.domain.model.TeamMember
 import com.aga.presentation.MainActivity
 import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
+import com.aga.presentation.base.Constants
+import com.aga.presentation.base.Constants.SETTING_TO_SETTINGCHANGE
 import com.aga.presentation.databinding.FragmentSettingBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "SettingFragment_AWSOME"
@@ -31,7 +34,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = _activity as MainActivity
-        members.add(TeamMember("1", "id", 1))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +43,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
             this.adapter = memberAdapter
             this.layoutManager = GridLayoutManager(requireContext(), 4)
         }
+        activity.findViewById<BottomNavigationView>(R.id.bnv_main).visibility = View.VISIBLE
 
         initView()
 
@@ -75,7 +78,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
     }
 
     private fun registerListener(){
-
+        binding.btnChangeSetting.setOnClickListener{
+            activity.navigate(SETTING_TO_SETTINGCHANGE)
+        }
     }
 
 }
