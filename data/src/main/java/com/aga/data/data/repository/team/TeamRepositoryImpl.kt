@@ -1,5 +1,6 @@
 package com.aga.data.data.repository.team
 
+import com.aga.data.data.model.team.TeamCreateRequest
 import com.aga.data.data.repository.team.remote.TeamRemoteDataSource
 import com.aga.domain.model.Team
 import com.aga.domain.repository.TeamRepository
@@ -20,4 +21,9 @@ class TeamRepositoryImpl @Inject constructor(
         return remoteDataSource.deleteTeam(teamId)
     }
 
+    override suspend fun createTeam(teamName: String, teamInfo: String, teamMaster: String): Boolean {
+        return remoteDataSource.createTeam(
+            TeamCreateRequest(teamName, teamInfo, teamMaster)
+        )
+    }
 }

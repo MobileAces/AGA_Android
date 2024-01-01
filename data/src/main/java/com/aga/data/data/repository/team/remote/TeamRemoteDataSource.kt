@@ -1,5 +1,6 @@
 package com.aga.data.data.repository.team.remote
 
+import com.aga.data.data.model.team.TeamCreateRequest
 import com.aga.domain.model.Team
 
 interface TeamRemoteDataSource {
@@ -8,4 +9,6 @@ interface TeamRemoteDataSource {
     suspend fun modifyTeamInfo(team: Team): Boolean
 
     suspend fun deleteTeam(teamId: String): Boolean
+
+    suspend fun createTeam(teamCreateRequest: TeamCreateRequest): Boolean
 }
