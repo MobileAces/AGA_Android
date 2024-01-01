@@ -87,4 +87,7 @@
     <string name="group_create">생성</string>
     <string name="group_join">참여</string>
 
+    <!-- GroupCreateFragment 에서 사용할 string resource -->
+    <string name="group_create_create">그룹생성</string>
+
 </resources>
