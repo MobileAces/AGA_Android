@@ -2,6 +2,7 @@ package com.aga.presentation.group
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.aga.domain.model.TeamWithMember
@@ -38,6 +39,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
         registerObserve()
 
         groupViewModel.getGroupList()
+
     }
 
     private fun registerListener() {
@@ -77,6 +79,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
 
                 }
                 R.id.fab_create_croup -> {
+                    binding.fabAddGroup.close()
                     activity.navigate(Constants.GROUP_TO_CREATEGROUP)
                 }
             }
