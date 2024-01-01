@@ -80,6 +80,6 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
 
-    // FAB Speed Dialss
+    // FAB Speed Dial (https://github.com/leinardi/FloatingActionButtonSpeedDial)
     implementation("com.leinardi.android:speed-dial:3.3.0")
 }
