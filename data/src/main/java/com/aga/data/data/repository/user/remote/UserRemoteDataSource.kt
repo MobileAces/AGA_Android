@@ -16,4 +16,8 @@ interface UserRemoteDataSource {
     suspend fun getUserInfo(id: String): User
 
     suspend fun deleteUser(id: String): Boolean
+
+    suspend fun updateUser(user: User): User
+
+    suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean
 }

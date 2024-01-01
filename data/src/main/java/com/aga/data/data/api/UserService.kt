@@ -5,10 +5,12 @@ import com.aga.data.data.model.join.JoinResponse
 import com.aga.data.data.model.login.LoginRequest
 import com.aga.data.data.model.login.LoginResponse
 import com.aga.data.data.model.user.UserResponse
+import com.aga.data.data.model.user.UserUpdateRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -48,4 +50,15 @@ interface UserService {
         @Path(value = "userId") id: String
     ): String
 
+    @PUT("users")
+    suspend fun updateUser(
+        @Body user: UserUpdateRequest
+    ): UserResponse
+
+    @PUT("users/password")
+    suspend fun updatePassword(
+        @Path(value = "userId") id: String,
+        @Path(value = "prePassword") prePw: String,
+        @Path(value = "newPassword") newPw: String
+    ): String
 }

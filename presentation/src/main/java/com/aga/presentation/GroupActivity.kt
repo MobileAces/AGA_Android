@@ -6,6 +6,7 @@ import com.aga.presentation.base.Constants
 import com.aga.presentation.databinding.ActivityGroupBinding
 import com.aga.presentation.group.GroupFragment
 import com.aga.presentation.login.JoinOneFragment
+import com.aga.presentation.profile.ProfileChangeFragment
 import com.aga.presentation.profile.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +29,18 @@ class GroupActivity : BaseActivity<ActivityGroupBinding>(
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_group, ProfileFragment())
                     .addToBackStack("profile")
-                    .commit()
+                    .commitAllowingStateLoss()
+            }
+            Constants.PROFILE_TO_PROFILECHANGE -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_group, ProfileChangeFragment())
+                    .addToBackStack("profile_change")
+                    .commitAllowingStateLoss()
+            }
+            Constants.PROFILECHANGE_TO_PROFILE -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_group, ProfileFragment())
+                    .commitAllowingStateLoss()
             }
         }
     }

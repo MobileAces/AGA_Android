@@ -3,6 +3,7 @@ package com.aga.data.data.model.mapper
 import com.aga.data.data.model.join.JoinRequest
 import com.aga.data.data.model.login.LoginRequest
 import com.aga.data.data.model.team.TeamInfoChangeRequest
+import com.aga.data.data.model.user.UserUpdateRequest
 import com.aga.domain.model.Team
 import com.aga.domain.model.User
 
@@ -28,5 +29,13 @@ fun Team.toTeamInfoChangeRequest(): TeamInfoChangeRequest{
         this.teamName,
         this.teamInfo,
         ""
+    )
+}
+
+fun User.toUserUpdateRequest(): UserUpdateRequest{
+    return UserUpdateRequest(
+        this.id,
+        this.nickname,
+        this.phone
     )
 }

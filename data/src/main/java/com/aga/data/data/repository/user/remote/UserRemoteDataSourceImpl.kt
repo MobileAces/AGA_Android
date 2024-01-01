@@ -4,6 +4,7 @@ import com.aga.data.data.api.UserService
 import com.aga.data.data.model.mapper.toJoinRequest
 import com.aga.data.data.model.mapper.toLoginRequest
 import com.aga.data.data.model.mapper.toUser
+import com.aga.data.data.model.mapper.toUserUpdateRequest
 import com.aga.domain.model.User
 import javax.inject.Inject
 
@@ -51,5 +52,18 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun deleteUser(id: String): Boolean {
         return userService.deleteUser(id) == "Success"
+    }
+
+    override suspend fun updateUser(user: User): User {
+        val response = userService.updateUser(user.toUserUpdateRequest())
+        return if(response.code == 200){
+            response.data!!.toUser()
+        }else{
+            User("FAIL","","","")
+        }
+    }
+
+    override suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean {
+        return userService.updatePassword(id, prePw, newPw) == "Success"
     }
 }
