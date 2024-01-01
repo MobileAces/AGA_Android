@@ -3,6 +3,7 @@ package com.aga.data.data.repository.team.remote
 import com.aga.data.data.api.TeamService
 import com.aga.data.data.model.mapper.toTeam
 import com.aga.data.data.model.mapper.toTeamInfoChangeRequest
+import com.aga.data.data.model.team.TeamCreateRequest
 import com.aga.domain.model.Team
 import javax.inject.Inject
 
@@ -25,6 +26,10 @@ class TeamRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun deleteTeam(teamId: String): Boolean {
         return teamService.deleteTeam(teamId) == "Success"
+    }
+
+    override suspend fun createTeam(teamCreateRequest: TeamCreateRequest): Boolean {
+        return teamService.createTeam(teamCreateRequest).isSuccessful
     }
 
 }
