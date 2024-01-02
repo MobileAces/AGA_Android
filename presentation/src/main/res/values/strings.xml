@@ -83,6 +83,23 @@
     <string name="setting_change_group_reg_date">그룹 개설일</string>
     <string name="setting_change_member">멤버</string>
 
+    <!-- Profile에서 사용할 string resource -->
+    <string name="profile_info">내 정보</string>
+    <string name="profile_change">정보 수정</string>
+    <string name="profile_logout">로그아웃</string>
+    <string name="profile_change_password">비밀번호 변경</string>
+    <string name="profile_quit">회원 탈퇴</string>
+    <string name="profile_id">ID</string>
+    <string name="profile_nickname">닉네임</string>
+    <string name="profile_phone">핸드폰번호</string>
+
+    <!-- 비밀번호 변경 Dialog에서 사용할 string resource -->
+    <string name="password_change_new_password">새로운 비밀번호를 입력하세요</string>
+    <string name="password_change_original_password">기존 비밀번호를 입력하세요</string>
+
+    <!-- 계정 삭제 Dialog에서 사용할 string resource -->
+    <string name="delete_account_dialog_check">정말로 계정을 삭제하시겠습니까?</string>
+
     <!-- GroupFragment 에서 사용할 string resource -->
     <string name="group_create">생성</string>
     <string name="group_join">참여</string>
