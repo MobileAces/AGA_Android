@@ -86,7 +86,7 @@ class ProfileChangeFragment : BaseFragment<FragmentProfileChangeBinding>(
         }
 
         viewModel.isValidAllInput.observe(viewLifecycleOwner){
-            binding.btnApplyChange.isEnabled = true
+            binding.btnApplyChange.isEnabled = it
         }
 
         viewModel.updateResult.observe(viewLifecycleOwner){
@@ -133,7 +133,20 @@ class ProfileChangeFragment : BaseFragment<FragmentProfileChangeBinding>(
         binding.etPhone.editText!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.isValidatePhone(p0.toString().trim())
+                if (p0.toString() == viewModel.userInfo.value?.phone){
+                    binding.btnVerify.isEnabled = false
+                    viewModel.phoneCheck = true
+                    viewModel.phoneVerify(true)
+                    binding.etPhone.isErrorEnabled = false
+                    binding.etPhone.helperText = JoinViewModel.PHONE_VALID
+                    binding.btnValidationCode.isEnabled = true
+                }else{
+                    binding.btnVerify.isEnabled = true
+                    viewModel.phoneVerify(false)
+                    viewModel.phoneCheck = false
+                    viewModel.isValidatePhone(p0.toString().trim())
+                }
+
             }
             override fun afterTextChanged(p0: Editable?) {}
         })
@@ -141,19 +154,31 @@ class ProfileChangeFragment : BaseFragment<FragmentProfileChangeBinding>(
         binding.etNickname.editText!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.isValidateNickname(p0.toString().trim())
+                if (p0.toString() == viewModel.userInfo.value?.nickname){
+                    viewModel.nicknameCheck = true
+                    binding.etNickname.isErrorEnabled = false
+                    binding.etNickname.helperText = JoinViewModel.NICK_VALID
+                }else{
+                    viewModel.nicknameCheck = false
+                    viewModel.isValidateNickname(p0.toString().trim())
+                }
+
             }
             override fun afterTextChanged(p0: Editable?) {}
         })
 
         binding.btnApplyChange.setOnClickListener {
-            val user = User(
-                binding.etId.editText!!.text.toString().trim(),
-                "",
-                binding.etNickname.editText!!.text.toString().trim(),
-                binding.etPhone.editText!!.text.toString().trim()
-            )
-            viewModel.updateUser(user)
+            if (!binding.btnApplyChange.isEnabled){
+                showToast("잘못된 값이 존재합니다.")
+            }else {
+                val user = User(
+                    binding.etId.editText!!.text.toString().trim(),
+                    "",
+                    binding.etNickname.editText!!.text.toString().trim(),
+                    binding.etPhone.editText!!.text.toString().trim()
+                )
+                viewModel.updateUser(user)
+            }
         }
     }
 

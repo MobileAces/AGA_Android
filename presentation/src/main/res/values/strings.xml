@@ -97,4 +97,7 @@
     <string name="password_change_new_password">새로운 비밀번호를 입력하세요</string>
     <string name="password_change_original_password">기존 비밀번호를 입력하세요</string>
 
+    <!-- 계정 삭제 Dialog에서 사용할 string resource -->
+    <string name="delete_account_dialog_check">정말로 계정을 삭제하시겠습니까?</string>
+
 </resources>

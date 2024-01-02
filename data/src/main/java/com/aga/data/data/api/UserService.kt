@@ -4,6 +4,8 @@ import com.aga.data.data.model.join.JoinRequest
 import com.aga.data.data.model.join.JoinResponse
 import com.aga.data.data.model.login.LoginRequest
 import com.aga.data.data.model.login.LoginResponse
+import com.aga.data.data.model.user.PasswordChangeRequest
+import com.aga.data.data.model.user.PasswordChangeResponse
 import com.aga.data.data.model.user.UserResponse
 import com.aga.data.data.model.user.UserUpdateRequest
 import retrofit2.http.Body
@@ -55,10 +57,8 @@ interface UserService {
         @Body user: UserUpdateRequest
     ): UserResponse
 
-    @PUT("users/password")
+    @POST("users/password")
     suspend fun updatePassword(
-        @Path(value = "userId") id: String,
-        @Path(value = "prePassword") prePw: String,
-        @Path(value = "newPassword") newPw: String
-    ): String
+        @Body pwChangeRequest: PasswordChangeRequest
+    ): PasswordChangeResponse
 }

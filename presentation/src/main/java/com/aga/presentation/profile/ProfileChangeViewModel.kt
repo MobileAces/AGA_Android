@@ -22,7 +22,6 @@ private const val TAG = "ProfileChangeViewModel_AWSOME"
 @HiltViewModel
 class ProfileChangeViewModel @Inject constructor(
     private val getUserInfoUseCase: GetUserInfoUseCase,
-    private val idDuplicatedUseCase: IdDuplicatedUseCase,
     private val phoneDuplicatedUseCase: PhoneDuplicatedUseCase,
     private val nicknameDuplicatedUseCase: NicknameDuplicatedUseCase,
     private val updateUserUseCase: UpdateUserUseCase
@@ -55,9 +54,9 @@ class ProfileChangeViewModel @Inject constructor(
     val updateResult: LiveData<Boolean>
         get() = _updateResult
 
-    private var phoneCheck = false
-    private var nicknameCheck = false
-    private var phoneVerified = false
+    var phoneCheck = false
+    var nicknameCheck = false
+    var phoneVerified = false
 
     fun getUserInfo(id: String){
         viewModelScope.launch {

@@ -29,7 +29,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
 
         // 자동로그인 처리 부분이라 나중에 Splash로 빼주면 됩니다.
         if (PrefManager.read(PREF_AUTO_LOGIN, false)){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, GroupActivity::class.java)
             startActivity(intent)
             this.finish()
         }

@@ -5,6 +5,8 @@ import com.aga.data.data.model.mapper.toJoinRequest
 import com.aga.data.data.model.mapper.toLoginRequest
 import com.aga.data.data.model.mapper.toUser
 import com.aga.data.data.model.mapper.toUserUpdateRequest
+import com.aga.data.data.model.user.PasswordChangeRequest
+import com.aga.data.data.model.user.PasswordChangeResponse
 import com.aga.domain.model.User
 import javax.inject.Inject
 
@@ -64,6 +66,13 @@ class UserRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean {
-        return userService.updatePassword(id, prePw, newPw) == "Success"
+        return userService.updatePassword(
+            PasswordChangeRequest(
+                id,
+                prePw,
+                newPw
+            )
+        ).data
     }
+
 }
