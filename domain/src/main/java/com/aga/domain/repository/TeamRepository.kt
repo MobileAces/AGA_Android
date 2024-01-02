@@ -9,4 +9,5 @@ interface TeamRepository {
 
     suspend fun deleteTeam(teamId: String): Boolean
 
+    suspend fun createTeam(teamName: String, teamInfo: String, teamMaster: String): Boolean
 }

@@ -18,5 +18,8 @@ object Constants {
     const val PROFILE_TO_PROFILECHANGE = 30002
     const val PROFILECHANGE_TO_PROFILE = 30003
 
+    const val GROUP_TO_CREATEGROUP = 40001
+    const val TO_GROUP = 40002
+
     const val NET_ERR = "네트워크에 문제가 있습니다."
 }
