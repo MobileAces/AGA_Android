@@ -17,6 +17,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val teamId = intent.getIntExtra(Constants.PREF_GROUP_ID, -1)
+        showToast(teamId.toString())
 
         initBottomNavigation()
     }
