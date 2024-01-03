@@ -17,10 +17,6 @@ class WeekDaySelectManager(
     private var dayClickListener: (weekday: DayOfWeek,isOn: Boolean)->Unit = {_,_->}
 ) {
 
-    init {
-        applySetClickListener()
-    }
-
     private val weekdayViewList: List<ToggleButton> = listOf(
         binding.toggleMonday,
         binding.toggleTuesday,
@@ -41,12 +37,16 @@ class WeekDaySelectManager(
         DayOfWeek.SUNDAY
     )
 
+    init {
+        applySetClickListener()
+    }
+
     /**
      * 선택 된 요일 반환
      */
     fun getSelectedDay(): Set<DayOfWeek>{
         return dayOfWeekList.filterIndexed { index, dayOfWeek ->
-            weekdayViewList[index].isSelected
+            weekdayViewList[index].isChecked
         }.toSet()
     }
 
