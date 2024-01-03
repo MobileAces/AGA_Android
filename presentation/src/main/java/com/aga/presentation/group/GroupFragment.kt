@@ -48,6 +48,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
         }
     }
 
+
     private fun registerObserve() {
         groupViewModel.groupList.observe(viewLifecycleOwner){
             if (groupListAdapter == null){

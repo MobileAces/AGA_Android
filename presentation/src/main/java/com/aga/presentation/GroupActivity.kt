@@ -30,16 +30,17 @@ class GroupActivity : BaseActivity<ActivityGroupBinding>(
             Constants.GROUP_TO_PROFILE -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_group, ProfileFragment())
-                    .addToBackStack("profile")
+                    .addToBackStack("group")
                     .commitAllowingStateLoss()
             }
             Constants.PROFILE_TO_PROFILECHANGE -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_group, ProfileChangeFragment())
-                    .addToBackStack("profile_change")
+                    .addToBackStack("profile")
                     .commitAllowingStateLoss()
             }
             Constants.PROFILECHANGE_TO_PROFILE -> {
+                supportFragmentManager.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_group, ProfileFragment())
                     .commitAllowingStateLoss()
