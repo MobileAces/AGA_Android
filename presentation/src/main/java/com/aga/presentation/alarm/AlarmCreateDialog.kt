@@ -11,7 +11,7 @@ import java.time.DayOfWeek
 
 class AlarmCreateDialog(private val context: Context) : Dialog(context) {
 
-    private lateinit var binding: DialogAlarmCreateBinding
+    private var binding: DialogAlarmCreateBinding = DialogAlarmCreateBinding.inflate(LayoutInflater.from(context))
     private var cancelListener: (dialog: Dialog) -> Unit = { _ -> }
     private var createListener: (dialog: Dialog, selectedDay: Set<DayOfWeek>, alarmname: String) -> Unit = { _, _, _ -> }
 
@@ -19,7 +19,6 @@ class AlarmCreateDialog(private val context: Context) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DialogAlarmCreateBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
         // 다이얼로그의 기본 배경색을 투명하게
