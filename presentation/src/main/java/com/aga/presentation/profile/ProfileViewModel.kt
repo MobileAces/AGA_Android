@@ -53,8 +53,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = getUserInfoUseCase.invoke(id)
-                if (response.id != "FAIL")
-                    _userInfo.value = response
+                _userInfo.value = response
             }catch (e: Exception){
                 _toastMsg.value = Constants.NET_ERR
             }

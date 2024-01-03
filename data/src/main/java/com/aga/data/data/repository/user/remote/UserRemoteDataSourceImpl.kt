@@ -39,11 +39,9 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getUserInfo(id: String): User {
         val response = userService.getUserInfo(id)
-        return if (response.code == 200){
-            response.data!!.toUser()
-        }else{
-            User("FAIL","","","")
-        }
+        return if (response.isSuccessful)
+            response.body()?.data!!.toUser()
+        else User("NOT_FOUND", "", "", "")
     }
 
     override suspend fun deleteUser(id: String): Boolean {
@@ -52,10 +50,10 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun updateUser(user: User): User {
         val response = userService.updateUser(user.toUserUpdateRequest())
-        return if(response.code == 200){
-            response.data!!.toUser()
+        return if(response.isSuccessful){
+            response.body()?.data!!.toUser()
         }else{
-            User("FAIL","","","")
+            User("UPDATE_FAIL","","","")
         }
     }
 

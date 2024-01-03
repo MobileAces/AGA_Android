@@ -8,7 +8,7 @@ import com.aga.data.data.model.user.login.LoginResponse
 import com.aga.data.data.model.user.passwordchange.PasswordChangeRequest
 import com.aga.data.data.model.user.passwordchange.PasswordChangeResponse
 import com.aga.data.data.model.user.UserResponse
-import com.aga.data.data.model.user.UserUpdateRequest
+import com.aga.data.data.model.user.update.UserUpdateRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -47,7 +47,7 @@ interface UserService {
     @GET("users/{userId}")
     suspend fun getUserInfo(
         @Path(value = "userId") id: String
-    ): UserResponse
+    ): Response<DefaultResponse<UserResponse>>
 
     @DELETE("users/{userId}")
     suspend fun deleteUser(
@@ -57,7 +57,7 @@ interface UserService {
     @PUT("users")
     suspend fun updateUser(
         @Body user: UserUpdateRequest
-    ): UserResponse
+    ): Response<DefaultResponse<UserResponse>>
 
     @POST("users/password")
     suspend fun updatePassword(

@@ -1,6 +1,6 @@
-package com.aga.data.data.model.user
+package com.aga.data.data.model.user.update
 
-data class UserDataResponse(
+data class UserUpdateRequest(
     val userId: String,
     val userNickname: String,
     val userPhone: String

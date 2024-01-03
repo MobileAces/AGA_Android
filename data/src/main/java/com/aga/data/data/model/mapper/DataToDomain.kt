@@ -1,11 +1,10 @@
 package com.aga.data.data.model.mapper
 
-import com.aga.data.data.model.user.join.JoinResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.team.TeamDataResponse
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
-import com.aga.data.data.model.user.UserDataResponse
+import com.aga.data.data.model.user.UserResponse
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
@@ -53,7 +52,7 @@ fun List<TeamByUserResponse>.toTeamWithMemberList(): List<TeamWithMember>{
     }
 }
 
-fun UserDataResponse.toUser(): User{
+fun UserResponse.toUser(): User{
     return User(
         this.userId,
         "",
