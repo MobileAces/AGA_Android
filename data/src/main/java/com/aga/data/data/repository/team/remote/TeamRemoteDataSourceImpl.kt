@@ -12,8 +12,8 @@ class TeamRemoteDataSourceImpl @Inject constructor(
 ): TeamRemoteDataSource {
     override suspend fun getTeamInfoByTeamId(teamId: String): Team {
         val response = teamService.getTeamInfo(teamId)
-        return if (response.code == 200){
-            response.data!!.toTeam()
+        return if (response.isSuccessful){
+            response.body()?.data!!.toTeam()
         }else{
             Team("FAIL", "", "", "", "")
         }

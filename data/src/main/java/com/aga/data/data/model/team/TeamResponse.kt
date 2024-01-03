@@ -1,7 +1,9 @@
 package com.aga.data.data.model.team
 
 data class TeamResponse(
-    val message: String,
-    val code: Int,
-    val data: TeamDataResponse?
+    val teamId: String,
+    val teamCreateDate: String,
+    val teamName: String,
+    val teamInfo: String,
+    val teamMaster: String
 )
