@@ -1,8 +1,9 @@
 package com.aga.data.data.api
 
+import com.aga.data.data.model.DefaultListResponse
 import com.aga.data.data.model.member.TeamMemberResponse
+import com.aga.data.data.model.teamlist.TeamByUserResponse
 import retrofit2.http.DELETE
-import com.aga.data.data.model.teamlist.TeamListByUserResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,7 +13,7 @@ interface TeamMemberService {
     @GET("members/users")
     suspend fun getTeamMembersByTeamId(
         @Query("id") teamId: String
-    ) : TeamMemberResponse
+    ) : Response<TeamMemberResponse>
 
     @DELETE("members/{teamId}/{userId}")
     suspend fun deleteTeamMember(
@@ -23,5 +24,5 @@ interface TeamMemberService {
     @GET("members/teams")
     suspend fun getTeamMemberByUserId(
         @Query("id") userId: String
-    ) : Response<TeamListByUserResponse>
+    ) : Response<DefaultListResponse<TeamByUserResponse>>
 }
