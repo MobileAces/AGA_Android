@@ -19,7 +19,7 @@ interface TeamMemberService {
     suspend fun deleteTeamMember(
         @Path(value = "teamId") teamId: String,
         @Path(value = "userId") userId: String
-    ): String
+    ): Response<String>
 
     @GET("members/teams")
     suspend fun getTeamMemberByUserId(

@@ -31,6 +31,6 @@ class TeamMemberRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteTeamMember(teamId: String, userId: String): Boolean {
-        return teamMemberService.deleteTeamMember(teamId, userId) == "Success"
+        return teamMemberService.deleteTeamMember(teamId, userId).isSuccessful
     }
 }
