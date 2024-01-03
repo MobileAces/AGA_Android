@@ -1,4 +1,4 @@
-package com.aga.data.data.model.user
+package com.aga.data.data.model.user.passwordchange
 
 data class PasswordChangeRequest (
     val userId: String,

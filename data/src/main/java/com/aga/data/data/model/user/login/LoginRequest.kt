@@ -1,4 +1,4 @@
-package com.aga.data.data.model.login
+package com.aga.data.data.model.user.login
 
 data class LoginRequest(
     val userId: String,

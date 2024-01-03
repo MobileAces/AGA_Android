@@ -1,7 +1,5 @@
 package com.aga.data.data.repository.user.remote
 
-import com.aga.data.data.model.user.PasswordChangeRequest
-import com.aga.data.data.model.user.PasswordChangeResponse
 import com.aga.domain.model.User
 
 interface UserRemoteDataSource {

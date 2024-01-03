@@ -1,12 +1,12 @@
 package com.aga.data.data.api
 
 import com.aga.data.data.model.DefaultResponse
-import com.aga.data.data.model.join.JoinRequest
-import com.aga.data.data.model.join.JoinResponse
-import com.aga.data.data.model.login.LoginRequest
-import com.aga.data.data.model.login.LoginResponse
-import com.aga.data.data.model.user.PasswordChangeRequest
-import com.aga.data.data.model.user.PasswordChangeResponse
+import com.aga.data.data.model.user.join.JoinRequest
+import com.aga.data.data.model.user.join.JoinResponse
+import com.aga.data.data.model.user.login.LoginRequest
+import com.aga.data.data.model.user.login.LoginResponse
+import com.aga.data.data.model.user.passwordchange.PasswordChangeRequest
+import com.aga.data.data.model.user.passwordchange.PasswordChangeResponse
 import com.aga.data.data.model.user.UserResponse
 import com.aga.data.data.model.user.UserUpdateRequest
 import retrofit2.Response

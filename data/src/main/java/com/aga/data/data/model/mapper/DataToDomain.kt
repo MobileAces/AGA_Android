@@ -1,6 +1,6 @@
 package com.aga.data.data.model.mapper
 
-import com.aga.data.data.model.join.JoinResponse
+import com.aga.data.data.model.user.join.JoinResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.team.TeamDataResponse
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse

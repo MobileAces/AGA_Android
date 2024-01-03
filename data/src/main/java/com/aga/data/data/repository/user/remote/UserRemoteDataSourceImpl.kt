@@ -1,13 +1,11 @@
 package com.aga.data.data.repository.user.remote
 
-import android.util.Log
 import com.aga.data.data.api.UserService
 import com.aga.data.data.model.mapper.toJoinRequest
 import com.aga.data.data.model.mapper.toLoginRequest
 import com.aga.data.data.model.mapper.toUser
 import com.aga.data.data.model.mapper.toUserUpdateRequest
-import com.aga.data.data.model.user.PasswordChangeRequest
-import com.aga.data.data.model.user.PasswordChangeResponse
+import com.aga.data.data.model.user.passwordchange.PasswordChangeRequest
 import com.aga.domain.model.User
 import javax.inject.Inject
 
