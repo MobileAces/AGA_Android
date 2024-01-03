@@ -15,6 +15,7 @@ import com.aga.presentation.databinding.FragmentGroupBinding
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import dagger.hilt.android.AndroidEntryPoint
 
+private const val TAG = "GroupFragment_AWSOME"
 @AndroidEntryPoint
 class GroupFragment : BaseFragment<FragmentGroupBinding>(
     FragmentGroupBinding::bind, R.layout.fragment_group
