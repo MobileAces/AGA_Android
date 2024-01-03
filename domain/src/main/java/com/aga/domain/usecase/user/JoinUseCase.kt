@@ -7,7 +7,7 @@ import javax.inject.Inject
 class JoinUseCase @Inject constructor(
     private val repository: UserRepository
 ) {
-    suspend operator fun invoke(user: User): User {
+    suspend operator fun invoke(user: User): Boolean {
         return repository.join(user)
     }
 }

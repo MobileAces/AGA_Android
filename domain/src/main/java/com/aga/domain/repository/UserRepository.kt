@@ -11,7 +11,7 @@ interface UserRepository {
 
     suspend fun isDuplicatedNickname(nickname: String): Boolean
 
-    suspend fun join(user: User): User
+    suspend fun join(user: User): Boolean
 
     suspend fun getUserInfo(id: String): User
 

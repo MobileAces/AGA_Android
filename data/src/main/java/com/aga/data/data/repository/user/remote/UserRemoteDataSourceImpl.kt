@@ -35,13 +35,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
         return userService.isDuplicatedNickname(nickname)
     }
 
-    override suspend fun join(user: User): User {
-        val response = userService.join(user.toJoinRequest())
-        return if(response.code == 201){
-            response.data!!.toUser()
-        }else{
-            User("FAIL","","","")
-        }
+    override suspend fun join(user: User): Boolean {
+        return userService.join(user.toJoinRequest()).isSuccessful
     }
 
     override suspend fun getUserInfo(id: String): User {

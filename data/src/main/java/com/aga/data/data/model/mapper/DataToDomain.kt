@@ -1,6 +1,6 @@
 package com.aga.data.data.model.mapper
 
-import com.aga.data.data.model.join.JoinDataResponse
+import com.aga.data.data.model.join.JoinResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.team.TeamDataResponse
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
@@ -10,15 +10,6 @@ import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
 import com.aga.domain.model.User
-
-fun JoinDataResponse.toUser(): User{
-    return User(
-        this.userId,
-        "",
-        this.userNickname,
-        this.userPhone
-    )
-}
 
 fun TeamDataResponse.toTeam(): Team {
     return Team(

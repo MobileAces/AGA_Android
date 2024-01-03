@@ -24,7 +24,7 @@ class UserRepositoryImpl @Inject constructor(
         return remoteDataSource.isDuplicatedNickname(nickname)
     }
 
-    override suspend fun join(user: User): User {
+    override suspend fun join(user: User): Boolean {
         return remoteDataSource.join(user)
     }
 

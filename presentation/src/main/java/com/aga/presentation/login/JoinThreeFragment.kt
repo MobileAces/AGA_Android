@@ -48,12 +48,9 @@ class JoinThreeFragment : BaseFragment<FragmentJoinThreeBinding>(
         }
 
         viewModel.joinResult.observe(viewLifecycleOwner){
-            if (it == JoinViewModel.JOIN_SUCCESS){
-                showToast(it)
+            showToast(it)
+            if (it == JoinViewModel.JOIN_SUCCESS)
                 activity.navigate(JOIN_TO_LOGIN)
-            }else{
-                showToast(it)
-            }
         }
     }
 

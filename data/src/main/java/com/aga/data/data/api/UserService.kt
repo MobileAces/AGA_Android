@@ -42,7 +42,7 @@ interface UserService {
     @POST("users/sign-up")
     suspend fun join(
         @Body user: JoinRequest
-    ): JoinResponse
+    ): Response<DefaultResponse<JoinResponse>>
 
     @GET("users/{userId}")
     suspend fun getUserInfo(

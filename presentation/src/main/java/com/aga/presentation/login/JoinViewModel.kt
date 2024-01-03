@@ -168,7 +168,7 @@ class JoinViewModel @Inject constructor(
     fun join(user: User){
         viewModelScope.launch {
             try {
-                if (joinUseCase.invoke(user).id != "FAIL"){
+                if (joinUseCase.invoke(user)){
                     _joinResult.value = JOIN_SUCCESS
                 }else{
                     _joinResult.value = JOIN_FAIL
