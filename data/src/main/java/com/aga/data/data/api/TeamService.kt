@@ -22,12 +22,12 @@ interface TeamService {
     @PUT("teams")
     suspend fun modifyTeamInfo(
         @Body teamInfo: TeamInfoChangeRequest
-    ): TeamInfoChangeResponse
+    ): Response<DefaultResponse<TeamInfoChangeResponse>>
 
     @DELETE("teams/{teamId}")
     suspend fun deleteTeam(
         @Path(value = "teamId") teamId: String
-    ): String
+    ): Response<String>
 
     @POST("teams")
     suspend fun createTeam(
