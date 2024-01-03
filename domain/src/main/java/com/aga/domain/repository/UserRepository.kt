@@ -3,7 +3,7 @@ package com.aga.domain.repository
 import com.aga.domain.model.User
 
 interface UserRepository {
-    suspend fun login(user: User): User
+    suspend fun login(user: User): String
 
     suspend fun isDuplicatedId(id: String): Boolean
 
@@ -11,7 +11,7 @@ interface UserRepository {
 
     suspend fun isDuplicatedNickname(nickname: String): Boolean
 
-    suspend fun join(user: User): User
+    suspend fun join(user: User): Boolean
 
     suspend fun getUserInfo(id: String): User
 
@@ -19,5 +19,5 @@ interface UserRepository {
 
     suspend fun updateUser(user: User): User
 
-    suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean
+    suspend fun updatePassword(id: String, prePw: String, newPw: String): String
 }

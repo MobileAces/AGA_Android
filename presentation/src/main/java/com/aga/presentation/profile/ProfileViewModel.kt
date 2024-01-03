@@ -41,8 +41,8 @@ class ProfileViewModel @Inject constructor(
     val isValidPw: LiveData<String>
         get() = _isValidPw
 
-    private val _pwUpdateResult = MutableLiveData<Boolean>()
-    val pwUpdateResult: LiveData<Boolean>
+    private val _pwUpdateResult = MutableLiveData<String>()
+    val pwUpdateResult: LiveData<String>
         get() = _pwUpdateResult
 
     private val _loginResult = MutableLiveData<Boolean>(false)
@@ -53,8 +53,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = getUserInfoUseCase.invoke(id)
-                if (response.id != "FAIL")
-                    _userInfo.value = response
+                _userInfo.value = response
             }catch (e: Exception){
                 _toastMsg.value = Constants.NET_ERR
             }
@@ -73,8 +72,7 @@ class ProfileViewModel @Inject constructor(
     fun updatePassword(id: String, prePw: String, newPw: String){
         viewModelScope.launch {
             try {
-                _pwUpdateResult.value = updatePasswordUseCase.invoke(id, prePw, newPw)
-
+               _pwUpdateResult.value = updatePasswordUseCase.invoke(id, prePw, newPw)
             }catch (e: Exception){
                 _toastMsg.value = Constants.NET_ERR
                 Log.d(TAG, "updatePassword: ${e.message}")
@@ -86,7 +84,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val loginRst = loginUseCase.invoke(user)
-                if (loginRst.id == "FAIL"){
+                if (loginRst == "LOGIN_FAIL"){
                     _toastMsg.value = "비밀번호가 잘못되었습니다."
                 }else{
                     _deleteAccountResult.value = deleteAccountUseCase.invoke(user.id)

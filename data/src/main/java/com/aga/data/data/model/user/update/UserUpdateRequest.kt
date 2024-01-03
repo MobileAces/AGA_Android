@@ -1,4 +1,4 @@
-package com.aga.data.data.model.user
+package com.aga.data.data.model.user.update
 
 data class UserUpdateRequest(
     val userId: String,

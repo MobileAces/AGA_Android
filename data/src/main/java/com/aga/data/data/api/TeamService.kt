@@ -1,5 +1,6 @@
 package com.aga.data.data.api
 
+import com.aga.data.data.model.DefaultResponse
 import com.aga.data.data.model.team.TeamCreateRequest
 import com.aga.data.data.model.team.TeamInfoChangeRequest
 import com.aga.data.data.model.team.TeamInfoChangeResponse
@@ -16,17 +17,17 @@ interface TeamService {
     @GET("teams/{teamId}")
     suspend fun getTeamInfo(
         @Path(value = "teamId") teamId: String
-    ): TeamResponse
+    ): Response<DefaultResponse<TeamResponse>>
 
     @PUT("teams")
     suspend fun modifyTeamInfo(
         @Body teamInfo: TeamInfoChangeRequest
-    ): TeamInfoChangeResponse
+    ): Response<DefaultResponse<TeamInfoChangeResponse>>
 
     @DELETE("teams/{teamId}")
     suspend fun deleteTeam(
         @Path(value = "teamId") teamId: String
-    ): String
+    ): Response<String>
 
     @POST("teams")
     suspend fun createTeam(

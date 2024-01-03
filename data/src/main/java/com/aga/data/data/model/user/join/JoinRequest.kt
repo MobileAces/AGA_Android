@@ -1,4 +1,4 @@
-package com.aga.data.data.model.join
+package com.aga.data.data.model.user.join
 
 data class JoinRequest(
     val userId: String,

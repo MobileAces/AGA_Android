@@ -12,20 +12,19 @@ class TeamRemoteDataSourceImpl @Inject constructor(
 ): TeamRemoteDataSource {
     override suspend fun getTeamInfoByTeamId(teamId: String): Team {
         val response = teamService.getTeamInfo(teamId)
-        return if (response.code == 200){
-            response.data!!.toTeam()
+        return if (response.isSuccessful){
+            response.body()?.data!!.toTeam()
         }else{
             Team("FAIL", "", "", "", "")
         }
     }
 
     override suspend fun modifyTeamInfo(team: Team): Boolean {
-        val response = teamService.modifyTeamInfo(team.toTeamInfoChangeRequest())
-        return response.code == 200
+        return teamService.modifyTeamInfo(team.toTeamInfoChangeRequest()).isSuccessful
     }
 
     override suspend fun deleteTeam(teamId: String): Boolean {
-        return teamService.deleteTeam(teamId) == "Success"
+        return teamService.deleteTeam(teamId).isSuccessful
     }
 
     override suspend fun createTeam(teamCreateRequest: TeamCreateRequest): Boolean {

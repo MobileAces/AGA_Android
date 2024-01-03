@@ -1,13 +1,17 @@
 package com.aga.data.data.api
 
-import com.aga.data.data.model.join.JoinRequest
-import com.aga.data.data.model.join.JoinResponse
-import com.aga.data.data.model.login.LoginRequest
-import com.aga.data.data.model.login.LoginResponse
-import com.aga.data.data.model.user.PasswordChangeRequest
-import com.aga.data.data.model.user.PasswordChangeResponse
+import com.aga.data.data.model.DefaultBooleanData
+import com.aga.data.data.model.DefaultResponse
+import com.aga.data.data.model.user.join.JoinRequest
+import com.aga.data.data.model.user.join.JoinResponse
+import com.aga.data.data.model.user.login.LoginRequest
+import com.aga.data.data.model.user.login.LoginResponse
+import com.aga.data.data.model.user.passwordchange.PasswordChangeRequest
+import com.aga.data.data.model.user.passwordchange.PasswordChangeResponse
 import com.aga.data.data.model.user.UserResponse
-import com.aga.data.data.model.user.UserUpdateRequest
+import com.aga.data.data.model.user.duplicated.DuplicatedResponse
+import com.aga.data.data.model.user.update.UserUpdateRequest
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -20,45 +24,45 @@ interface UserService {
     @POST("users/sign-in")
     suspend fun login(
         @Body user: LoginRequest
-    ): LoginResponse
+    ): Response<DefaultResponse<LoginResponse>>
 
     @GET("users/id-duplicate")
     suspend fun isDuplicatedId(
         @Query("userId") id: String
-    ): Boolean
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @GET("users/phone-duplicate")
     suspend fun isDuplicatedPhone(
         @Query("phoneNumber") phone: String
-    ): Boolean
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @GET("users/nickname-duplicate")
     suspend fun isDuplicatedNickname(
         @Query("userNickname") nickname: String
-    ): Boolean
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @POST("users/sign-up")
     suspend fun join(
         @Body user: JoinRequest
-    ): JoinResponse
+    ): Response<DefaultResponse<JoinResponse>>
 
     @GET("users/{userId}")
     suspend fun getUserInfo(
         @Path(value = "userId") id: String
-    ): UserResponse
+    ): Response<DefaultResponse<UserResponse>>
 
     @DELETE("users/{userId}")
     suspend fun deleteUser(
         @Path(value = "userId") id: String
-    ): String
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @PUT("users")
     suspend fun updateUser(
         @Body user: UserUpdateRequest
-    ): UserResponse
+    ): Response<DefaultResponse<UserResponse>>
 
     @POST("users/password")
     suspend fun updatePassword(
         @Body pwChangeRequest: PasswordChangeRequest
-    ): PasswordChangeResponse
+    ): Response<DefaultResponse<DefaultBooleanData>>
 }

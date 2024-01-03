@@ -71,11 +71,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         }
 
         viewModel.pwUpdateResult.observe(viewLifecycleOwner){
-            if (it){
-                showToast("비밀번호가 변경되었습니다.")
-                changePwDialog.dismiss()
-            }else{
-                showToast("비밀번호 변경에 실패했습니다.")
+            when(it){
+                "Success" -> {
+                    showToast("비밀번호가 변경되었습니다.")
+                    changePwDialog.dismiss()
+                }
+                else -> {
+                    showToast("비밀번호 변경에 실패했습니다.")
+                }
             }
         }
     }

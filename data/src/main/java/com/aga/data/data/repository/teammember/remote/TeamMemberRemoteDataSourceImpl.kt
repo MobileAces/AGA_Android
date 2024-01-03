@@ -13,8 +13,8 @@ class TeamMemberRemoteDataSourceImpl @Inject constructor(
 ) : TeamMemberRemoteDataSource {
     override suspend fun getTeamMembersByTeamId(teamId: String): List<TeamMember> {
         val response = teamMemberService.getTeamMembersByTeamId(teamId)
-        return if (response.code == 200){
-            response.dataList.toTeamMemberList()
+        return if (response.code() == 200){
+            response.body()?.dataList!!.toTeamMemberList()
         }else{
             listOf()
         }
@@ -23,7 +23,7 @@ class TeamMemberRemoteDataSourceImpl @Inject constructor(
     override suspend fun getTeamMemberByUserId(userId: String): List<TeamWithMember> {
         val response = teamMemberService.getTeamMemberByUserId(userId)
         return if (response.isSuccessful && response.body() != null){
-            response.body()!!.dataList.toTeamWithMemberList()
+            response.body()?.dataList!!.toTeamWithMemberList()
         } else {
             Log.d("TAG", "getTeamMemberByUserId: ${response.code()}")
             listOf()
@@ -31,6 +31,6 @@ class TeamMemberRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteTeamMember(teamId: String, userId: String): Boolean {
-        return teamMemberService.deleteTeamMember(teamId, userId) == "Success"
+        return teamMemberService.deleteTeamMember(teamId, userId).isSuccessful
     }
 }

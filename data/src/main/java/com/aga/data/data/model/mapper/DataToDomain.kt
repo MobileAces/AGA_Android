@@ -1,37 +1,18 @@
 package com.aga.data.data.model.mapper
 
-import com.aga.data.data.model.join.JoinDataResponse
-import com.aga.data.data.model.login.LoginDataResponse
-import com.aga.data.data.model.login.LoginResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
+import com.aga.data.data.model.member.TeamMemberResponse
 import com.aga.data.data.model.team.TeamDataResponse
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
+import com.aga.data.data.model.team.TeamResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
-import com.aga.data.data.model.user.UserDataResponse
+import com.aga.data.data.model.user.UserResponse
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
 import com.aga.domain.model.User
 
-fun LoginDataResponse.toUser(): User{
-    return User(
-        this.userId,
-        "",
-        "",
-        ""
-    )
-}
-
-fun JoinDataResponse.toUser(): User{
-    return User(
-        this.userId,
-        "",
-        this.userNickname,
-        this.userPhone
-    )
-}
-
-fun TeamDataResponse.toTeam(): Team {
+fun TeamResponse.toTeam(): Team {
     return Team(
         this.teamId,
         this.teamCreateDate,
@@ -73,7 +54,7 @@ fun List<TeamByUserResponse>.toTeamWithMemberList(): List<TeamWithMember>{
     }
 }
 
-fun UserDataResponse.toUser(): User{
+fun UserResponse.toUser(): User{
     return User(
         this.userId,
         "",

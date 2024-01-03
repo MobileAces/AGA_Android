@@ -8,7 +8,7 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val remoteDataSource: UserRemoteDataSource
 ): UserRepository {
-    override suspend fun login(user: User): User {
+    override suspend fun login(user: User): String {
         return remoteDataSource.login(user)
     }
 
@@ -24,7 +24,7 @@ class UserRepositoryImpl @Inject constructor(
         return remoteDataSource.isDuplicatedNickname(nickname)
     }
 
-    override suspend fun join(user: User): User {
+    override suspend fun join(user: User): Boolean {
         return remoteDataSource.join(user)
     }
 
@@ -40,7 +40,7 @@ class UserRepositoryImpl @Inject constructor(
         return remoteDataSource.updateUser(user)
     }
 
-    override suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean {
+    override suspend fun updatePassword(id: String, prePw: String, newPw: String): String {
         return remoteDataSource.updatePassword(id, prePw, newPw)
     }
 
