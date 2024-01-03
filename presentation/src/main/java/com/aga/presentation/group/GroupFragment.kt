@@ -43,16 +43,16 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
     }
 
     private fun registerListener() {
-        binding.ivProfile.setOnClickListener {
-            activity.navigate(Constants.GROUP_TO_PROFILE)
-        }
+
     }
 
 
     private fun registerObserve() {
-        groupViewModel.groupList.observe(viewLifecycleOwner){
-            if (groupListAdapter == null){
-                groupListAdapter = GroupListAdapter(it,groupClickListener)
+        groupViewModel.groupList.observe(viewLifecycleOwner) {
+            if (binding.rvGroup.adapter == null){
+                if (groupListAdapter == null){
+                    groupListAdapter = GroupListAdapter(it, groupClickListener)
+                }
                 binding.rvGroup.adapter = groupListAdapter
             } else {
                 groupListAdapter?.changeDataSet(it)
