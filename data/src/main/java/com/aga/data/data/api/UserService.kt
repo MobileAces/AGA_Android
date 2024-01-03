@@ -8,6 +8,7 @@ import com.aga.data.data.model.user.login.LoginResponse
 import com.aga.data.data.model.user.passwordchange.PasswordChangeRequest
 import com.aga.data.data.model.user.passwordchange.PasswordChangeResponse
 import com.aga.data.data.model.user.UserResponse
+import com.aga.data.data.model.user.duplicated.DuplicatedResponse
 import com.aga.data.data.model.user.update.UserUpdateRequest
 import retrofit2.Response
 import retrofit2.http.Body
@@ -27,17 +28,17 @@ interface UserService {
     @GET("users/id-duplicate")
     suspend fun isDuplicatedId(
         @Query("userId") id: String
-    ): Boolean
+    ): Response<DefaultResponse<DuplicatedResponse>>
 
     @GET("users/phone-duplicate")
     suspend fun isDuplicatedPhone(
         @Query("phoneNumber") phone: String
-    ): Boolean
+    ): Response<DefaultResponse<DuplicatedResponse>>
 
     @GET("users/nickname-duplicate")
     suspend fun isDuplicatedNickname(
         @Query("userNickname") nickname: String
-    ): Boolean
+    ): Response<DefaultResponse<DuplicatedResponse>>
 
     @POST("users/sign-up")
     suspend fun join(

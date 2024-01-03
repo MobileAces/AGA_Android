@@ -22,15 +22,15 @@ class UserRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun isDuplicatedId(id: String): Boolean {
-        return userService.isDuplicatedId(id)
+        return userService.isDuplicatedId(id).body()?.data!!.result
     }
 
     override suspend fun isDuplicatedPhone(phone: String): Boolean {
-        return userService.isDuplicatedPhone(phone)
+        return userService.isDuplicatedPhone(phone).body()?.data!!.result
     }
 
     override suspend fun isDuplicatedNickname(nickname: String): Boolean {
-        return userService.isDuplicatedNickname(nickname)
+        return userService.isDuplicatedNickname(nickname).body()?.data!!.result
     }
 
     override suspend fun join(user: User): Boolean {
