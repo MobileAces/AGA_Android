@@ -19,5 +19,5 @@ interface UserRepository {
 
     suspend fun updateUser(user: User): User
 
-    suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean
+    suspend fun updatePassword(id: String, prePw: String, newPw: String): String
 }

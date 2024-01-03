@@ -63,5 +63,5 @@ interface UserService {
     @POST("users/password")
     suspend fun updatePassword(
         @Body pwChangeRequest: PasswordChangeRequest
-    ): PasswordChangeResponse
+    ): Response<DefaultResponse<PasswordChangeResponse>>
 }

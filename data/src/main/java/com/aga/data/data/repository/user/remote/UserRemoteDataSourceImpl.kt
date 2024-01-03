@@ -1,5 +1,6 @@
 package com.aga.data.data.repository.user.remote
 
+import android.util.Log
 import com.aga.data.data.api.UserService
 import com.aga.data.data.model.mapper.toJoinRequest
 import com.aga.data.data.model.mapper.toLoginRequest
@@ -57,14 +58,19 @@ class UserRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean {
-        return userService.updatePassword(
+    override suspend fun updatePassword(id: String, prePw: String, newPw: String): String {
+        val response = userService.updatePassword(
             PasswordChangeRequest(
                 id,
                 prePw,
                 newPw
             )
-        ).data
+        )
+        Log.d(TAG, "updatePassword: ${response.code()}")
+        return if (response.isSuccessful)
+            response.body()!!.message
+        else
+            "fail"
     }
 
 }

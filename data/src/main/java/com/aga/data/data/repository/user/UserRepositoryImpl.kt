@@ -40,7 +40,7 @@ class UserRepositoryImpl @Inject constructor(
         return remoteDataSource.updateUser(user)
     }
 
-    override suspend fun updatePassword(id: String, prePw: String, newPw: String): Boolean {
+    override suspend fun updatePassword(id: String, prePw: String, newPw: String): String {
         return remoteDataSource.updatePassword(id, prePw, newPw)
     }
 

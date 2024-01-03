@@ -41,8 +41,8 @@ class ProfileViewModel @Inject constructor(
     val isValidPw: LiveData<String>
         get() = _isValidPw
 
-    private val _pwUpdateResult = MutableLiveData<Boolean>()
-    val pwUpdateResult: LiveData<Boolean>
+    private val _pwUpdateResult = MutableLiveData<String>()
+    val pwUpdateResult: LiveData<String>
         get() = _pwUpdateResult
 
     private val _loginResult = MutableLiveData<Boolean>(false)
@@ -72,8 +72,7 @@ class ProfileViewModel @Inject constructor(
     fun updatePassword(id: String, prePw: String, newPw: String){
         viewModelScope.launch {
             try {
-                _pwUpdateResult.value = updatePasswordUseCase.invoke(id, prePw, newPw)
-
+               _pwUpdateResult.value = updatePasswordUseCase.invoke(id, prePw, newPw)
             }catch (e: Exception){
                 _toastMsg.value = Constants.NET_ERR
                 Log.d(TAG, "updatePassword: ${e.message}")
