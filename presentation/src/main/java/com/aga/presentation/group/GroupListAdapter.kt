@@ -8,6 +8,8 @@ import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
 import com.aga.presentation.R
 import com.aga.presentation.databinding.ItemMyGroupBinding
+import com.aga.presentation.util.collapse
+import com.aga.presentation.util.expand
 
 class GroupListAdapter(
     private var groupList: List<TeamWithMember>,
@@ -63,12 +65,12 @@ class GroupListAdapter(
         private fun setShowMemberButton() {
             binding.ivShowMember.setOnClickListener {
                 if (binding.rvMember.visibility == View.GONE) {
-                    binding.rvMember.visibility = View.VISIBLE
+                    binding.rvMember.expand()
                     binding.ivShowMember.setImageResource(
                         R.drawable.ic_arrow_up
                     )
                 } else if (binding.rvMember.visibility == View.VISIBLE) {
-                    binding.rvMember.visibility = View.GONE
+                    binding.rvMember.collapse()
                     binding.ivShowMember.setImageResource(
                         R.drawable.ic_arrow_down
                     )
