@@ -46,7 +46,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteUser(id: String): Boolean {
-        return userService.deleteUser(id) == "Success"
+        return userService.deleteUser(id).isSuccessful
     }
 
     override suspend fun updateUser(user: User): User {
@@ -70,7 +70,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         return if (response.isSuccessful)
             response.body()!!.message
         else
-            "fail"
+            "UPDATE_FAIL"
     }
 
 }

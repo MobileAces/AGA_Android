@@ -84,7 +84,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val loginRst = loginUseCase.invoke(user)
-                if (loginRst == "FAIL"){
+                if (loginRst == "LOGIN_FAIL"){
                     _toastMsg.value = "비밀번호가 잘못되었습니다."
                 }else{
                     _deleteAccountResult.value = deleteAccountUseCase.invoke(user.id)

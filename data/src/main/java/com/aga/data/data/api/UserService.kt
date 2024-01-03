@@ -1,5 +1,6 @@
 package com.aga.data.data.api
 
+import com.aga.data.data.model.DefaultBooleanData
 import com.aga.data.data.model.DefaultResponse
 import com.aga.data.data.model.user.join.JoinRequest
 import com.aga.data.data.model.user.join.JoinResponse
@@ -28,17 +29,17 @@ interface UserService {
     @GET("users/id-duplicate")
     suspend fun isDuplicatedId(
         @Query("userId") id: String
-    ): Response<DefaultResponse<DuplicatedResponse>>
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @GET("users/phone-duplicate")
     suspend fun isDuplicatedPhone(
         @Query("phoneNumber") phone: String
-    ): Response<DefaultResponse<DuplicatedResponse>>
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @GET("users/nickname-duplicate")
     suspend fun isDuplicatedNickname(
         @Query("userNickname") nickname: String
-    ): Response<DefaultResponse<DuplicatedResponse>>
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @POST("users/sign-up")
     suspend fun join(
@@ -53,7 +54,7 @@ interface UserService {
     @DELETE("users/{userId}")
     suspend fun deleteUser(
         @Path(value = "userId") id: String
-    ): String
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @PUT("users")
     suspend fun updateUser(
@@ -63,5 +64,5 @@ interface UserService {
     @POST("users/password")
     suspend fun updatePassword(
         @Body pwChangeRequest: PasswordChangeRequest
-    ): Response<DefaultResponse<PasswordChangeResponse>>
+    ): Response<DefaultResponse<DefaultBooleanData>>
 }
