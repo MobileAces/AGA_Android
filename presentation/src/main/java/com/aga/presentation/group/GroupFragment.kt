@@ -43,7 +43,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>(
     }
 
     private fun registerListener() {
-
+        binding.ivProfile.setOnClickListener {
+            activity.navigate(Constants.GROUP_TO_PROFILE)
+        }
     }
 
     private fun registerObserve() {
