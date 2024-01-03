@@ -24,21 +24,11 @@ class LoginViewModel @Inject constructor(
     val loginResult: LiveData<String>
         get() = _loginResult
 
-    private val _userInfo = MutableLiveData<User>()
-    val userInfo : LiveData<User>
-        get() = _userInfo
-
     fun login(user: User){
         viewModelScope.launch {
             try {
                 val response = loginUseCase.invoke(user)
-
-                if (response.id == WRONG_ACCOUNT_INFO)
-                    _loginResult.value = LOGIN_FAIL
-                else {
-                    _userInfo.value = response
-                    _loginResult.value = LOGIN_SUCCESS
-                }
+                _loginResult.value = response
             }catch (e: Exception){
                 Log.d(TAG, "login: ${e.message}")
                 _loginResult.value = NET_ERR
@@ -50,6 +40,6 @@ class LoginViewModel @Inject constructor(
         const val LOGIN_SUCCESS = "환영합니다."
         const val LOGIN_FAIL = "계정 정보가 잘못 되었습니다."
 
-        const val WRONG_ACCOUNT_INFO = "NOT FOUND"
+        const val WRONG_ACCOUNT_INFO = "LOGIN_FAIL"
     }
 }

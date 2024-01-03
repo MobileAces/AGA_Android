@@ -8,7 +8,7 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val remoteDataSource: UserRemoteDataSource
 ): UserRepository {
-    override suspend fun login(user: User): User {
+    override suspend fun login(user: User): String {
         return remoteDataSource.login(user)
     }
 

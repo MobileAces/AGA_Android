@@ -1,5 +1,6 @@
 package com.aga.data.data.repository.user.remote
 
+import android.util.Log
 import com.aga.data.data.api.UserService
 import com.aga.data.data.model.mapper.toJoinRequest
 import com.aga.data.data.model.mapper.toLoginRequest
@@ -10,16 +11,16 @@ import com.aga.data.data.model.user.PasswordChangeResponse
 import com.aga.domain.model.User
 import javax.inject.Inject
 
+private const val TAG = "UserRemoteDataSourceImp_AWSOME"
 class UserRemoteDataSourceImpl @Inject constructor(
     private val userService: UserService
 ): UserRemoteDataSource {
-    override suspend fun login(user: User): User {
+    override suspend fun login(user: User): String {
         val response = userService.login(user.toLoginRequest())
-        return if(response.code == 200){
-            response.data!!.toUser()
-        }else{
-            User("FAIL","","","")
-        }
+        return if (response.isSuccessful){
+            response.body()!!.data!!.userId
+        }else
+            "LOGIN_FAIL"
     }
 
     override suspend fun isDuplicatedId(id: String): Boolean {

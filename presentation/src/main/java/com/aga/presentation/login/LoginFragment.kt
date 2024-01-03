@@ -15,6 +15,7 @@ import com.aga.presentation.LoginActivity
 import com.aga.presentation.MainActivity
 import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
+import com.aga.presentation.base.Constants
 import com.aga.presentation.base.Constants.LOGIN_TO_JOIN
 import com.aga.presentation.base.Constants.PREF_AUTO_LOGIN
 import com.aga.presentation.base.Constants.PREF_USER_ID
@@ -90,20 +91,25 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
     }
 
     private fun registerObserver(){
-        viewModel.userInfo.observe(viewLifecycleOwner){
-            PrefManager.write(PREF_USER_ID, it.id)
-        }
-
         viewModel.loginResult.observe(viewLifecycleOwner){
-            showToast(it)
-            if(it == LoginViewModel.LOGIN_SUCCESS){
-                PrefManager.write(PREF_AUTO_LOGIN, autoLogin)
+            when(it){
+                "LOGIN_FAIL" -> {
+                    showToast("계정 정보가 잘못되었습니다.")
+                }
+                Constants.NET_ERR -> {
+                    showToast(Constants.NET_ERR)
+                }
+                else -> {
+                    showToast("환영합니다.")
+                    PrefManager.write(PREF_AUTO_LOGIN, autoLogin)
+                    PrefManager.write(PREF_USER_ID, it)
 
-                Handler().postDelayed({
-                    val intent = Intent(activity, GroupActivity::class.java)
-                    startActivity(intent)
-                    activity.finish()
-                }, 500)
+                    Handler().postDelayed({
+                        val intent = Intent(activity, GroupActivity::class.java)
+                        startActivity(intent)
+                        activity.finish()
+                    }, 500)
+                }
             }
         }
     }
