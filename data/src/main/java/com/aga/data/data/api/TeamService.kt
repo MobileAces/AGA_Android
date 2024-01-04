@@ -32,5 +32,5 @@ interface TeamService {
     @POST("teams")
     suspend fun createTeam(
         @Body teamCreateRequest: TeamCreateRequest
-    ): Response<TeamResponse>
+    ): Response<DefaultResponse<TeamResponse>>
 }
