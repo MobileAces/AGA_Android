@@ -40,4 +40,12 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun isAuthorizedMember(userId: String): Boolean{
+        authorizedMemberList.value?.forEach {
+            if(it.userId == userId)
+                return true
+        }
+        return false
+    }
 }
