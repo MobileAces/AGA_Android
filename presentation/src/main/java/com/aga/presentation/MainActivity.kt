@@ -1,6 +1,7 @@
 package com.aga.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentManager
 import com.aga.presentation.base.BaseActivity
@@ -12,6 +13,7 @@ import com.aga.presentation.setting.SettingChangeFragment
 import com.aga.presentation.setting.SettingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+private const val TAG = "MainActivity_AWSOME"
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(
     ActivityMainBinding::inflate
@@ -22,6 +24,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         viewModel.teamId = intent.getIntExtra(Constants.PREF_GROUP_ID, -1)
 
         initBottomNavigation()
+
+        viewModel.loadAuthorizedMember(viewModel.teamId)
+
+        viewModel.authorizedMemberList.observe(this){
+            it.forEach {member ->
+                Log.d(TAG, "onCreate: ${member.userNickname}, ${member.authority}")
+            }
+        }
     }
 
     private fun initBottomNavigation() {
