@@ -5,9 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import com.aga.presentation.MainViewModel
 import com.aga.presentation.R
+import com.aga.presentation.base.BaseFragment
+import com.aga.presentation.databinding.FragmentAlarmBinding
+import com.aga.presentation.databinding.FragmentProfileBinding
 
-class AlarmFragment : Fragment() {
+class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
+    FragmentAlarmBinding::bind, R.layout.fragment_alarm
+) {
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,4 +30,11 @@ class AlarmFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_alarm, container, false)
     }
 
+    private fun registerListener(){
+
+    }
+
+    private fun registerObserve(){
+
+    }
 }
