@@ -11,6 +11,7 @@ import com.aga.domain.model.User
 import com.aga.domain.usecase.team.DeleteTeamUseCase
 import com.aga.domain.usecase.team.GetTeamByTeamIdUseCase
 import com.aga.domain.usecase.teammember.GetTeamMembersByTeamIdUseCase
+import com.aga.domain.usecase.teammember.LeaveTeamUseCase
 import com.aga.domain.usecase.user.LoginUseCase
 import com.aga.presentation.base.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,8 @@ class SettingViewModel @Inject constructor(
     private val getTeamByTeamIdUseCase: GetTeamByTeamIdUseCase,
     private val getTeamMembersByTeamIdUseCase: GetTeamMembersByTeamIdUseCase,
     private val deleteTeamUseCase: DeleteTeamUseCase,
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val leaveTeamUseCase: LeaveTeamUseCase
 ): ViewModel(){
 
     private val _teamInfo = MutableLiveData<Team>()
@@ -74,6 +76,21 @@ class SettingViewModel @Inject constructor(
             try {
                 if(loginUseCase.invoke(User(masterId, masterPw, "", "")) != "LOGIN_FAIL") {
                     _teamDeleteResult.value = deleteTeamUseCase.invoke(teamId)
+                }else{
+                    _toastMsg.value = ACCOUNT_ERR
+                }
+            }catch (e: Exception){
+                Log.d(TAG, "deleteTeam: ${e.message}")
+                _toastMsg.value = Constants.NET_ERR
+            }
+        }
+    }
+
+    fun leaveTeam(userId: String, userPw: String, teamId: Int ){
+        viewModelScope.launch {
+            try {
+                if(loginUseCase.invoke(User(userId, userPw, "", "")) != "LOGIN_FAIL") {
+                    _teamDeleteResult.value = leaveTeamUseCase.invoke(teamId, userId)
                 }else{
                     _toastMsg.value = ACCOUNT_ERR
                 }

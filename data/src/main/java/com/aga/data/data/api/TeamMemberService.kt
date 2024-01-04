@@ -1,6 +1,8 @@
 package com.aga.data.data.api
 
+import com.aga.data.data.model.DefaultBooleanData
 import com.aga.data.data.model.DefaultListResponse
+import com.aga.data.data.model.DefaultResponse
 import com.aga.data.data.model.member.TeamMemberResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
 import retrofit2.http.DELETE
@@ -17,9 +19,9 @@ interface TeamMemberService {
 
     @DELETE("members/{teamId}/{userId}")
     suspend fun deleteTeamMember(
-        @Path(value = "teamId") teamId: String,
+        @Path(value = "teamId") teamId: Int,
         @Path(value = "userId") userId: String
-    ): Response<String>
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @GET("members/teams")
     suspend fun getTeamMemberByUserId(

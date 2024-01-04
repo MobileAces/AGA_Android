@@ -113,6 +113,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
                 showDeleteGroupDialog()
             }
         }
+
+        binding.btnExitGroup.setOnClickListener {
+            showExitGroupDialog()
+        }
     }
 
     @SuppressLint("MissingInflatedId")
@@ -148,7 +152,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
     private fun showExitGroupDialog(){
         val builder = AlertDialog.Builder(activity)
         val view = LayoutInflater.from(requireContext()).inflate(
-            R.layout.dialog_delete_group, activity.findViewById(R.id.cl_exit_group_dialog)
+            R.layout.dialog_exit_group, activity.findViewById(R.id.cl_exit_group_dialog)
         )
 
         val etPw = view.findViewById<TextInputLayout>(R.id.et_pw)
@@ -169,7 +173,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
 
         btnSave.setOnClickListener {
             Log.d(TAG, "showDeleteGroupDialog: ${PrefManager.read(Constants.PREF_USER_ID, "")!!}, ${etPw.editText?.text.toString()}")
-            viewModel.deleteTeam(PrefManager.read(Constants.PREF_USER_ID, "")!!, etPw.editText?.text.toString(), mainViewModel.teamId)
+            viewModel.leaveTeam(PrefManager.read(Constants.PREF_USER_ID, "")!!, etPw.editText?.text.toString(), mainViewModel.teamId)
         }
     }
 
