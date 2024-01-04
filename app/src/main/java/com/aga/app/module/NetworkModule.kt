@@ -1,5 +1,6 @@
 package com.aga.app.module
 
+import com.aga.data.data.api.AlarmService
 import com.aga.data.data.api.ApiClient.BASE_URL
 import com.aga.data.data.api.TeamMemberService
 import com.aga.data.data.api.TeamService
@@ -53,5 +54,11 @@ object NetworkModule {
     @Singleton
     fun provideTeamMemberService(retrofit: Retrofit): TeamMemberService{
         return retrofit.create(TeamMemberService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providerAlarmService(retrofit: Retrofit): AlarmService{
+        return retrofit.create(AlarmService::class.java)
     }
 }
