@@ -60,6 +60,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.8.0")
+    implementation ("com.squareup.okhttp3:okhttp-urlconnection:4.9.1")
 
     // Room
     val roomVersion = "2.5.2"
