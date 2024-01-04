@@ -8,7 +8,7 @@ interface TeamRemoteDataSource {
 
     suspend fun modifyTeamInfo(team: Team): Boolean
 
-    suspend fun deleteTeam(teamId: String): Boolean
+    suspend fun deleteTeam(teamId: Int): Boolean
 
     suspend fun createTeam(teamCreateRequest: TeamCreateRequest): Boolean
 }
