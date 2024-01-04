@@ -1,8 +1,10 @@
 package com.aga.app.module
 
+import com.aga.data.data.repository.alarm.AlarmRepositoryImpl
 import com.aga.data.data.repository.team.TeamRepositoryImpl
 import com.aga.data.data.repository.teammember.TeamMemberRepositoryImpl
 import com.aga.data.data.repository.user.UserRepositoryImpl
+import com.aga.domain.repository.AlarmRepository
 import com.aga.domain.repository.TeamMemberRepository
 import com.aga.domain.repository.TeamRepository
 import com.aga.domain.repository.UserRepository
@@ -27,4 +29,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindTeamMemberRepository(teamMemberRepositoryImpl: TeamMemberRepositoryImpl): TeamMemberRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindAlarmRepository(alarmRepositoryImpl: AlarmRepositoryImpl): AlarmRepository
 }
