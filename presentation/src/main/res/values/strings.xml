@@ -100,6 +100,9 @@
     <!-- 계정 삭제 Dialog에서 사용할 string resource -->
     <string name="delete_account_dialog_check">정말로 계정을 삭제하시겠습니까?</string>
 
+    <!-- 그룹 삭제 Dialog 에서 사용할 string resource -->
+    <string name="delete_group_dialog_check">정말로 그룹을 삭제하시겠습니까?\n되돌릴 수 없습니다</string>
+
     <!-- GroupFragment 에서 사용할 string resource -->
     <string name="group_create">생성</string>
     <string name="group_join">참여</string>

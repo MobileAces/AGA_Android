@@ -84,6 +84,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
         binding.btnChangeSetting.setOnClickListener{
             activity.navigate(SETTING_TO_SETTINGCHANGE)
         }
+
+        binding.btnDeleteGroup.setOnClickListener {
+
+        }
     }
 
 }
