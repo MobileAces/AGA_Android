@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aga.domain.model.TeamMember
 import com.aga.presentation.MainActivity
+import com.aga.presentation.MainViewModel
 import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
@@ -27,6 +29,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
     FragmentSettingBinding::bind, R.layout.fragment_setting
 ) {
     private val viewModel: SettingViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var activity: MainActivity
     private lateinit var memberAdapter: TeamMemberAdapter
     private var members = arrayListOf<TeamMember>()
@@ -52,8 +55,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
     }
 
     private fun initView(){
-        viewModel.getTeamInfoByTeamId("2")
-        viewModel.getTeamMemberByTeamId("2")
+        viewModel.getTeamInfoByTeamId(mainViewModel.teamId.toString())
+        viewModel.getTeamMemberByTeamId(mainViewModel.teamId.toString())
 
     }
 
