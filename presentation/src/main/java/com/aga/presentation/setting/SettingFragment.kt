@@ -99,6 +99,15 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
                 activity.finish()
             }
         }
+
+        viewModel.leaveTeamResult.observe(viewLifecycleOwner){
+            if (it){
+                exitGroupDialog.dismiss()
+                val intent = Intent(activity, GroupActivity::class.java)
+                startActivity(intent)
+                activity.finish()
+            }
+        }
     }
 
     private fun registerListener(){
@@ -115,7 +124,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
         }
 
         binding.btnExitGroup.setOnClickListener {
-            showExitGroupDialog()
+            if (PrefManager.read(Constants.PREF_USER_ID, "")!! == mainViewModel.teamMaster)
+                showToast("그룹장은 그룹을 나갈 수 없습니다. 그룹장을 다른 그룹원에게 위임하세요.")
+            else
+                showExitGroupDialog()
         }
     }
 

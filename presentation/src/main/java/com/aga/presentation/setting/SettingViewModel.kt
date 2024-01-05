@@ -44,6 +44,10 @@ class SettingViewModel @Inject constructor(
     val teamDeleteResult: LiveData<Boolean>
         get() = _teamDeleteResult
 
+    private val _leaveTeamResult = MutableLiveData<Boolean>()
+    val leaveTeamResult: LiveData<Boolean>
+        get() = _leaveTeamResult
+
 
     fun getTeamInfoByTeamId(teamId: String){
         viewModelScope.launch {
@@ -90,7 +94,7 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 if(loginUseCase.invoke(User(userId, userPw, "", "")) != "LOGIN_FAIL") {
-                    _teamDeleteResult.value = leaveTeamUseCase.invoke(teamId, userId)
+                    _leaveTeamResult.value = leaveTeamUseCase.invoke(teamId, userId)
                 }else{
                     _toastMsg.value = ACCOUNT_ERR
                 }
