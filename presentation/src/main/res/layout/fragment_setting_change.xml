@@ -147,62 +147,6 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <!-- 멤버 영역 -->
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_member"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_apply_change"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_group_reg_date"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_group" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/setting_change_member"
-                android:textAppearance="@style/Base.AGA.TEXT"
-                android:textSize="20sp" />
-
-
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:dividerColor="@color/divider_gray" />
-
-        <TextView
-            android:id="@+id/tv_member_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="-명" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_member"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:itemCount="1"
-            tools:listitem="@layout/item_setting_member" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
         android:id="@+id/btn_apply_change"
