@@ -112,7 +112,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
 
     private fun registerListener(){
         binding.btnChangeSetting.setOnClickListener{
-            activity.navigate(SETTING_TO_SETTINGCHANGE)
+            if (mainViewModel.isAuthorizedMember(PrefManager.read(Constants.PREF_USER_ID, "")!!))
+                activity.navigate(SETTING_TO_SETTINGCHANGE)
+            else
+                showToast("권한이 없습니다")
         }
 
         binding.btnDeleteGroup.setOnClickListener {
