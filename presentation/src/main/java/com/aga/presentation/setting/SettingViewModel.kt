@@ -48,6 +48,10 @@ class SettingViewModel @Inject constructor(
     val leaveTeamResult: LiveData<Boolean>
         get() = _leaveTeamResult
 
+    private val _expelMemberResult = MutableLiveData<Boolean>()
+    val expelMemberResult: LiveData<Boolean>
+        get() = _expelMemberResult
+
 
     fun getTeamInfoByTeamId(teamId: String){
         viewModelScope.launch {
@@ -100,6 +104,17 @@ class SettingViewModel @Inject constructor(
                 }
             }catch (e: Exception){
                 Log.d(TAG, "deleteTeam: ${e.message}")
+                _toastMsg.value = Constants.NET_ERR
+            }
+        }
+    }
+
+    fun expelMember(teamId: Int, userId: String){
+        viewModelScope.launch {
+            try {
+                _expelMemberResult.value = leaveTeamUseCase.invoke(teamId, userId)
+            }catch (e: Exception){
+                Log.d(TAG, "expelMember: ${e.message}")
                 _toastMsg.value = Constants.NET_ERR
             }
         }

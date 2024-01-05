@@ -28,6 +28,7 @@ import com.aga.presentation.base.Constants.SETTING_TO_SETTINGCHANGE
 import com.aga.presentation.base.PrefManager
 import com.aga.presentation.databinding.FragmentSettingBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,15 +62,25 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
 
         memberAdapter = TeamMemberAdapter(members, myAuthority).apply {
             setContextMenuClickListener(object : TeamMemberAdapter.ContextMenuClickListener{
-                override fun onExpelClicked(userId: String) {
-                    showToast("$userId 를 추방합니데이~")
+                override fun onExpelClicked(userId: String, userNickname: String) {
+                    MaterialAlertDialogBuilder(activity)
+                        .setTitle("그룹에서 추방")
+                        .setMessage("정말로 $userNickname 님을 그룹에서 추방하시겠습니까?")
+                        .setNegativeButton("아니요"){dialog, which ->
+                            dialog.dismiss()
+                        }
+                        .setPositiveButton("예"){dialog, which ->
+                            viewModel.expelMember(mainViewModel.teamId, userId)
+                            dialog.dismiss()
+                        }
+                        .show()
                 }
 
-                override fun onMasterClicked(userId: String) {
+                override fun onMasterClicked(userId: String, userNickname: String) {
                     showToast("$userId 를 방장으로~")
                 }
 
-                override fun onAuthorityClicked(userId: String, authorize: Boolean) {
+                override fun onAuthorityClicked(userId: String, userNickname: String, authorize: Boolean) {
                     if (authorize) showToast("$userId 한테 권한 준데이~ ")
                     else showToast("$userId 한테 권한 뺏는데이~")
                 }
@@ -128,6 +139,15 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
                 val intent = Intent(activity, GroupActivity::class.java)
                 startActivity(intent)
                 activity.finish()
+            }
+        }
+
+        viewModel.expelMemberResult.observe(viewLifecycleOwner){
+            if (it){
+                showToast("그룹원을 추방했습니다.")
+                viewModel.getTeamMemberByTeamId(mainViewModel.teamId.toString())
+            }else{
+                showToast("추방에 실패했습니다.")
             }
         }
     }

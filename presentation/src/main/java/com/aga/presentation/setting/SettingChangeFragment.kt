@@ -30,11 +30,7 @@ class SettingChangeFragment : BaseFragment<FragmentSettingChangeBinding>(
 ) {
     private val viewModel: SettingChangeViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
-
     private lateinit var activity: MainActivity
-    private lateinit var memberAdapter: TeamMemberAdapter
-    private var members = arrayListOf<TeamMember>()
-    private var myAuthority = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,16 +40,6 @@ class SettingChangeFragment : BaseFragment<FragmentSettingChangeBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity.findViewById<BottomNavigationView>(R.id.bnv_main).visibility = View.GONE
-        if (mainViewModel.teamMaster == PrefManager.read(Constants.PREF_USER_ID, "")!!)
-            myAuthority = 2
-        else if (mainViewModel.isAuthorizedMember(PrefManager.read(Constants.PREF_USER_ID, "")!!))
-            myAuthority = 1
-
-        memberAdapter = TeamMemberAdapter(members, myAuthority)
-        binding.rvMember.apply {
-            this.adapter = memberAdapter
-            this.layoutManager = GridLayoutManager(requireContext(), 4)
-        }
 
         initView()
 
@@ -72,14 +58,6 @@ class SettingChangeFragment : BaseFragment<FragmentSettingChangeBinding>(
             binding.etGroupName.editText!!.setText(it.teamName)
             binding.etGroupIntroduction.editText!!.setText(it.teamInfo)
             binding.tvGroupCreateDate.setText(DateFormatUtil.formatGroupCreateDate(it.teamCreateDate))
-        }
-
-        viewModel.teamMembers.observe(viewLifecycleOwner){
-            members.clear()
-            members.addAll(it.sorted())
-
-            binding.rvMember.adapter!!.notifyDataSetChanged()
-            binding.tvMemberCount.setText("${it.size}명")
         }
 
         viewModel.teamInfoChanged.observe(viewLifecycleOwner){

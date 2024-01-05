@@ -17,9 +17,9 @@ class TeamMemberAdapter(private val itemList: ArrayList<TeamMember>, private val
 RecyclerView.Adapter<TeamMemberAdapter.ViewHolder>(){
 
     interface ContextMenuClickListener{
-        fun onExpelClicked(userId: String)
-        fun onMasterClicked(userId: String)
-        fun onAuthorityClicked(userId: String, authorize: Boolean)
+        fun onExpelClicked(userId: String, userNickname: String)
+        fun onMasterClicked(userId: String, userNickname: String)
+        fun onAuthorityClicked(userId: String, userNickname: String, authorize: Boolean)
     }
 
     private lateinit var contextMenuClickListener: ContextMenuClickListener
@@ -46,24 +46,24 @@ RecyclerView.Adapter<TeamMemberAdapter.ViewHolder>(){
             if (member.authority != 2){
                 var expelMenu = menu?.add(0, 0, 0, "추방")
                 expelMenu?.setOnMenuItemClickListener {
-                    contextMenuClickListener.onExpelClicked(member.userId)
+                    contextMenuClickListener.onExpelClicked(member.userId, member.userNickname)
                     true
                 }
                 var masterMenu = menu?.add(0, 2, 2, "그룹장 위임")
                 masterMenu?.setOnMenuItemClickListener {
-                    contextMenuClickListener.onMasterClicked(member.userId)
+                    contextMenuClickListener.onMasterClicked(member.userId, member.userNickname)
                     true
                 }
                 if (member.authority == 1) {
                     var authorityMenu = menu?.add(0, 1, 1, "권한 뺏기")
                     authorityMenu?.setOnMenuItemClickListener {
-                        contextMenuClickListener.onAuthorityClicked(member.userId, false)
+                        contextMenuClickListener.onAuthorityClicked(member.userId, member.userNickname, false)
                         true
                     }
                 }else{
                     var authorityMenu = menu?.add(0, 1, 1, "권한 부여")
                     authorityMenu?.setOnMenuItemClickListener {
-                        contextMenuClickListener.onAuthorityClicked(member.userId, true)
+                        contextMenuClickListener.onAuthorityClicked(member.userId, member.userNickname, true)
                         true
                     }
                 }
