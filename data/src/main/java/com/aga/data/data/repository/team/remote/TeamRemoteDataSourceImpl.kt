@@ -1,5 +1,6 @@
 package com.aga.data.data.repository.team.remote
 
+import android.util.Log
 import com.aga.data.data.api.TeamService
 import com.aga.data.data.model.mapper.toTeam
 import com.aga.data.data.model.mapper.toTeamInfoChangeRequest
@@ -7,6 +8,7 @@ import com.aga.data.data.model.team.TeamCreateRequest
 import com.aga.domain.model.Team
 import javax.inject.Inject
 
+private const val TAG = "TeamRemoteDataSourceImp_AWSOME"
 class TeamRemoteDataSourceImpl @Inject constructor(
     private val teamService: TeamService
 ): TeamRemoteDataSource {
@@ -23,7 +25,7 @@ class TeamRemoteDataSourceImpl @Inject constructor(
         return teamService.modifyTeamInfo(team.toTeamInfoChangeRequest()).isSuccessful
     }
 
-    override suspend fun deleteTeam(teamId: String): Boolean {
+    override suspend fun deleteTeam(teamId: Int): Boolean {
         return teamService.deleteTeam(teamId).isSuccessful
     }
 

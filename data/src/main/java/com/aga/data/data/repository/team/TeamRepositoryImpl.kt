@@ -17,7 +17,7 @@ class TeamRepositoryImpl @Inject constructor(
         return remoteDataSource.modifyTeamInfo(team)
     }
 
-    override suspend fun deleteTeam(teamId: String): Boolean {
+    override suspend fun deleteTeam(teamId: Int): Boolean {
         return remoteDataSource.deleteTeam(teamId)
     }
 

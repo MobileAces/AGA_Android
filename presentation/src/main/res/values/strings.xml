@@ -100,11 +100,22 @@
     <!-- 계정 삭제 Dialog에서 사용할 string resource -->
     <string name="delete_account_dialog_check">정말로 계정을 삭제하시겠습니까?</string>
 
+    <!-- 그룹 삭제 Dialog 에서 사용할 string resource -->
+    <string name="delete_group_dialog_check">정말로 그룹을 삭제하시겠습니까?\n되돌릴 수 없습니다</string>
+
+    <!-- 그룹 탈퇴 Dialog 에서 사용할 string resource -->
+    <string name="exit_group_dialog_check">정말로 그룹에서 나가겠습니까?\n되돌릴 수 없습니다</string>
+
     <!-- GroupFragment 에서 사용할 string resource -->
     <string name="group_create">생성</string>
     <string name="group_join">참여</string>
 
     <!-- GroupCreateFragment 에서 사용할 string resource -->
     <string name="group_create_create">그룹생성</string>
+    
+    <!-- 멤버 클릭 context menu 에서 사용할 string resource -->
+    <string name="menu_manage_member_expel">그룹에서 추방</string>
+    <string name="menu_manage_member_authorize">권한 부여</string>
+    <string name="menu_manage_member_mater">그룹장 위임</string>
 
 </resources>

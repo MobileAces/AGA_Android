@@ -1,5 +1,6 @@
 package com.aga.data.data.api
 
+import com.aga.data.data.model.DefaultBooleanData
 import com.aga.data.data.model.DefaultResponse
 import com.aga.data.data.model.team.TeamCreateRequest
 import com.aga.data.data.model.team.TeamInfoChangeRequest
@@ -26,8 +27,8 @@ interface TeamService {
 
     @DELETE("teams/{teamId}")
     suspend fun deleteTeam(
-        @Path(value = "teamId") teamId: String
-    ): Response<String>
+        @Path(value = "teamId") teamId: Int
+    ): Response<DefaultResponse<DefaultBooleanData>>
 
     @POST("teams")
     suspend fun createTeam(

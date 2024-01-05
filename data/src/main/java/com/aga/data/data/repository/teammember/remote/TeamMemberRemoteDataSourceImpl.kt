@@ -2,9 +2,11 @@ package com.aga.data.data.repository.teammember.remote
 
 import android.util.Log
 import com.aga.data.data.api.TeamMemberService
+import com.aga.data.data.model.mapper.toAuthorityChangeRequest
 import com.aga.data.data.model.mapper.toTeamMemberList
 import com.aga.data.data.model.mapper.toTeamWithMemberList
 import com.aga.domain.model.TeamMember
+import com.aga.domain.model.TeamMemberWithTeam
 import com.aga.domain.model.TeamWithMember
 import javax.inject.Inject
 
@@ -30,7 +32,12 @@ class TeamMemberRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteTeamMember(teamId: String, userId: String): Boolean {
+    override suspend fun deleteTeamMember(teamId: Int, userId: String): Boolean {
         return teamMemberService.deleteTeamMember(teamId, userId).isSuccessful
     }
+
+    override suspend fun authorityChange(teamMemberWithTeam: TeamMemberWithTeam): Boolean {
+        return teamMemberService.modifyAuthority(teamMemberWithTeam.toAuthorityChangeRequest()).isSuccessful
+    }
+
 }
