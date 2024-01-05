@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
+import com.aga.domain.model.TeamMemberWithTeam
 import com.aga.domain.model.User
 import com.aga.presentation.GroupActivity
 import com.aga.presentation.MainActivity
@@ -99,8 +100,24 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
                 }
 
                 override fun onAuthorityClicked(userId: String, userNickname: String, authorize: Boolean) {
-                    if (authorize) showToast("$userId 한테 권한 준데이~ ")
-                    else showToast("$userId 한테 권한 뺏는데이~")
+                    if (authorize) {
+                        viewModel.modifyAuthority(
+                            TeamMemberWithTeam(
+                                mainViewModel.teamId,
+                                userId,
+                                1
+                            )
+                        )
+                    }
+                    else {
+                        viewModel.modifyAuthority(
+                            TeamMemberWithTeam(
+                                mainViewModel.teamId,
+                                userId,
+                                0
+                            )
+                        )
+                    }
                 }
 
             })
@@ -164,6 +181,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
             if (it){
                 showToast("그룹원을 추방했습니다")
                 viewModel.getTeamMemberByTeamId(mainViewModel.teamId.toString())
+                mainViewModel.loadAuthorizedMember(mainViewModel.teamId)
             }else{
                 showToast("추방에 실패했습니다")
             }
@@ -173,6 +191,17 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
             if (it){
                 showToast("그룹장이 변경되었습니다")
                 viewModel.getTeamMemberByTeamId(mainViewModel.teamId.toString())
+                mainViewModel.loadAuthorizedMember(mainViewModel.teamId)
+            }else{
+                showToast("그룹장 위임에 실패했습니다")
+            }
+        }
+
+        viewModel.modifyAuthorityResult.observe(viewLifecycleOwner){
+            if (it){
+                showToast("권한이 변경되었습니다")
+                viewModel.getTeamMemberByTeamId(mainViewModel.teamId.toString())
+                mainViewModel.loadAuthorizedMember(mainViewModel.teamId)
             }else{
                 showToast("그룹장 위임에 실패했습니다")
             }

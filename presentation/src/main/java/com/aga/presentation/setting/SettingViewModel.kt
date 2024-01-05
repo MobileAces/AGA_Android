@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
+import com.aga.domain.model.TeamMemberWithTeam
 import com.aga.domain.model.User
 import com.aga.domain.usecase.team.DeleteTeamUseCase
 import com.aga.domain.usecase.team.GetTeamByTeamIdUseCase
 import com.aga.domain.usecase.team.ModifyTeamInfoUseCase
 import com.aga.domain.usecase.teammember.GetTeamMembersByTeamIdUseCase
 import com.aga.domain.usecase.teammember.LeaveTeamUseCase
+import com.aga.domain.usecase.teammember.ModifyAuthorityUseCase
 import com.aga.domain.usecase.user.LoginUseCase
 import com.aga.presentation.base.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +29,8 @@ class SettingViewModel @Inject constructor(
     private val deleteTeamUseCase: DeleteTeamUseCase,
     private val loginUseCase: LoginUseCase,
     private val leaveTeamUseCase: LeaveTeamUseCase,
-    private val modifyTeamInfoUseCase: ModifyTeamInfoUseCase
+    private val modifyTeamInfoUseCase: ModifyTeamInfoUseCase,
+    private val modifyAuthorityUseCase: ModifyAuthorityUseCase
 ): ViewModel(){
 
     private val _teamInfo = MutableLiveData<Team>()
@@ -57,6 +60,10 @@ class SettingViewModel @Inject constructor(
     private val _delegateTeamMasterResult = MutableLiveData<Boolean>()
     val delegateTeamMasterResult : LiveData<Boolean>
         get() = _delegateTeamMasterResult
+
+    private val _modifyAuthorityResult = MutableLiveData<Boolean>()
+    val modifyAuthorityResult: LiveData<Boolean>
+        get() = _modifyAuthorityResult
 
     fun getTeamInfoByTeamId(teamId: String){
         viewModelScope.launch {
@@ -131,6 +138,17 @@ class SettingViewModel @Inject constructor(
                 _delegateTeamMasterResult.value = modifyTeamInfoUseCase.invoke(team)
             }catch (e: Exception){
                 Log.d(TAG, "delegateTeamMaster: ${e.message}")
+                _toastMsg.value = Constants.NET_ERR
+            }
+        }
+    }
+
+    fun modifyAuthority(teamMemberWithTeam: TeamMemberWithTeam){
+        viewModelScope.launch {
+            try {
+                _modifyAuthorityResult.value = modifyAuthorityUseCase.invoke(teamMemberWithTeam)
+            }catch (e: Exception){
+                Log.d(TAG, "modifyAuthority: ${e.message}")
                 _toastMsg.value = Constants.NET_ERR
             }
         }

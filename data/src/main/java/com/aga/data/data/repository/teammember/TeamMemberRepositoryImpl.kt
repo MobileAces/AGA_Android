@@ -2,6 +2,7 @@ package com.aga.data.data.repository.teammember
 
 import com.aga.data.data.repository.teammember.remote.TeamMemberRemoteDataSource
 import com.aga.domain.model.TeamMember
+import com.aga.domain.model.TeamMemberWithTeam
 import com.aga.domain.model.TeamWithMember
 import com.aga.domain.repository.TeamMemberRepository
 import javax.inject.Inject
@@ -19,5 +20,9 @@ class TeamMemberRepositoryImpl @Inject constructor(
 
     override suspend fun getTeamMemberByUserId(userId: String): List<TeamWithMember> {
         return remoteDataSource.getTeamMemberByUserId(userId)
+    }
+
+    override suspend fun modifyAuthority(teamMemberWithTeam: TeamMemberWithTeam): Boolean {
+        return remoteDataSource.authorityChange(teamMemberWithTeam)
     }
 }

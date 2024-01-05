@@ -34,6 +34,7 @@ class MainViewModel @Inject constructor(
                 val response = getTeamMembersByTeamIdUseCase.invoke(teamId.toString())
                 _teamMemberList.value = response
                 _authorizedMemberList.value = response.filter {
+                    Log.d(TAG, "loadAuthorizedMember: ${it.userNickname}, ${it.authority}")
                     if (it.authority == 2)
                         teamMaster = it.userId
                     it.authority > 0

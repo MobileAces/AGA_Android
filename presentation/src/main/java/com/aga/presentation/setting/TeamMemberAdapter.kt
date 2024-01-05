@@ -37,8 +37,12 @@ RecyclerView.Adapter<TeamMemberAdapter.ViewHolder>(){
             binding.tvMemberName.setText(item.userNickname)
             if (item.authority == 2)
                 binding.ivCrown.visibility = View.VISIBLE
-            if (item.authority == 1)
+            else if (item.authority == 1)
                 binding.ivAuthorized.visibility = View.VISIBLE
+            else{
+                binding.ivCrown.visibility = View.INVISIBLE
+                binding.ivAuthorized.visibility = View.INVISIBLE
+            }
         }
 
         override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?
