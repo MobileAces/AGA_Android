@@ -1,5 +1,7 @@
 package com.aga.app.module
 
+import com.aga.data.data.repository.alarm.remote.AlarmRemoteDataSource
+import com.aga.data.data.repository.alarm.remote.AlarmRemoteDataSourceImpl
 import com.aga.data.data.repository.team.remote.TeamRemoteDataSource
 import com.aga.data.data.repository.team.remote.TeamRemoteDataSourceImpl
 import com.aga.data.data.repository.teammember.remote.TeamMemberRemoteDataSource
@@ -26,4 +28,8 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun bindTeamMemberRemoteDataSource(teamMemberRemoteDataSourceImpl: TeamMemberRemoteDataSourceImpl): TeamMemberRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindAlarmRemoteDataSource(alarmRemoteDataSourceImpl: AlarmRemoteDataSourceImpl): AlarmRemoteDataSource
 }
