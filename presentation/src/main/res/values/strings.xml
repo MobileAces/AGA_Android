@@ -112,5 +112,10 @@
 
     <!-- GroupCreateFragment 에서 사용할 string resource -->
     <string name="group_create_create">그룹생성</string>
+    
+    <!-- 멤버 클릭 context menu 에서 사용할 string resource -->
+    <string name="menu_manage_member_expel">그룹에서 추방</string>
+    <string name="menu_manage_member_authorize">권한 부여</string>
+    <string name="menu_manage_member_mater">그룹장 위임</string>
 
 </resources>

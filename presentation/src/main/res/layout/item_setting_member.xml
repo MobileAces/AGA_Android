@@ -7,6 +7,7 @@
     android:layout_margin="3dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_member"
         android:layout_width="70dp"
         android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"

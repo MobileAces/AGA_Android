@@ -42,6 +42,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
     private lateinit var activity: MainActivity
     private lateinit var memberAdapter: TeamMemberAdapter
     private var members = arrayListOf<TeamMember>()
+    private var myAuthority = 0
 
     private lateinit var deleteGroupDialog: AlertDialog
     private lateinit var exitGroupDialog: AlertDialog
@@ -53,7 +54,28 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        memberAdapter = TeamMemberAdapter(members)
+        if (mainViewModel.teamMaster == PrefManager.read(Constants.PREF_USER_ID, "")!!)
+            myAuthority = 2
+        else if (mainViewModel.isAuthorizedMember(PrefManager.read(Constants.PREF_USER_ID, "")!!))
+            myAuthority = 1
+
+        memberAdapter = TeamMemberAdapter(members, myAuthority).apply {
+            setContextMenuClickListener(object : TeamMemberAdapter.ContextMenuClickListener{
+                override fun onExpelClicked(userId: String) {
+                    showToast("$userId 를 추방합니데이~")
+                }
+
+                override fun onMasterClicked(userId: String) {
+                    showToast("$userId 를 방장으로~")
+                }
+
+                override fun onAuthorityClicked(userId: String, authorize: Boolean) {
+                    if (authorize) showToast("$userId 한테 권한 준데이~ ")
+                    else showToast("$userId 한테 권한 뺏는데이~")
+                }
+
+            })
+        }
         binding.rvMember.apply {
             this.adapter = memberAdapter
             this.layoutManager = GridLayoutManager(requireContext(), 4)

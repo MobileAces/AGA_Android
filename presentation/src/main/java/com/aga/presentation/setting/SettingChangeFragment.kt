@@ -18,6 +18,7 @@ import com.aga.presentation.MainViewModel
 import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
+import com.aga.presentation.base.PrefManager
 import com.aga.presentation.databinding.FragmentSettingChangeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,16 +34,22 @@ class SettingChangeFragment : BaseFragment<FragmentSettingChangeBinding>(
     private lateinit var activity: MainActivity
     private lateinit var memberAdapter: TeamMemberAdapter
     private var members = arrayListOf<TeamMember>()
+    private var myAuthority = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = _activity as MainActivity
-        memberAdapter = TeamMemberAdapter(members)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity.findViewById<BottomNavigationView>(R.id.bnv_main).visibility = View.GONE
+        if (mainViewModel.teamMaster == PrefManager.read(Constants.PREF_USER_ID, "")!!)
+            myAuthority = 2
+        else if (mainViewModel.isAuthorizedMember(PrefManager.read(Constants.PREF_USER_ID, "")!!))
+            myAuthority = 1
+
+        memberAdapter = TeamMemberAdapter(members, myAuthority)
         binding.rvMember.apply {
             this.adapter = memberAdapter
             this.layoutManager = GridLayoutManager(requireContext(), 4)
