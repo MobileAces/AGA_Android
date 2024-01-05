@@ -9,6 +9,7 @@ import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamMemberWithTeam
 import com.aga.domain.model.User
+import java.time.DayOfWeek
 
 fun User.toLoginRequest(): LoginRequest {
     return LoginRequest(
@@ -41,6 +42,24 @@ fun User.toUserUpdateRequest(): UserUpdateRequest {
         this.nickname,
         this.phone
     )
+}
+
+/**
+ * @return MON,TUE,WED,THU,FRI,SAT,SUN (영문 요일 앞3자, 사이 쉼표) 형식
+ */
+fun Set<DayOfWeek>.toFormattedString(): String {
+    return if (this.isNotEmpty()) {
+        this
+            .map {
+                it.toString().substring(0, 3)
+            }
+            .toString()
+            .let {
+                it.substring(1, it.length - 1).replace(" ","")
+            }
+    } else {
+        ""
+    }
 }
 
 fun TeamMemberWithTeam.toAuthorityChangeRequest(): AuthorityChangeRequest{
