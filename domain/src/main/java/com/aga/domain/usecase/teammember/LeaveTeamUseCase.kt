@@ -6,7 +6,7 @@ import javax.inject.Inject
 class LeaveTeamUseCase @Inject constructor(
     private val repository: TeamMemberRepository
 ) {
-    suspend operator fun invoke(teamId: String, userId: String): Boolean{
+    suspend operator fun invoke(teamId: Int, userId: String): Boolean{
         return repository.leaveTeam(teamId, userId)
     }
 }

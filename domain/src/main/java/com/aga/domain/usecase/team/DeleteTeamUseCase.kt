@@ -6,7 +6,7 @@ import javax.inject.Inject
 class DeleteTeamUseCase @Inject constructor(
     private val repository: TeamRepository
 ) {
-    suspend operator fun invoke(teamId: String): Boolean{
+    suspend operator fun invoke(teamId: Int): Boolean{
         return repository.deleteTeam(teamId)
     }
 }

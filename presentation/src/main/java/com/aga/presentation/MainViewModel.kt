@@ -18,6 +18,7 @@ class MainViewModel @Inject constructor(
     private val getTeamMembersByTeamIdUseCase: GetTeamMembersByTeamIdUseCase
 ): ViewModel() {
     var teamId: Int = -1
+    var teamMaster: String = ""
 
     private val _authorizedMemberList = MutableLiveData<List<TeamMember>>()
     val authorizedMemberList: LiveData<List<TeamMember>>
@@ -33,6 +34,8 @@ class MainViewModel @Inject constructor(
                 val response = getTeamMembersByTeamIdUseCase.invoke(teamId.toString())
                 _teamMemberList.value = response
                 _authorizedMemberList.value = response.filter {
+                    if (it.authority == 2)
+                        teamMaster = it.userId
                     it.authority > 0
                 }
             }catch (e: Exception){
