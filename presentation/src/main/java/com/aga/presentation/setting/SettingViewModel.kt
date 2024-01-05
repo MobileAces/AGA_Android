@@ -10,6 +10,7 @@ import com.aga.domain.model.TeamMember
 import com.aga.domain.model.User
 import com.aga.domain.usecase.team.DeleteTeamUseCase
 import com.aga.domain.usecase.team.GetTeamByTeamIdUseCase
+import com.aga.domain.usecase.team.ModifyTeamInfoUseCase
 import com.aga.domain.usecase.teammember.GetTeamMembersByTeamIdUseCase
 import com.aga.domain.usecase.teammember.LeaveTeamUseCase
 import com.aga.domain.usecase.user.LoginUseCase
@@ -25,7 +26,8 @@ class SettingViewModel @Inject constructor(
     private val getTeamMembersByTeamIdUseCase: GetTeamMembersByTeamIdUseCase,
     private val deleteTeamUseCase: DeleteTeamUseCase,
     private val loginUseCase: LoginUseCase,
-    private val leaveTeamUseCase: LeaveTeamUseCase
+    private val leaveTeamUseCase: LeaveTeamUseCase,
+    private val modifyTeamInfoUseCase: ModifyTeamInfoUseCase
 ): ViewModel(){
 
     private val _teamInfo = MutableLiveData<Team>()
@@ -52,6 +54,9 @@ class SettingViewModel @Inject constructor(
     val expelMemberResult: LiveData<Boolean>
         get() = _expelMemberResult
 
+    private val _delegateTeamMasterResult = MutableLiveData<Boolean>()
+    val delegateTeamMasterResult : LiveData<Boolean>
+        get() = _delegateTeamMasterResult
 
     fun getTeamInfoByTeamId(teamId: String){
         viewModelScope.launch {
@@ -115,6 +120,17 @@ class SettingViewModel @Inject constructor(
                 _expelMemberResult.value = leaveTeamUseCase.invoke(teamId, userId)
             }catch (e: Exception){
                 Log.d(TAG, "expelMember: ${e.message}")
+                _toastMsg.value = Constants.NET_ERR
+            }
+        }
+    }
+
+    fun delegateTeamMaster(team: Team){
+        viewModelScope.launch {
+            try {
+                _delegateTeamMasterResult.value = modifyTeamInfoUseCase.invoke(team)
+            }catch (e: Exception){
+                Log.d(TAG, "delegateTeamMaster: ${e.message}")
                 _toastMsg.value = Constants.NET_ERR
             }
         }

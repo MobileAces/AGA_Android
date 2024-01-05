@@ -28,7 +28,7 @@ fun Team.toTeamInfoChangeRequest(): TeamInfoChangeRequest{
         this.teamId,
         this.teamName,
         this.teamInfo,
-        ""
+        this.teamMaster
     )
 }
 

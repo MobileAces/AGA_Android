@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.User
 import com.aga.presentation.GroupActivity
@@ -77,7 +78,24 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
                 }
 
                 override fun onMasterClicked(userId: String, userNickname: String) {
-                    showToast("$userId 를 방장으로~")
+                    MaterialAlertDialogBuilder(activity)
+                        .setTitle("그룹장 권한 위임")
+                        .setMessage("정말로 $userNickname 님에게 그룹장을 위임하시겠습니까?")
+                        .setNegativeButton("아니요"){dialog, which ->
+                            dialog.dismiss()
+                        }
+                        .setPositiveButton("예"){dialog, which ->
+                            viewModel.delegateTeamMaster(
+                                Team(mainViewModel.teamId.toString(),
+                                    "",
+                                    viewModel.teamInfo.value!!.teamName,
+                                    viewModel.teamInfo.value!!.teamInfo,
+                                    userId
+                                )
+                            )
+                            dialog.dismiss()
+                        }
+                        .show()
                 }
 
                 override fun onAuthorityClicked(userId: String, userNickname: String, authorize: Boolean) {
@@ -144,10 +162,19 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
 
         viewModel.expelMemberResult.observe(viewLifecycleOwner){
             if (it){
-                showToast("그룹원을 추방했습니다.")
+                showToast("그룹원을 추방했습니다")
                 viewModel.getTeamMemberByTeamId(mainViewModel.teamId.toString())
             }else{
-                showToast("추방에 실패했습니다.")
+                showToast("추방에 실패했습니다")
+            }
+        }
+
+        viewModel.delegateTeamMasterResult.observe(viewLifecycleOwner){
+            if (it){
+                showToast("그룹장이 변경되었습니다")
+                viewModel.getTeamMemberByTeamId(mainViewModel.teamId.toString())
+            }else{
+                showToast("그룹장 위임에 실패했습니다")
             }
         }
     }
