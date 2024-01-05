@@ -8,8 +8,10 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AlarmService {
-    @POST
+    @POST("alarms")
     suspend fun createNewAlarm(
         @Body alarmDataRequest: AlarmDataRequest
     ): Response<DefaultResponse<AlarmDataResponse>>
+
+
 }

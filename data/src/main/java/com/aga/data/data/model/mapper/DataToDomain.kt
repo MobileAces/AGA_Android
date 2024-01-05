@@ -73,6 +73,9 @@ fun AlarmDataResponse.toAlarm(): Alarm {
     )
 }
 
+/**
+ * @param string 반드시 MON,TUE,WED,THU,FRI,SAT,SUN (영문 요일 앞3자, 사이 쉼표) 형식이어야합니다.
+ */
 private fun alarmDayStringToDayofWeekSet(string: String): Set<DayOfWeek> {
     val dayOfWeek = DayOfWeek.values()
     return string.split(",").map { dayString ->
