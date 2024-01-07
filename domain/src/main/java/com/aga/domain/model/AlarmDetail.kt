@@ -1,14 +1,14 @@
 package com.aga.domain.model
 
 data class AlarmDetail(
-    val alarmDetailId: Int,
-    val alarmDetailHour: Int,
-    val alarmDetailMinute: Int,
-    val alarmDetailRetime: Int,
-    val alarmDetailMemo: String,
-    val alarmDetailForecast: Boolean,
-    val alarmDetailMemoVoice: Boolean,
-    val alarmDetailIsOn: Boolean,
+    val id: Int,
+    val hour: Int,
+    val minute: Int,
+    val repeatTime: Int,
+    val memo: String,
+    val forecast: Boolean,
+    val memoVoice: Boolean,
+    val isOn: Boolean,
     val alarmId: Int,
     val userId: String,
     val userNickname: String,
