@@ -2,11 +2,15 @@ package com.aga.data.data.model.mapper
 
 import com.aga.data.data.model.alarm.AlarmDataResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
+import com.aga.data.data.model.statistics.StatisticsPeriodData
+import com.aga.data.data.model.statistics.StatisticsPeriodUser
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
 import com.aga.data.data.model.team.TeamResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
 import com.aga.data.data.model.user.UserResponse
 import com.aga.domain.model.Alarm
+import com.aga.domain.model.PeriodStatistics
+import com.aga.domain.model.PeriodStatisticsUser
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
@@ -83,4 +87,22 @@ private fun alarmDayStringToDayofWeekSet(string: String): Set<DayOfWeek> {
             day.toString().contains(dayString)
         } ?: return emptySet()
     }.toSet()
+}
+
+fun StatisticsPeriodData.toPeriodStatistics(): PeriodStatistics{
+    return PeriodStatistics(
+        this.userList.map {
+                          it.toPeriodStatisticsUser()
+        },
+        this.totalSum,
+        this.totalSuccessSum
+    )
+}
+
+fun StatisticsPeriodUser.toPeriodStatisticsUser(): PeriodStatisticsUser{
+    return PeriodStatisticsUser(
+        this.nickname,
+        this.totalSum,
+        this.totalSuccessSum
+    )
 }

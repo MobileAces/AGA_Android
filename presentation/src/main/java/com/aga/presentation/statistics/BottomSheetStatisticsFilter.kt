@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.children
+import androidx.fragment.app.activityViewModels
+import com.aga.presentation.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
@@ -30,6 +33,8 @@ import java.time.format.DateTimeFormatter
 
 class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
 
+    private val mainViewModel: MainViewModel by activityViewModels()
+
     private lateinit var binding: BottomsheetStatisticsFilterBinding
     private val today = LocalDate.now()
     private var selection = DateSelection()
@@ -50,6 +55,8 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
         val startMonth = currentMonth.minusMonths(24)  // Adjust as needed
         val endMonth = currentMonth.plusMonths(0)  // Adjust as needed
         val daysOfWeek = daysOfWeek()
+
+        Toast.makeText(requireContext(), mainViewModel.teamId.toString(), Toast.LENGTH_SHORT).show()
 
         binding.calendarWeekday.root.children.forEachIndexed { index, child ->
             (child as TextView).apply {
