@@ -15,6 +15,7 @@ data class AlarmDetailResponse(
     val alarmDetailMemo: String,
     val alarmDetailForecast: Boolean,
     val alarmDetailMemoVoice: Boolean,
+    val alarmDetailIsOn: Boolean,
     val alarmId: Int,
     val userId: String,
     val userNickname: String,

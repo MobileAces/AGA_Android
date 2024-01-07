@@ -98,6 +98,7 @@ fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
         alarmDetailMemo,
         alarmDetailForecast,
         alarmDetailMemoVoice,
+        alarmDetailIsOn,
         alarmId,
         userId,
         userNickname
