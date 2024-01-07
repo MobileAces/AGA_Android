@@ -42,7 +42,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
-        app:strokeWidth="1dp">
+        app:strokeWidth="1dp"
+        android:backgroundTint="@color/bottomsheet_bg">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -64,9 +65,11 @@
                 android:layout_marginBottom="10dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_period_statistics_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="invisible">
 
                 <TextView
                     android:layout_width="0dp"

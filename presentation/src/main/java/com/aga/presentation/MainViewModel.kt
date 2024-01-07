@@ -20,6 +20,12 @@ class MainViewModel @Inject constructor(
     var teamId: Int = -1
     var teamMaster: String = ""
 
+    var periodStatisticsSelectedMemberList = listOf<String>()
+    var periodStatisticsStartDate = ""
+    var periodStatisticsEndDate = ""
+
+    val periodStatisticsRequest = MutableLiveData<Boolean>(false)
+
     private val _authorizedMemberList = MutableLiveData<List<TeamMember>>()
     val authorizedMemberList: LiveData<List<TeamMember>>
         get() = _authorizedMemberList

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aga.domain.model.PeriodStatistics
+import com.aga.domain.usecase.statistics.GetDailyStatisticsUseCase
 import com.aga.domain.usecase.statistics.GetPeriodStatisticsUseCase
 import com.aga.presentation.base.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,8 @@ private const val TAG = "StatisticsViewModel_AWSOME"
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val getPeriodStatisticsUseCase: GetPeriodStatisticsUseCase
+    private val getPeriodStatisticsUseCase: GetPeriodStatisticsUseCase,
+    private val getDailyStatisticsUseCase: GetDailyStatisticsUseCase
 ): ViewModel(){
     private val _toastMsg = MutableLiveData<String>()
     val toastMsg: LiveData<String>
@@ -29,11 +31,31 @@ class StatisticsViewModel @Inject constructor(
     fun getPeriodStatistics(userList: List<String>, teamId: Int, startDate: String, endDate: String){
         viewModelScope.launch {
             try {
-                getPeriodStatisticsUseCase.invoke(userList, teamId, startDate, endDate)
+                val response = getPeriodStatisticsUseCase.invoke(userList, teamId, startDate, endDate)
+                if (response.totalSum == -1)
+                    _toastMsg.value = LOAD_ERR
+                else
+                    _periodStatisticsResult.value = response
             }catch (e: Exception){
                 Log.d(TAG, "getPeriodStatistics: ${e.message}")
                 _toastMsg.value = Constants.NET_ERR
             }
         }
+    }
+
+    fun getDailyStatistics(teamId: Int, date: String){
+        viewModelScope.launch {
+            try {
+                val response = getDailyStatisticsUseCase.invoke(teamId, date)
+                if (response.isEmpty()){
+
+                }
+            }catch (e: Exception){
+
+            }
+        }
+    }
+    companion object{
+        const val LOAD_ERR = "정보를 불러오지 못했습니다."
     }
 }

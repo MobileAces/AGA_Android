@@ -2,6 +2,8 @@ package com.aga.data.data.model.mapper
 
 import com.aga.data.data.model.alarm.AlarmDataResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
+import com.aga.data.data.model.statistics.StatisticsDailyData
+import com.aga.data.data.model.statistics.StatisticsDailyDetail
 import com.aga.data.data.model.statistics.StatisticsPeriodData
 import com.aga.data.data.model.statistics.StatisticsPeriodUser
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
@@ -9,6 +11,8 @@ import com.aga.data.data.model.team.TeamResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
 import com.aga.data.data.model.user.UserResponse
 import com.aga.domain.model.Alarm
+import com.aga.domain.model.DailyStatistics
+import com.aga.domain.model.DailyStatisticsDetail
 import com.aga.domain.model.PeriodStatistics
 import com.aga.domain.model.PeriodStatisticsUser
 import com.aga.domain.model.Team
@@ -92,7 +96,7 @@ private fun alarmDayStringToDayofWeekSet(string: String): Set<DayOfWeek> {
 fun StatisticsPeriodData.toPeriodStatistics(): PeriodStatistics{
     return PeriodStatistics(
         this.userList.map {
-                          it.toPeriodStatisticsUser()
+            it.toPeriodStatisticsUser()
         },
         this.totalSum,
         this.totalSuccessSum
@@ -104,5 +108,28 @@ fun StatisticsPeriodUser.toPeriodStatisticsUser(): PeriodStatisticsUser{
         this.nickname,
         this.totalSum,
         this.totalSuccessSum
+    )
+}
+
+fun StatisticsDailyData.toDailyStatistics(): DailyStatistics{
+    return DailyStatistics(
+        this.alarmId,
+        this.alarmName,
+        this.wakeupList.map {
+            it.toDailyStatisticsDetail()
+        }
+    )
+}
+
+fun StatisticsDailyDetail.toDailyStatisticsDetail(): DailyStatisticsDetail{
+    return DailyStatisticsDetail(
+        this.userNickname,
+        this.success,
+        this.dateTime,
+        this.wakeupHour,
+        this.wakeupMinute,
+        this.wakeupMemo,
+        this.wakeupForecast,
+        this.wakeupVoice
     )
 }

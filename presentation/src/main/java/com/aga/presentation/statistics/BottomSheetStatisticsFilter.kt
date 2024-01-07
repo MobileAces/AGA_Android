@@ -1,8 +1,11 @@
 package com.aga.presentation.statistics
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -27,18 +30,21 @@ import com.aga.presentation.databinding.CalendarHeaderBinding
 import com.aga.presentation.statistics.ContinuousSelectionHelper.getSelection
 import com.aga.presentation.statistics.ContinuousSelectionHelper.isInDateBetweenSelection
 import com.aga.presentation.statistics.ContinuousSelectionHelper.isOutDateBetweenSelection
+import com.google.android.material.chip.Chip
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
+private const val TAG = "BottomSheetStatisticsFi_AWSOME"
 class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
 
     private val mainViewModel: MainViewModel by activityViewModels()
+    private var selectedMember = arrayListOf<String>()
 
     private lateinit var binding: BottomsheetStatisticsFilterBinding
     private val today = LocalDate.now()
     private var selection = DateSelection()
-    private val headerDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+    private val headerDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +55,7 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val currentMonth = YearMonth.now()
@@ -56,7 +63,33 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
         val endMonth = currentMonth.plusMonths(0)  // Adjust as needed
         val daysOfWeek = daysOfWeek()
 
-        Toast.makeText(requireContext(), mainViewModel.teamId.toString(), Toast.LENGTH_SHORT).show()
+        mainViewModel.teamMemberList.value?.forEach{
+            binding.cgMembers.addView(Chip(requireContext()).apply {
+                text = it.userNickname
+                isCheckable = true
+                setChipBackgroundColorResource(R.drawable.chip_bg)
+                setTextColorRes(R.drawable.chip_text_color)
+                setOnCheckedChangeListener { compoundButton, b ->
+                    if (b)
+                        selectedMember.add(it.userNickname)
+
+                    else
+                        selectedMember.remove(it.userNickname)
+                }
+            })
+        }
+        
+        binding.btnApplyFilter.setOnClickListener {
+            if (binding.tvPeriodStart.text == "시작일" || binding.tvPeriodStart.text == "시작일" || selectedMember.size == 0){
+                Toast.makeText(requireContext(), "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+            }else{
+                mainViewModel.periodStatisticsSelectedMemberList = selectedMember
+                mainViewModel.periodStatisticsStartDate = binding.tvPeriodStart.text.toString()
+                mainViewModel.periodStatisticsEndDate = binding.tvPeriodEnd.text.toString()
+                mainViewModel.periodStatisticsRequest.value = true
+                this@BottomSheetStatisticsFilter.dismiss()
+            }
+        }
 
         binding.calendarWeekday.root.children.forEachIndexed { index, child ->
             (child as TextView).apply {

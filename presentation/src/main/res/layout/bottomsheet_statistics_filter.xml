@@ -107,7 +107,7 @@
                 android:id="@+id/tv_member_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4명"
+                android:text="0명"
                 android:textAppearance="@style/Base.AGA.TEXT"
                 android:textSize="20sp"
                 android:layout_marginStart="25dp"
@@ -122,40 +122,12 @@
                 android:layout_marginBottom="5dp"/>
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_members"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp">
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Base.AGA.Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="홍유준"/>
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Base.AGA.Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="홍유준"/>
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Base.AGA.Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="홍유준"/>
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Base.AGA.Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="홍유준"/>
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Base.AGA.Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="홍유준"/>
 
             </com.google.android.material.chip.ChipGroup>
 
