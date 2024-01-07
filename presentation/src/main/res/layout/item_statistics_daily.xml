@@ -14,7 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:cardCornerRadius="20dp"
         app:strokeWidth="1dp"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/bottomsheet_bg">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -26,14 +27,14 @@
             android:layout_marginEnd="16dp">
 
             <TextView
+                android:id="@+id/tv_alarm_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="평일 싸피 기상"
                 android:textAppearance="@style/Text.RvItem.Statistics.Daily"
                 android:textSize="20sp"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_"
+                android:id="@+id/rv_alarm_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

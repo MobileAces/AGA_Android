@@ -44,12 +44,36 @@
             android:textSize="18sp"
             android:layout_marginEnd="20dp"/>
 
-        <ImageView
-            android:id="@+id/iv_status"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_face_smile"
-            app:tint="@color/blue_dark_deep_sea" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_status_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_face_smile"
+                app:tint="@color/blue_dark_deep_sea"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/iv_status_fail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_face_sad"
+                app:tint="@color/calendar_red"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <View
             android:layout_width="wrap_content"
@@ -83,7 +107,8 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"
@@ -113,31 +138,8 @@
                     android:text="07:35"
                     android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/item_statistics_daily_detail_mission"
-                android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="10보 걷기"
-                android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -152,10 +154,10 @@
                 android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
 
             <TextView
+                android:id="@+id/tv_weather"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:text="ON"
                 android:textAppearance="@style/Text.RvItem.Statistics.Daily"
                 android:textColor="@color/text_gray"/>
 
@@ -174,14 +176,40 @@
                 android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
 
             <TextView
+                android:id="@+id/tv_memo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:text="ON"
                 android:textAppearance="@style/Text.RvItem.Statistics.Daily"
                 android:textColor="@color/text_gray"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/item_statistics_daily_detail_memo_content"
+                android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
+
+            <TextView
+                android:id="@+id/tv_memo_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textAppearance="@style/Text.RvItem.Statistics.Daily"
+                android:textColor="@color/text_gray"
+                android:maxLines="2"
+                android:ellipsize="end"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

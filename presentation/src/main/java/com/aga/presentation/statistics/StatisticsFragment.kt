@@ -11,6 +11,8 @@ import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aga.domain.model.DailyStatistics
+import com.aga.domain.model.DailyStatisticsDetail
 import com.aga.domain.model.PeriodStatisticsUser
 import com.aga.presentation.MainActivity
 import com.aga.presentation.MainViewModel
@@ -28,8 +30,11 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(
 ) {
     private val viewModel: StatisticsViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
-    private lateinit var mAdapter: PeriodStatisticsAdapter
+
+    private lateinit var periodAdapter: PeriodStatisticsAdapter
+    private lateinit var dailyAdapter: DailyStatisticsAdapter
     private var periodItems = arrayListOf<PeriodStatisticsUser>()
+    private var dailyItems = arrayListOf<DailyStatistics>()
 
     private lateinit var activity: MainActivity
 
@@ -37,9 +42,16 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(
         super.onViewCreated(view, savedInstanceState)
         activity = _activity as MainActivity
 
-        mAdapter = PeriodStatisticsAdapter(periodItems)
+        periodAdapter = PeriodStatisticsAdapter(periodItems)
+        dailyAdapter = DailyStatisticsAdapter(dailyItems, activity)
+
         binding.rvStatisticsPeriod.apply {
-            adapter = mAdapter
+            adapter = periodAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+
+        binding.rvStatisticsDaily.apply {
+            adapter = dailyAdapter
             layoutManager = LinearLayoutManager(activity)
         }
 
@@ -80,6 +92,24 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(
             Log.d(TAG, "registerObserver: ${it.totalSuccessSum}/${it.totalSum}")
 
             mainViewModel.periodStatisticsRequest.value = false
+        }
+
+        mainViewModel.dailyStatisticsRequest.observe(viewLifecycleOwner){
+            if (it){
+                viewModel.getDailyStatistics(mainViewModel.teamId, mainViewModel.dailyStatisticsDate)
+            }
+        }
+
+        viewModel.dailyStatisticsResult.observe(viewLifecycleOwner){
+            dailyItems.clear()
+            dailyItems.addAll(it)
+            binding.rvStatisticsDaily.adapter!!.notifyDataSetChanged()
+
+            mainViewModel.dailyStatisticsRequest.value = false
+        }
+
+        viewModel.toastMsg.observe(viewLifecycleOwner){
+            showToast(it)
         }
     }
 

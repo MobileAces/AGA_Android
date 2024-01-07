@@ -39,7 +39,7 @@ class StatisticsRemoteDataSourceImpl @Inject constructor(
     override suspend fun getDailyStatistics(teamId: Int, date: String): List<DailyStatistics> {
         val response = wakeUpService.getDailyStatistics(teamId, date)
         return if (response.isSuccessful)
-            response.body()?.dataList!!.map {
+            response.body()?.dataList!!.filter { it.wakeupList.isNotEmpty() }.map {
                 it.toDailyStatistics()
             }
         else

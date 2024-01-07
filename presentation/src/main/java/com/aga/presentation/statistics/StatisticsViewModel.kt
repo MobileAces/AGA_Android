@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aga.domain.model.DailyStatistics
 import com.aga.domain.model.PeriodStatistics
 import com.aga.domain.usecase.statistics.GetDailyStatisticsUseCase
 import com.aga.domain.usecase.statistics.GetPeriodStatisticsUseCase
@@ -28,6 +29,10 @@ class StatisticsViewModel @Inject constructor(
     val periodStatisticsResult: LiveData<PeriodStatistics>
         get() = _periodStatisticsResult
 
+    private val _dailyStatisticsResult = MutableLiveData<List<DailyStatistics>>()
+    val dailyStatisticsResult: LiveData<List<DailyStatistics>>
+        get() = _dailyStatisticsResult
+
     fun getPeriodStatistics(userList: List<String>, teamId: Int, startDate: String, endDate: String){
         viewModelScope.launch {
             try {
@@ -47,11 +52,14 @@ class StatisticsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = getDailyStatisticsUseCase.invoke(teamId, date)
-                if (response.isEmpty()){
-
-                }
+                Log.d(TAG, "getDailyStatistics: ${response.size}")
+                if (response.isEmpty())
+                    _toastMsg.value = LOAD_ERR
+                else
+                    _dailyStatisticsResult.value = response
             }catch (e: Exception){
-
+                Log.d(TAG, "getDailyStatistics err: ${e.message}")
+                _toastMsg.value = Constants.NET_ERR
             }
         }
     }
