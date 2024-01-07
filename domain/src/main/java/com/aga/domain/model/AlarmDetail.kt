@@ -1,13 +1,6 @@
-package com.aga.data.data.model.alarm
+package com.aga.domain.model
 
-/**
- * USE_AT
- *
- * AlarmService
- *
- * .getAlarmListByTeamId
- */
-data class AlarmDetailResponse(
+data class AlarmDetail(
     val alarmDetailId: Int,
     val alarmDetailHour: Int,
     val alarmDetailMinute: Int,
