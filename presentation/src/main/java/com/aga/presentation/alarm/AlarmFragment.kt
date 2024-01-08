@@ -22,7 +22,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
     FragmentAlarmBinding::bind, R.layout.fragment_alarm
 ) {
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val alarmViewModel: AlarmViewModel by viewModels()
+    private val alarmViewModel: AlarmViewModel by activityViewModels()
 
     private var alarmListAdapter: AlarmListAdapter? = null
 
@@ -32,7 +32,10 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
 
         registerListener()
         registerObserve()
-        getAlarmList(mainViewModel.teamId)
+        if (alarmViewModel.alarmListResult.value == null){
+            getAlarmList(mainViewModel.teamId)
+            Log.d(TAG, "onViewCreated: ")
+        }
     }
 
     private fun registerListener() {
