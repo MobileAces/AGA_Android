@@ -117,15 +117,15 @@ class AlarmListAdapter(
 
         // 멤버 리스트 표출
         private fun setShowMemberButton() {
-            binding.ibShowAlarmSettingMembers.setOnClickListener {
+            binding.ivShowAlarmSettingMembers.setOnClickListener {
                 if (binding.rvMemberList.visibility == View.GONE) {
                     binding.rvMemberList.expand()
-                    binding.ibShowAlarmSettingMembers.setImageResource(
+                    binding.ivShowAlarmSettingMembers.setImageResource(
                         R.drawable.ic_arrow_up
                     )
                 } else if (binding.rvMemberList.visibility == View.VISIBLE) {
                     binding.rvMemberList.collapse()
-                    binding.ibShowAlarmSettingMembers.setImageResource(
+                    binding.ivShowAlarmSettingMembers.setImageResource(
                         R.drawable.ic_arrow_down
                     )
                 }
