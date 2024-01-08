@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.model.TeamMember
+import com.aga.domain.model.TeamWithMember
 import com.aga.presentation.R
 import com.aga.presentation.databinding.ItemAlarmListBinding
 import com.aga.presentation.util.collapse
@@ -53,6 +54,11 @@ class AlarmListAdapter(
 
     override fun getItemCount(): Int {
         return alarmList.size
+    }
+
+    fun changeDataSet(alarmList: List<AlarmWithDetailList>) {
+        this.alarmList = alarmList
+        notifyDataSetChanged()
     }
 
     class AlarmListViewHolder(
