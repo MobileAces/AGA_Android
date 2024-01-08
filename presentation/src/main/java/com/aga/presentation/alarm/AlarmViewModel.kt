@@ -8,6 +8,7 @@ import com.aga.domain.model.Alarm
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.usecase.alarm.CreateAlarmUseCase
 import com.aga.domain.usecase.alarm.GetAlarmWithDetailListByTeamIdUseCase
+import com.aga.presentation.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
@@ -18,8 +19,8 @@ class AlarmViewModel @Inject constructor(
     private val createAlarmUseCase: CreateAlarmUseCase,
     private val getAlarmWithDetailListByTeamIdUseCase: GetAlarmWithDetailListByTeamIdUseCase
 ) : ViewModel() {
-    private var _alarmCreateResult = MutableLiveData<Result<Alarm>>()
-    val alarmCreateResult: LiveData<Result<Alarm>>
+    private var _alarmCreateResult = MutableLiveData<Event<Result<Alarm>>>()
+    val alarmCreateResult: LiveData<Event<Result<Alarm>>>
         get() = _alarmCreateResult
 
     private var _alarmListResult = MutableLiveData<Result<List<AlarmWithDetailList>>>()
@@ -30,7 +31,7 @@ class AlarmViewModel @Inject constructor(
     fun createAlarm(alarmName: String, alarmDay: Set<DayOfWeek>, teamId: Int) {
         viewModelScope.launch {
             createAlarmUseCase(alarmName, alarmDay, teamId).let {
-                _alarmCreateResult.postValue(it)
+                _alarmCreateResult.postValue(Event(it))
             }
         }
     }
