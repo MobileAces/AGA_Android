@@ -1,5 +1,7 @@
 package com.aga.data.data.model.alarm
 
+import com.squareup.moshi.Json
+
 /**
  * USE_AT
  *
@@ -12,5 +14,6 @@ data class AlarmWithDetailListResponse(
     val alarmName: String,
     val alarmDay: String,
     val teamId: Int,
+    @Json(name = "dataList")
     val alarmDetailList: List<AlarmDetailResponse>,
 )
