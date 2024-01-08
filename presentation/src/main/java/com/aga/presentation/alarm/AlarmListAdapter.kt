@@ -2,6 +2,7 @@ package com.aga.presentation.alarm
 
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.aga.presentation.databinding.ItemAlarmListBinding
 import com.aga.presentation.util.collapse
 import com.aga.presentation.util.expand
 import java.time.DayOfWeek
+
+private val TAG = "AlarmListAdapter_AWESOME"
 
 class AlarmListAdapter(
     private val myId: String,
@@ -86,7 +89,7 @@ class AlarmListAdapter(
             item.alarmDetailList.find { it.userId ==  myId}?.let {
                 setAlarmTime(it.hour,it.minute)
                 binding.switchOnOff.isChecked = it.isOn
-            } ?: {
+            } ?: run {
                 binding.tvAmPm.text = binding.root.context.getString(R.string.alarm_no_setting)
                 binding.switchOnOff.isChecked = false
             }

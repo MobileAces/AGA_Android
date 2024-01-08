@@ -59,7 +59,7 @@ class AlarmMemberListAdapter(
             alarmTime?.let {
                 binding.tvAmPm.text = it.ampm
                 binding.tvTime.text = it.hour_12.toString() + ":" + it.minute.toString()
-            } ?: {
+            } ?: run {
                 binding.tvAmPm.text = binding.root.context.getString(R.string.alarm_no_setting)
             }
         }
