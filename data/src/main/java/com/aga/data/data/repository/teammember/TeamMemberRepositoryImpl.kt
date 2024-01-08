@@ -25,4 +25,8 @@ class TeamMemberRepositoryImpl @Inject constructor(
     override suspend fun modifyAuthority(teamMemberWithTeam: TeamMemberWithTeam): Boolean {
         return remoteDataSource.authorityChange(teamMemberWithTeam)
     }
+
+    override suspend fun registerTeamMember(teamId: Int, userId: String): Boolean {
+        return remoteDataSource.registerTeamMember(teamId, userId)
+    }
 }
