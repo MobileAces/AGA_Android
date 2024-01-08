@@ -118,4 +118,8 @@
     <string name="menu_manage_member_authorize">권한 부여</string>
     <string name="menu_manage_member_mater">그룹장 위임</string>
 
+    <!-- 초대코드 관련 string resource -->
+    <string name="share_invite_title">초대코드가 발급됐습니다.\n</string>
+    <string name="invite_code_msg">기상메이트에서 초대코드를 공유했습니다.\n그룹 참여에서 초대코드를 입력해 그룹에 가입하세요.\n\n</string>
+
 </resources>
