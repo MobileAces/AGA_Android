@@ -19,7 +19,9 @@ class InviteRemoteDataSourceImpl @Inject constructor(
         val response = inviteService.confirmInviteCode(ConfirmCodeRequest(inviteCode))
         return if (response.isSuccessful)
             response.body()?.data!!.teamId
-        else
+        else if (response.code() == 404)
             -1
+        else
+            -2
     }
 }

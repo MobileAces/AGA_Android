@@ -40,4 +40,8 @@ class TeamMemberRemoteDataSourceImpl @Inject constructor(
         return teamMemberService.modifyAuthority(teamMemberWithTeam.toAuthorityChangeRequest()).isSuccessful
     }
 
+    override suspend fun registerTeamMember(teamId: Int, userId: String): Boolean {
+        return teamMemberService.registerTeamMember(teamId, userId).isSuccessful
+    }
+
 }

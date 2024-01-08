@@ -13,4 +13,6 @@ interface TeamMemberRemoteDataSource {
     suspend fun deleteTeamMember(teamId: Int, userId: String): Boolean
 
     suspend fun authorityChange(teamMemberWithTeam: TeamMemberWithTeam): Boolean
+
+    suspend fun registerTeamMember(teamId: Int, userId: String): Boolean
 }

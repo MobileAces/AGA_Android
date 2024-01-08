@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/Base.AGA.TEXT"
             android:textSize="21sp"
-            android:text="@string/join_group_dialog_join_group"
+            android:text="@string/exit_group_dialog_check"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:gravity="center"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:text="@string/join_group_dialog_enter_code"
+            android:text="@string/join_input_pw"
             android:textAppearance="@style/Base.AGA.TEXT"
             android:textSize="16sp"
             android:layout_marginTop="40dp"/>
