@@ -1,12 +1,16 @@
 package com.aga.data.data.model.mapper
 
 import com.aga.data.data.model.alarm.AlarmDataResponse
+import com.aga.data.data.model.alarm.AlarmDetailResponse
+import com.aga.data.data.model.alarm.AlarmWithDetailListResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.team.TeamInfoChangeDataResponse
 import com.aga.data.data.model.team.TeamResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
 import com.aga.data.data.model.user.UserResponse
 import com.aga.domain.model.Alarm
+import com.aga.domain.model.AlarmDetail
+import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
@@ -83,4 +87,30 @@ private fun alarmDayStringToDayofWeekSet(string: String): Set<DayOfWeek> {
             day.toString().contains(dayString)
         } ?: return emptySet()
     }.toSet()
+}
+
+fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
+    return AlarmDetail(
+        alarmDetailId,
+        alarmDetailHour,
+        alarmDetailMinute,
+        alarmDetailRetime,
+        alarmDetailMemo,
+        alarmDetailForecast,
+        alarmDetailMemoVoice,
+        alarmDetailIsOn,
+        alarmId,
+        userId,
+        userNickname
+    )
+}
+
+fun AlarmWithDetailListResponse.toAlarmWithDetailList(): AlarmWithDetailList {
+    return AlarmWithDetailList(
+        alarmId,
+        alarmName,
+        alarmDayStringToDayofWeekSet(alarmDay),
+        teamId,
+        alarmDetailList.map { it.toAlarmDetail() }
+    )
 }

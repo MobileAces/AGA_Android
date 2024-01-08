@@ -47,6 +47,7 @@
 
     <!-- AlarmFragment 에서 사용할 string resource -->
     <string name="alarm_setting_members">알람 설정 현황</string>
+    <string name="alarm_no_setting">설정된 시간이 없습니다.</string>
 
     <!-- AlarmSettingFragment 에서 사용할 string resource -->
     <string name="alarm_setting_sound">알람음</string>
