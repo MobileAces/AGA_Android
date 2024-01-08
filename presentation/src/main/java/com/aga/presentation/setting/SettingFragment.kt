@@ -2,6 +2,8 @@ package com.aga.presentation.setting
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -206,6 +208,18 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
                 showToast("그룹장 위임에 실패했습니다")
             }
         }
+
+        viewModel.inviteCodeResult.observe(viewLifecycleOwner){
+            val data = it
+            val clipboardManager = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("invite_code", it)
+            clipboardManager.setPrimaryClip(clipData)
+            val intent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, "${resources.getString(R.string.invite_code_msg)}$data")
+            }
+            startActivity(Intent.createChooser(intent, "title"))
+        }
     }
 
     private fun registerListener(){
@@ -229,6 +243,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(
                 showToast("그룹장은 그룹을 나갈 수 없습니다. 그룹장을 다른 그룹원에게 위임하세요.")
             else
                 showExitGroupDialog()
+        }
+        binding.ivInviteMember.setOnClickListener {
+            viewModel.getInviteCode(mainViewModel.teamId)
         }
     }
 

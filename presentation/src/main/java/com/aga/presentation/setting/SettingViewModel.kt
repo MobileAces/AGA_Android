@@ -9,6 +9,7 @@ import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamMemberWithTeam
 import com.aga.domain.model.User
+import com.aga.domain.usecase.invite.GetInviteCodeUseCase
 import com.aga.domain.usecase.team.DeleteTeamUseCase
 import com.aga.domain.usecase.team.GetTeamByTeamIdUseCase
 import com.aga.domain.usecase.team.ModifyTeamInfoUseCase
@@ -30,7 +31,8 @@ class SettingViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val leaveTeamUseCase: LeaveTeamUseCase,
     private val modifyTeamInfoUseCase: ModifyTeamInfoUseCase,
-    private val modifyAuthorityUseCase: ModifyAuthorityUseCase
+    private val modifyAuthorityUseCase: ModifyAuthorityUseCase,
+    private val getInviteCodeUseCase: GetInviteCodeUseCase
 ): ViewModel(){
 
     private val _teamInfo = MutableLiveData<Team>()
@@ -64,6 +66,10 @@ class SettingViewModel @Inject constructor(
     private val _modifyAuthorityResult = MutableLiveData<Boolean>()
     val modifyAuthorityResult: LiveData<Boolean>
         get() = _modifyAuthorityResult
+
+    private val _inviteCodeResult = MutableLiveData<String>()
+    val inviteCodeResult: LiveData<String>
+        get() = _inviteCodeResult
 
     fun getTeamInfoByTeamId(teamId: String){
         viewModelScope.launch {
@@ -154,8 +160,23 @@ class SettingViewModel @Inject constructor(
         }
     }
 
+    fun getInviteCode(teamId: Int){
+        viewModelScope.launch {
+            try {
+                val response = getInviteCodeUseCase.invoke(teamId)
+                if (response == "CODE_FAIL")
+                    _toastMsg.value = CODE_ERR
+                else
+                    _inviteCodeResult.value = response
+            }catch (e: Exception){
+                _toastMsg.value = Constants.NET_ERR
+            }
+        }
+    }
+
     companion object{
         const val RESPONSE_ERR = "정보를 불러오지 못했습니다."
         const val ACCOUNT_ERR = "비밀번호가 잘못됐습니다."
+        const val CODE_ERR = "초대코드 발급에 실패했습니다."
     }
 }
