@@ -2,6 +2,7 @@ package com.aga.app.module
 
 import com.aga.data.data.api.AlarmService
 import com.aga.data.data.api.ApiClient.BASE_URL
+import com.aga.data.data.api.InviteService
 import com.aga.data.data.api.TeamMemberService
 import com.aga.data.data.api.TeamService
 import com.aga.data.data.api.UserService
@@ -78,5 +79,11 @@ object NetworkModule {
     @Singleton
     fun provideWakeUpService(retrofit: Retrofit): WakeUpService{
         return retrofit.create(WakeUpService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providerInviteService(retrofit: Retrofit): InviteService{
+        return retrofit.create(InviteService::class.java)
     }
 }

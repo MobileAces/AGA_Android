@@ -1,6 +1,8 @@
 package com.aga.data.data.model.mapper
 
 import com.aga.data.data.model.alarm.AlarmDataResponse
+import com.aga.data.data.model.alarm.AlarmDetailResponse
+import com.aga.data.data.model.alarm.AlarmWithDetailListResponse
 import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.statistics.StatisticsDailyData
 import com.aga.data.data.model.statistics.StatisticsDailyDetail
@@ -15,6 +17,8 @@ import com.aga.domain.model.DailyStatistics
 import com.aga.domain.model.DailyStatisticsDetail
 import com.aga.domain.model.PeriodStatistics
 import com.aga.domain.model.PeriodStatisticsUser
+import com.aga.domain.model.AlarmDetail
+import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
@@ -131,5 +135,31 @@ fun StatisticsDailyDetail.toDailyStatisticsDetail(): DailyStatisticsDetail{
         this.wakeupMemo,
         this.wakeupForecast,
         this.wakeupVoice
+    )
+}
+
+fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
+    return AlarmDetail(
+        alarmDetailId,
+        alarmDetailHour,
+        alarmDetailMinute,
+        alarmDetailRetime,
+        alarmDetailMemo,
+        alarmDetailForecast,
+        alarmDetailMemoVoice,
+        alarmDetailIsOn,
+        alarmId,
+        userId,
+        userNickname
+    )
+}
+
+fun AlarmWithDetailListResponse.toAlarmWithDetailList(): AlarmWithDetailList {
+    return AlarmWithDetailList(
+        alarmId,
+        alarmName,
+        alarmDayStringToDayofWeekSet(alarmDay),
+        teamId,
+        alarmDetailList.map { it.toAlarmDetail() }
     )
 }

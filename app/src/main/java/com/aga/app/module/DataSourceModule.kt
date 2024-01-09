@@ -37,5 +37,9 @@ abstract class DataSourceModule {
 
     @Singleton
     @Binds
+    abstract fun bindInviteRemoteDataSource(inviteRemoteDataSourceImpl: InviteRemoteDataSourceImpl): InviteRemoteDataSource
+
+    @Singleton
+    @Binds
     abstract fun bindStatisticsRemoteDataSource(statisticsDataSourceImpl: StatisticsRemoteDataSourceImpl): StatisticsRemoteDataSource
 }

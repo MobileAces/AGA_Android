@@ -47,6 +47,7 @@
 
     <!-- AlarmFragment 에서 사용할 string resource -->
     <string name="alarm_setting_members">알람 설정 현황</string>
+    <string name="alarm_no_setting">설정된 시간이 없습니다.</string>
 
     <!-- AlarmSettingFragment 에서 사용할 string resource -->
     <string name="alarm_setting_sound">알람음</string>
@@ -118,5 +119,13 @@
     <string name="menu_manage_member_expel">그룹에서 추방</string>
     <string name="menu_manage_member_authorize">권한 부여</string>
     <string name="menu_manage_member_mater">그룹장 위임</string>
+
+    <!-- 초대코드 관련 string resource -->
+    <string name="share_invite_title">초대 코드가 발급됐습니다.\n</string>
+    <string name="invite_code_msg">기상메이트에서 초대 코드를 공유했습니다.\n그룹 참여에서 초대 코드를 입력해 그룹에 가입하세요.\n\n</string>
+
+    <!-- 그룹 참여 Dialog 에서 사용할 string resource -->
+    <string name="join_group_dialog_join_group">공유 받은 초대 코드를 입력하면\n 그룹에 가입됩니다</string>
+    <string name="join_group_dialog_enter_code">초대 코드를 입력하세요</string>
 
 </resources>

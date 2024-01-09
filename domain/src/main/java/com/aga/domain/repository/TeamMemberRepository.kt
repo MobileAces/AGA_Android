@@ -12,4 +12,6 @@ interface TeamMemberRepository {
     suspend fun getTeamMemberByUserId(userId: String): List<TeamWithMember>
 
     suspend fun modifyAuthority(teamMemberWithTeam: TeamMemberWithTeam): Boolean
+
+    suspend fun registerTeamMember(teamId: Int, userId: String): Boolean
 }
