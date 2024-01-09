@@ -6,6 +6,7 @@ import com.aga.data.data.api.InviteService
 import com.aga.data.data.api.TeamMemberService
 import com.aga.data.data.api.TeamService
 import com.aga.data.data.api.UserService
+import com.aga.data.data.api.WakeUpService
 import com.aga.data.data.repository.user.UserRepositoryImpl
 import com.aga.domain.repository.UserRepository
 import com.squareup.moshi.Moshi
@@ -72,6 +73,12 @@ object NetworkModule {
     @Singleton
     fun providerAlarmService(retrofit: Retrofit): AlarmService{
         return retrofit.create(AlarmService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWakeUpService(retrofit: Retrofit): WakeUpService{
+        return retrofit.create(WakeUpService::class.java)
     }
 
     @Provides

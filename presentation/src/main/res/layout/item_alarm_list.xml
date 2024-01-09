@@ -16,7 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/til_stroke"
-        app:strokeWidth="1dp">
+        app:strokeWidth="1dp"
+        android:backgroundTint="@color/bottomsheet_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

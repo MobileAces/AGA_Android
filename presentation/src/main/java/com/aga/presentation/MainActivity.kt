@@ -12,6 +12,7 @@ import com.aga.presentation.base.Constants.SETTING_TO_SETTINGCHANGE
 import com.aga.presentation.databinding.ActivityMainBinding
 import com.aga.presentation.setting.SettingChangeFragment
 import com.aga.presentation.setting.SettingFragment
+import com.aga.presentation.statistics.StatisticsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "MainActivity_AWSOME"

@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.fragment.app.activityViewModels
+import com.aga.presentation.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
@@ -25,11 +27,11 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 class BottomSheetStatisticsDaily: BottomSheetDialogFragment() {
-
+    private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var binding: BottomsheetStatisticsDailyBinding
     private val today = LocalDate.now()
     private var selectedDate: LocalDate? = null
-    private val headerDateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+    private val headerDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = BottomsheetStatisticsDailyBinding.inflate(inflater, container, false)
@@ -55,6 +57,12 @@ class BottomSheetStatisticsDaily: BottomSheetDialogFragment() {
                     else -> setTextColorRes(R.color.black)
                 }
             }
+        }
+
+        binding.btnApplyFilter.setOnClickListener {
+            mainViewModel.dailyStatisticsDate = binding.tvPeriodStart.text.toString()
+            mainViewModel.dailyStatisticsRequest.value = true
+            this.dismiss()
         }
 
         configureBinders()
