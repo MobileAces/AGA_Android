@@ -1,6 +1,7 @@
 package com.aga.presentation.statistics
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,9 +10,10 @@ import com.aga.domain.model.DailyStatistics
 import com.aga.domain.model.DailyStatisticsDetail
 import com.aga.presentation.databinding.ItemStatisticsDailyBinding
 
+private const val TAG = "DailyStatisticsAdapter_AWSOME"
 class DailyStatisticsAdapter(
     private var itemList: List<DailyStatistics>,
-    private val context: Context
+    private val mContext: Context
 ): RecyclerView.Adapter<DailyStatisticsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemStatisticsDailyBinding): RecyclerView.ViewHolder(binding.root){
@@ -25,9 +27,10 @@ class DailyStatisticsAdapter(
             if (detailAdapter == null){
                 detailAdapter = DailyStatisticsDetailAdapter(detailList)
             }
+            Log.d(TAG, "setDetailAdapter: ${detailList.size}")
             binding.rvAlarmDetail.apply {
                 adapter = detailAdapter
-                layoutManager = LinearLayoutManager(context)
+                layoutManager = LinearLayoutManager(mContext)
             }
         }
     }

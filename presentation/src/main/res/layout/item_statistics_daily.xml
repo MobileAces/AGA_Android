@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 tools:listitem="@layout/item_statistics_daily_detail"
-                tools:itemCount="1"/>
+                tools:itemCount="2" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 

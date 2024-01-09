@@ -20,21 +20,23 @@ class DailyStatisticsDetailAdapter(
 
             binding.tvName.text = item.userNickname
             binding.tvAmpm.text = if (item.wakeupHour < 12) "오전" else "오후"
-            binding.tvTime.text = "${item.wakeupHour}:${item.wakeupMinute}"
+            val hour = if (item.wakeupHour < 10) "0${item.wakeupHour}" else item.wakeupHour.toString()
+            val min = if (item.wakeupMinute < 10) "0${item.wakeupMinute}" else item.wakeupMinute.toString()
+            binding.tvTime.text = "$hour:$min"
             if (item.success)
                 binding.ivStatusSuccess.visibility = View.VISIBLE
             else
                 binding.ivStatusFail.visibility = View.VISIBLE
             binding.tvMemo.text = if (item.wakeupVoice) "ON" else "OFF"
             binding.tvWeather.text = if (item.wakeupForecast) "ON" else "OFF"
-            binding.tvMemoContent.text = item.wakeupMemo
+            binding.tvMemoContent.text = item.wakeupMemo ?: "설정된 메모가 없습니다."
 
             binding.ivShowMore.setOnClickListener {
-                if (it.visibility == View.GONE){
-                    it.expand()
+                if (binding.llDetail.visibility == View.GONE){
+                    binding.llDetail.expand()
                     binding.ivShowMore.setImageResource(R.drawable.ic_arrow_up)
                 }else {
-                    it.collapse()
+                    binding.llDetail.collapse()
                     binding.ivShowMore.setImageResource(R.drawable.ic_arrow_down)
                 }
             }

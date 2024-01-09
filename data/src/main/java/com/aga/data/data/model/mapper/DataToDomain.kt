@@ -125,7 +125,7 @@ fun StatisticsDailyDetail.toDailyStatisticsDetail(): DailyStatisticsDetail{
     return DailyStatisticsDetail(
         this.userNickname,
         this.success,
-        this.dateTime,
+        this.datetime,
         this.wakeupHour,
         this.wakeupMinute,
         this.wakeupMemo,
