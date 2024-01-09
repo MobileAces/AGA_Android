@@ -43,7 +43,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2"
         app:strokeWidth="1dp"
-        android:backgroundTint="@color/bottomsheet_bg">
+        android:backgroundTint="@color/bottomsheet_bg"
+        android:minHeight="200dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -51,18 +52,57 @@
             android:layout_margin="35dp"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_period_helper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기간별 통계를 조회해 보세요"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:textAppearance="@style/Base.AGA.TEXT"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_start_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="~"
+                    android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
+
+                <TextView
+                    android:id="@+id/tv_end_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textAppearance="@style/Text.RvItem.Statistics.Daily"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_statistics_period"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_statistics_period"
-                tools:itemCount="5"/>
+                android:layout_height="wrap_content"/>
 
             <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:visibility="invisible"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_period_statistics_total"
@@ -111,6 +151,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cv_statistics_period">
 
         <TextView
+            android:id="@+id/tv_statistics_daily_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"

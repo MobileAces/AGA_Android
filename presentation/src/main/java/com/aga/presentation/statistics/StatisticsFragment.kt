@@ -22,6 +22,8 @@ import com.aga.presentation.databinding.FragmentStatisticsBinding
 import com.aga.presentation.statistics.BottomSheetStatisticsDaily
 import com.aga.presentation.statistics.BottomSheetStatisticsFilter
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 private const val TAG = "StatisticsFragment_AWSOME"
 @AndroidEntryPoint
@@ -35,6 +37,9 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(
     private lateinit var dailyAdapter: DailyStatisticsAdapter
     private var periodItems = arrayListOf<PeriodStatisticsUser>()
     private var dailyItems = arrayListOf<DailyStatistics>()
+
+    private val today = LocalDate.now()
+    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
 
     private lateinit var activity: MainActivity
 
@@ -54,6 +59,8 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(
             adapter = dailyAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+
+        binding.tvStatisticsDailyDate.text = dateFormatter.format(today)
 
         registerObserver()
         registerListener()
@@ -82,6 +89,11 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(
         }
 
         viewModel.periodStatisticsResult.observe(viewLifecycleOwner){
+            binding.tvPeriodHelper.visibility = View.GONE
+            binding.tvStartDate.text = mainViewModel.periodStatisticsStartDate.formatDate()
+            binding.tvEndDate.text = mainViewModel.periodStatisticsEndDate.formatDate()
+            binding.llDate.visibility = View.VISIBLE
+            binding.divider.visibility = View.VISIBLE
             periodItems.clear()
             periodItems.addAll(it.userList)
             binding.rvStatisticsPeriod.adapter!!.notifyDataSetChanged()
@@ -101,6 +113,7 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>(
         }
 
         viewModel.dailyStatisticsResult.observe(viewLifecycleOwner){
+            binding.tvStatisticsDailyDate.text = mainViewModel.dailyStatisticsDate.formatDate()
             dailyItems.clear()
             dailyItems.addAll(it)
             binding.rvStatisticsDaily.adapter!!.notifyDataSetChanged()
