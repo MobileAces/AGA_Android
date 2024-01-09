@@ -72,9 +72,9 @@ class BottomSheetStatisticsFilter: BottomSheetDialogFragment() {
                 setOnCheckedChangeListener { compoundButton, b ->
                     if (b)
                         selectedMember.add(it.userNickname)
-
                     else
                         selectedMember.remove(it.userNickname)
+                    binding.tvMemberCount.text = "${selectedMember.size}명"
                 }
             })
         }

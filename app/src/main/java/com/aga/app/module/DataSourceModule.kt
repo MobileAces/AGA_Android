@@ -2,6 +2,8 @@ package com.aga.app.module
 
 import com.aga.data.data.repository.alarm.remote.AlarmRemoteDataSource
 import com.aga.data.data.repository.alarm.remote.AlarmRemoteDataSourceImpl
+import com.aga.data.data.repository.invite.remote.InviteRemoteDataSource
+import com.aga.data.data.repository.invite.remote.InviteRemoteDataSourceImpl
 import com.aga.data.data.repository.statistics.remote.StatisticsRemoteDataSource
 import com.aga.data.data.repository.statistics.remote.StatisticsRemoteDataSourceImpl
 import com.aga.data.data.repository.team.remote.TeamRemoteDataSource
