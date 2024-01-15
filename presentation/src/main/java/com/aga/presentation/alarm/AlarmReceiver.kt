@@ -13,16 +13,20 @@ import com.aga.presentation.R
 
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        val id = intent?.getIntExtra("alarm_detail_id", -1)
+        val id = intent?.getIntExtra("alarm_detail_id", -1)!!
+        val isRepeat = intent.getBooleanExtra("isRepeatAlarm", false)
 
-        getAlarmDetail(id!!, context)
+        getAlarmDetail(id, isRepeat, context)
     }
 
-    private fun getAlarmDetail(alarmDetailId: Int, context: Context?){
+    private fun getAlarmDetail(alarmDetailId: Int, isRepeat: Boolean,  context: Context?){
         //Room 에서 알람 디테일 정보 가져오기
         //val alarmDetail = 가져오는 로직
         val serviceIntent = Intent(context, AlarmService::class.java)
-//        serviceIntent.putExtra("alarm_detail", alarmDetail)
+        serviceIntent.apply {
+//          putExtra("alarm_detail", alarmDetail)
+            putExtra("isRepeatAlarm", isRepeat)
+        }
 
         context!!.startForegroundService(serviceIntent)
     }

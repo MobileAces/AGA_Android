@@ -24,7 +24,7 @@ class AlarmService: Service() {
     private lateinit var builder: Notification.Builder
     private lateinit var notification: Notification
 
-    private var alarmId = -1
+    private var isRepeatAlarm = false
     private lateinit var alarmDetail: AlarmDetail
 
     private var audioManager: AudioManager? = null
@@ -41,7 +41,7 @@ class AlarmService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        alarmId = intent?.getIntExtra("alarm_detail_id", -1)!!
+        isRepeatAlarm = intent?.getBooleanExtra("isRepeatAlarm", false)!!
         alarmDetail = intent?.getSerializableExtra("alarm_detail") as AlarmDetail
 
         setAudioManager()
@@ -49,8 +49,9 @@ class AlarmService: Service() {
     }
 
     private fun startAlarm(){
-        val intent = Intent(this, AlarmActivity::class.java)
+        val intent = Intent(this, AlarmRingActivity::class.java)
         intent.apply {
+            putExtra("isRepeatAlarm", isRepeatAlarm)
             putExtra("alarm_detail", alarmDetail)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
@@ -127,7 +128,7 @@ class AlarmService: Service() {
     }
 
     private fun setNotification() {
-        val intent = Intent(this, AlarmActivity::class.java)
+        val intent = Intent(this, AlarmRingActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this, 0,
             intent, PendingIntent.FLAG_IMMUTABLE

@@ -29,7 +29,10 @@ object AgaAlarmManager {
         val alarmTime = calendar!!.timeInMillis
 
         val receiverIntent = Intent(context, AlarmReceiver::class.java)
-        receiverIntent.putExtra("alarm_detail_id", alarmDetail.id)
+        receiverIntent.apply {
+            putExtra("alarm_detail_id", alarmDetail.id)
+            putExtra("isRepeatAlarm", false)
+        }
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -45,7 +48,10 @@ object AgaAlarmManager {
         nextAlarmTime += 1000 * 60 * alarmDetail.repeatTime
 
         val receiverIntent = Intent(context, AlarmReceiver::class.java)
-        receiverIntent.putExtra("alarm_detail_id", alarmDetail.id)
+        receiverIntent.apply {
+            putExtra("alarm_detail_id", alarmDetail.id)
+            putExtra("isRepeatAlarm", true)
+        }
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
