@@ -18,6 +18,7 @@ import com.aga.presentation.setting.SettingChangeFragment
 import com.aga.presentation.setting.SettingFragment
 import com.aga.presentation.util.collapse
 import com.aga.presentation.util.expand
+import com.aga.presentation.statistics.StatisticsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "MainActivity_AWSOME"
