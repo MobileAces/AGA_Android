@@ -86,6 +86,7 @@
                 app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@id/tv_time" />
 
+
             <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switch_on_off"
                 style="@style/Base.AGA.Switch"
@@ -96,6 +97,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_apply_day"
                 app:layout_constraintTop_toTopOf="@id/tv_time" />
+
+            <View
+                android:id="@+id/view_switch_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/switch_on_off"
+                app:layout_constraintEnd_toEndOf="@id/switch_on_off"
+                app:layout_constraintStart_toStartOf="@id/switch_on_off"
+                app:layout_constraintTop_toTopOf="@id/switch_on_off" />
 
             <ImageView
                 android:id="@+id/iv_groups"

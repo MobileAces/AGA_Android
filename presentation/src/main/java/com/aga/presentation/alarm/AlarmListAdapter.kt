@@ -2,7 +2,6 @@ package com.aga.presentation.alarm
 
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.model.TeamMember
-import com.aga.domain.model.TeamWithMember
 import com.aga.presentation.R
 import com.aga.presentation.databinding.ItemAlarmListBinding
 import com.aga.presentation.util.collapse
 import com.aga.presentation.util.expand
+import com.google.android.material.materialswitch.MaterialSwitch
 import java.time.DayOfWeek
 
 private val TAG = "AlarmListAdapter_AWESOME"
@@ -23,7 +22,11 @@ private val TAG = "AlarmListAdapter_AWESOME"
 class AlarmListAdapter(
     private val myId: String,
     private var alarmList: List<AlarmWithDetailList>,
-    private var teamMemberList: List<TeamMember>
+    private var teamMemberList: List<TeamMember>,
+    private var switchClickListener: (
+        switchWrapper: AlarmListViewHolder.SwitchAccessWrapper,
+        alarmDetail: AlarmDetail?
+    ) -> Unit
 ) : RecyclerView.Adapter<AlarmListAdapter.AlarmListViewHolder>() {
 
     private val dayList = arrayOf(
@@ -52,7 +55,7 @@ class AlarmListAdapter(
     }
 
     override fun onBindViewHolder(holder: AlarmListViewHolder, position: Int) {
-        holder.bind(alarmList[position], teamMemberList, dayList, myId)
+        holder.bind(alarmList[position], teamMemberList, dayList, myId, switchClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -70,12 +73,15 @@ class AlarmListAdapter(
 
         private var alarmMemberListAdapter: AlarmMemberListAdapter? = null
         private var myAlarmTime: AlarmTime? = null
+        private var switchAccessWrapper: SwitchAccessWrapper = SwitchAccessWrapper(binding.switchOnOff)
+        private var myAlarmDetail: AlarmDetail? = null
 
         fun bind(
             item: AlarmWithDetailList,
             teamMemberList: List<TeamMember>,
             dayArray: Array<DayOfWeek>,
-            myId: String
+            myId: String,
+            switchClickListener: (switchWrapper: SwitchAccessWrapper, alarmDetail: AlarmDetail?) -> Unit
         ) {
             binding.tvAlarmTitle.text = item.alarmName
             binding.tvApplyDay.text = getSelectedDaySpannableString(
@@ -83,25 +89,36 @@ class AlarmListAdapter(
                 dayArray,
                 binding.tvApplyDay.text.toString()
             )
+            binding.viewSwitchWrapper.setOnClickListener {
+                switchClickListener(switchAccessWrapper,myAlarmDetail)
+            }
             setMemberListAdapter(teamMemberList, item.alarmDetailList)
             setShowMemberButton()
             // 알림 디테일 리스트 확인 후 로직
-            item.alarmDetailList.find { it.userId ==  myId}?.let {
-                setAlarmTime(it.hour,it.minute)
+            item.alarmDetailList.find { it.userId == myId }?.let {
+                setAlarmTime(it.hour, it.minute)
+                setMyAlarmDetail(it)
                 binding.switchOnOff.isChecked = it.isOn
             } ?: run {
                 binding.tvAmPm.text = binding.root.context.getString(R.string.alarm_no_setting)
                 binding.switchOnOff.isChecked = false
             }
         }
+
         // 알람 시간 설정
-        private fun setAlarmTime(hour: Int, minute: Int){
-            if (myAlarmTime == null){
-                myAlarmTime = AlarmTime(hour,minute)
+        private fun setAlarmTime(hour: Int, minute: Int) {
+            if (myAlarmTime == null) {
+                myAlarmTime = AlarmTime(hour, minute)
             }
             myAlarmTime?.let {
                 binding.tvAmPm.text = it.ampm
                 binding.tvTime.text = it.hour_12.toString() + ":" + it.minute.toString()
+            }
+        }
+
+        private fun setMyAlarmDetail(alarmDetail: AlarmDetail) {
+            if (myAlarmDetail == null) {
+                myAlarmDetail = alarmDetail
             }
         }
 
@@ -151,6 +168,21 @@ class AlarmListAdapter(
                 }
             }
             return spannableString
+        }
+
+        class SwitchAccessWrapper(private val switch: MaterialSwitch) {
+            fun on() {
+                switch.isChecked = true
+            }
+
+            fun off() {
+                switch.isChecked = false
+            }
+
+            fun getStateWithChange(): Boolean {
+                switch.isChecked = !switch.isChecked
+                return switch.isChecked
+            }
         }
     }
 }

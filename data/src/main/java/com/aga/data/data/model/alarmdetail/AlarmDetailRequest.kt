@@ -1,7 +1,6 @@
-package com.aga.data.data.model.alarm
+package com.aga.data.data.model.alarmdetail
 
-data class AlarmDetailResponse(
-    val alarmDetailId: Int,
+data class AlarmDetailRequest(
     val alarmDetailHour: Int,
     val alarmDetailMinute: Int,
     val alarmDetailRetime: Int,
@@ -11,5 +10,4 @@ data class AlarmDetailResponse(
     val alarmDetailIsOn: Boolean,
     val alarmId: Int,
     val userId: String,
-    val userNickname: String,
 )

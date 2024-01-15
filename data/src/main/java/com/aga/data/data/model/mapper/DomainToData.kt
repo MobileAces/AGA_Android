@@ -1,10 +1,13 @@
 package com.aga.data.data.model.mapper
 
+import com.aga.data.data.model.alarmdetail.AlarmDetailModifyRequest
+import com.aga.data.data.model.alarmdetail.AlarmDetailRequest
 import com.aga.data.data.model.member.AuthorityChangeRequest
 import com.aga.data.data.model.user.join.JoinRequest
 import com.aga.data.data.model.user.login.LoginRequest
 import com.aga.data.data.model.team.TeamInfoChangeRequest
 import com.aga.data.data.model.user.update.UserUpdateRequest
+import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamMemberWithTeam
@@ -67,5 +70,32 @@ fun TeamMemberWithTeam.toAuthorityChangeRequest(): AuthorityChangeRequest{
         this.teamId,
         this.userId,
         this.authority
+    )
+}
+
+fun AlarmDetail.toAlarmDetailRequest(): AlarmDetailRequest{
+    return AlarmDetailRequest(
+        hour,
+        minute,
+        repeatTime,
+        memo,
+        forecast,
+        memoVoice,
+        isOn,
+        alarmId,
+        userId
+    )
+}
+
+fun AlarmDetail.toAlarmDetailModifyRequest(): AlarmDetailModifyRequest{
+    return AlarmDetailModifyRequest(
+        id,
+        hour,
+        minute,
+        repeatTime,
+        memo,
+        forecast,
+        memoVoice,
+        isOn
     )
 }

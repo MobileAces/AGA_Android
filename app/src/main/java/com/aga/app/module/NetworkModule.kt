@@ -1,5 +1,6 @@
 package com.aga.app.module
 
+import com.aga.data.data.api.AlarmDetailService
 import com.aga.data.data.api.AlarmService
 import com.aga.data.data.api.ApiClient.BASE_URL
 import com.aga.data.data.api.InviteService
@@ -85,5 +86,11 @@ object NetworkModule {
     @Singleton
     fun providerInviteService(retrofit: Retrofit): InviteService{
         return retrofit.create(InviteService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providerAlarmDetailService(retrofit: Retrofit): AlarmDetailService{
+        return retrofit.create(AlarmDetailService::class.java)
     }
 }
