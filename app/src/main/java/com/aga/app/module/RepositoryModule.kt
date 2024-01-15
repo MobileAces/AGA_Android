@@ -2,12 +2,15 @@ package com.aga.app.module
 
 import com.aga.data.data.repository.alarm.AlarmRepositoryImpl
 import com.aga.data.data.repository.alarmdetail.AlarmDetailRepositoryImpl
+import com.aga.data.data.repository.statistics.StatisticsRepositoryImpl
+import com.aga.data.data.repository.statistics.remote.StatisticsRemoteDataSourceImpl
 import com.aga.data.data.repository.invite.InviteRepositoryImpl
 import com.aga.data.data.repository.team.TeamRepositoryImpl
 import com.aga.data.data.repository.teammember.TeamMemberRepositoryImpl
 import com.aga.data.data.repository.user.UserRepositoryImpl
 import com.aga.domain.repository.AlarmDetailRepository
 import com.aga.domain.repository.AlarmRepository
+import com.aga.domain.repository.StatisticsRepository
 import com.aga.domain.repository.InviteRepository
 import com.aga.domain.repository.TeamMemberRepository
 import com.aga.domain.repository.TeamRepository
@@ -37,6 +40,10 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindAlarmRepository(alarmRepositoryImpl: AlarmRepositoryImpl): AlarmRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindStatisticsRepository(statisticsRepositoryImpl: StatisticsRepositoryImpl): StatisticsRepository
 
     @Singleton
     @Binds

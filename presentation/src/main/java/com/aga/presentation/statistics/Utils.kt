@@ -36,6 +36,10 @@ fun View.makeInVisible() {
     visibility = View.INVISIBLE
 }
 
+fun String.formatDate(): String{
+    return "${this.substring(0,4 )}년 ${this.substring(5, 7)}월 ${this.substring(8, 10)}일"
+}
+
 internal fun Context.getDrawableCompat(@DrawableRes drawable: Int): Drawable =
     requireNotNull(ContextCompat.getDrawable(this, drawable))
 
