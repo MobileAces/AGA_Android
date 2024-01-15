@@ -1,6 +1,7 @@
 package com.aga.app
 
 import android.app.Application
+import com.aga.presentation.base.AgaAlarmManager
 import com.aga.presentation.base.PrefManager
 import dagger.hilt.android.HiltAndroidApp
 
@@ -10,5 +11,6 @@ class AgaApplication: Application() {
         super.onCreate()
 
         PrefManager.init(applicationContext)
+        AgaAlarmManager.init(applicationContext)
     }
 }
