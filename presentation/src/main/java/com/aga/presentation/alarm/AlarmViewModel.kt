@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aga.domain.model.Alarm
+import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.usecase.alarm.CreateAlarmUseCase
 import com.aga.domain.usecase.alarm.GetAlarmWithDetailListByTeamIdUseCase
+import com.aga.domain.usecase.alarm.ModifyAlarmDetailUseCase
 import com.aga.presentation.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AlarmViewModel @Inject constructor(
     private val createAlarmUseCase: CreateAlarmUseCase,
-    private val getAlarmWithDetailListByTeamIdUseCase: GetAlarmWithDetailListByTeamIdUseCase
+    private val getAlarmWithDetailListByTeamIdUseCase: GetAlarmWithDetailListByTeamIdUseCase,
+    private val modifyAlarmDetailUseCase: ModifyAlarmDetailUseCase
 ) : ViewModel() {
     private var _alarmCreateResult = MutableLiveData<Event<Result<Alarm>>>()
     val alarmCreateResult: LiveData<Event<Result<Alarm>>>
@@ -26,6 +29,10 @@ class AlarmViewModel @Inject constructor(
     private var _alarmListResult = MutableLiveData<Result<List<AlarmWithDetailList>>>()
     val alarmListResult: LiveData<Result<List<AlarmWithDetailList>>>
         get() = _alarmListResult
+
+    private var _alarmDetailModifyResult = MutableLiveData<Result<AlarmDetail>>()
+    val alarmDetailModifyResult: LiveData<Result<AlarmDetail>>
+        get() = _alarmDetailModifyResult
 
 
     fun createAlarm(alarmName: String, alarmDay: Set<DayOfWeek>, teamId: Int) {
@@ -43,4 +50,14 @@ class AlarmViewModel @Inject constructor(
             }
         }
     }
+
+    fun modifyAlarmDetail(alarmDetail: AlarmDetail){
+        viewModelScope.launch {
+            modifyAlarmDetailUseCase(alarmDetail).let {
+                _alarmDetailModifyResult.postValue(it)
+            }
+        }
+    }
+
+
 }

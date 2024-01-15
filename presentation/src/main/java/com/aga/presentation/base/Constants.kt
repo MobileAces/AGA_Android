@@ -21,5 +21,8 @@ object Constants {
     const val GROUP_TO_CREATEGROUP = 40001
     const val TO_GROUP = 40002
 
+    const val ALARM_TO_ALARMSETTING = 50001
+    const val ALARMSETTING_TO_ALARM = 50002
+
     const val NET_ERR = "네트워크에 문제가 있습니다."
 }
