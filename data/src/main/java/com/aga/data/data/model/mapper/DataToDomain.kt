@@ -140,6 +140,7 @@ fun StatisticsDailyDetail.toDailyStatisticsDetail(): DailyStatisticsDetail{
 
 fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
     return AlarmDetail(
+        -1,
         alarmDetailId,
         alarmDetailHour,
         alarmDetailMinute,
@@ -150,7 +151,10 @@ fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
         alarmDetailIsOn,
         alarmId,
         userId,
-        userNickname
+        userNickname,
+        true,
+        true,
+        ""
     )
 }
 
