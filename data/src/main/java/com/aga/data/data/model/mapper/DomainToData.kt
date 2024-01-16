@@ -3,6 +3,7 @@ package com.aga.data.data.model.mapper
 import com.aga.data.data.model.alarmdetail.AlarmDetailModifyRequest
 import com.aga.data.data.model.alarmdetail.AlarmDetailRequest
 import com.aga.data.data.model.member.AuthorityChangeRequest
+import com.aga.data.data.model.statistics.WakeUpRegisterRequest
 import com.aga.data.data.model.user.join.JoinRequest
 import com.aga.data.data.model.user.login.LoginRequest
 import com.aga.data.data.model.team.TeamInfoChangeRequest
@@ -12,6 +13,7 @@ import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamMemberWithTeam
 import com.aga.domain.model.User
+import com.aga.domain.model.WakeUp
 import java.time.DayOfWeek
 
 fun User.toLoginRequest(): LoginRequest {
@@ -97,5 +99,21 @@ fun AlarmDetail.toAlarmDetailModifyRequest(): AlarmDetailModifyRequest{
         forecast,
         memoVoice,
         isOn
+    )
+}
+
+fun WakeUp.toWakeUpRegisterRequest(): WakeUpRegisterRequest{
+    return WakeUpRegisterRequest(
+        this.success,
+        this.dateTime,
+        this.wakeupHour,
+        this.wakeupMinute,
+        this.wakeupMemo,
+        this.wakeupForecast,
+        this.wakeupVoice,
+        this.userId,
+        this.teamId,
+        this.alarmId,
+        this.alarmDetailId
     )
 }

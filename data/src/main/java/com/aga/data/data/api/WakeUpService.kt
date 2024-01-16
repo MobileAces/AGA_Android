@@ -5,6 +5,8 @@ import com.aga.data.data.model.DefaultResponse
 import com.aga.data.data.model.statistics.PeriodStatisticsRequest
 import com.aga.data.data.model.statistics.StatisticsDailyData
 import com.aga.data.data.model.statistics.StatisticsPeriodData
+import com.aga.data.data.model.statistics.WakeUpRegisterRequest
+import com.aga.data.data.model.statistics.WakeUpRegisterData
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -22,4 +24,9 @@ interface WakeUpService {
         @Query("teamId") teamId: Int,
         @Query("date") date: String
     ): Response<DefaultListResponse<StatisticsDailyData>>
+
+    @POST("wakeup/register")
+    suspend fun registerWakeUp(
+        @Body wakeUpRegisterRequest: WakeUpRegisterRequest
+    ): Response<DefaultResponse<WakeUpRegisterData>>
 }
