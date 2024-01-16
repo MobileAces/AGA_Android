@@ -2,6 +2,8 @@ package com.aga.app.module
 
 import com.aga.data.data.repository.alarm.remote.AlarmRemoteDataSource
 import com.aga.data.data.repository.alarm.remote.AlarmRemoteDataSourceImpl
+import com.aga.data.data.repository.alarmdetail.local.AlarmDetailLocalDataSource
+import com.aga.data.data.repository.alarmdetail.local.AlarmDetailLocalDataSourceImpl
 import com.aga.data.data.repository.alarmdetail.remote.AlarmDetailRemoteDataSource
 import com.aga.data.data.repository.alarmdetail.remote.AlarmDetailRemoteDataSourceImpl
 import com.aga.data.data.repository.invite.remote.InviteRemoteDataSource
@@ -23,6 +25,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DataSourceModule {
+    /**
+     * Remote DataSource
+     */
     @Singleton
     @Binds
     abstract fun bindUserRemoteDataSource(userRemoteDataSourceImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
@@ -50,4 +55,13 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun bindStatisticsRemoteDataSource(statisticsDataSourceImpl: StatisticsRemoteDataSourceImpl): StatisticsRemoteDataSource
+
+
+    /**
+     * Local DataSource
+     */
+    @Singleton
+    @Binds
+    abstract fun bindAlarmDetailLocalDataSource(alarmDetailLocalDataSourceImpl: AlarmDetailLocalDataSourceImpl): AlarmDetailLocalDataSource
+
 }
