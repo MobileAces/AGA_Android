@@ -1,8 +1,10 @@
-package com.aga.domain.model
+package com.aga.data.data.model.alarmdetail
 
+import androidx.room.Entity
 import java.io.Serializable
 
-data class AlarmDetail(
+@Entity(tableName = "alarm_detail_table", primaryKeys = ["id"])
+data class AlarmDetailEntity(
     val dayOfWeek: Int,
     val id: Int,
     val hour: Int,
@@ -11,7 +13,7 @@ data class AlarmDetail(
     val memo: String,
     val forecast: Boolean,
     val memoVoice: Boolean,
-    var isOn: Boolean,
+    val isOn: Boolean,
     val alarmId: Int,
     val userId: String,
     val userNickname: String,
