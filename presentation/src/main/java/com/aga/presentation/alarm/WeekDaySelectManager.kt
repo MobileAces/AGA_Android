@@ -67,6 +67,12 @@ class WeekDaySelectManager(
         applySetClickListener()
     }
 
+    fun setAllEnable(boolean: Boolean){
+        weekdayViewList.forEach {
+            it.isEnabled = boolean
+        }
+    }
+
     private fun applySetClickListener(){
         weekdayViewList.forEachIndexed { index, toggleButton ->
             toggleButton.setOnClickListener {
