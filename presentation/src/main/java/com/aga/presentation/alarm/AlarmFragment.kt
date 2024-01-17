@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.aga.domain.model.Alarm
 import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.presentation.MainActivity
@@ -150,13 +151,13 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
     private var targetSwitch: AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper? = null
     private var targetAlarmDetail: AlarmDetail? = null
     private var alarmSwitchClickListener: (
-        AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper, AlarmDetail?, Int
-    ) -> Unit = {switchWrapper, alarmDetail, alarmId ->
+        AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper, AlarmDetail?, Alarm
+    ) -> Unit = {switchWrapper, alarmDetail, alarm ->
         targetSwitch = switchWrapper
         if (alarmDetail == null){
             TwoButtonSnackBar(binding.root,"기존 알람이 없습니다. 생성하시겠습니까?",Snackbar.LENGTH_SHORT)
                 .setConfirmClickListener {
-                    alarmViewModel.selectedAlarmId = alarmId
+                    alarmViewModel.selectedAlarm = alarm
                     mainActivity.navigate(Constants.ALARM_TO_ALARMSETTING)
                 }
                 .show()
