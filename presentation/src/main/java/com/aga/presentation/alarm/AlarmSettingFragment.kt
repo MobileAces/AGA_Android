@@ -7,25 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.aga.presentation.MainActivity
+import com.aga.presentation.R
+import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
+import com.aga.presentation.databinding.FragmentAlarmBinding
 import com.aga.presentation.databinding.FragmentAlarmSettingBinding
 
-class AlarmSettingFragment : Fragment() {
+class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
+    FragmentAlarmSettingBinding::bind, R.layout.fragment_alarm_setting
+) {
 
     private lateinit var mainActivity: MainActivity
-    private lateinit var binding: FragmentAlarmSettingBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentAlarmSettingBinding.inflate(layoutInflater, container,false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
