@@ -22,6 +22,19 @@ class AlarmViewModel @Inject constructor(
     private val getAlarmWithDetailListByTeamIdUseCase: GetAlarmWithDetailListByTeamIdUseCase,
     private val modifyAlarmDetailUseCase: ModifyAlarmDetailUseCase
 ) : ViewModel() {
+    // 알람 <-> 알람 세팅 간 사용 데이터
+    var selectedAlarmId: Int? = null
+        set(value) {
+            field = value
+            selectedAlarmName = alarmListResult.value?.getOrNull()?.find {
+                it.alarmId == value
+            }?.alarmName
+        }
+    var selectedAlarmName: String? = null
+        private set
+    var selectedAlarmDetail: AlarmDetail? = null
+
+
     private var _alarmCreateResult = MutableLiveData<Event<Result<Alarm>>>()
     val alarmCreateResult: LiveData<Event<Result<Alarm>>>
         get() = _alarmCreateResult
