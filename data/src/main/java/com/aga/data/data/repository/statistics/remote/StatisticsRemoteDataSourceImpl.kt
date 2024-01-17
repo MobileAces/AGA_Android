@@ -3,9 +3,12 @@ package com.aga.data.data.repository.statistics.remote
 import com.aga.data.data.api.WakeUpService
 import com.aga.data.data.model.mapper.toDailyStatistics
 import com.aga.data.data.model.mapper.toPeriodStatistics
+import com.aga.data.data.model.mapper.toWakeUpRegisterRequest
 import com.aga.data.data.model.statistics.PeriodStatisticsRequest
+import com.aga.data.data.model.statistics.WakeUpRegisterRequest
 import com.aga.domain.model.DailyStatistics
 import com.aga.domain.model.PeriodStatistics
+import com.aga.domain.model.WakeUp
 import javax.inject.Inject
 
 class StatisticsRemoteDataSourceImpl @Inject constructor(
@@ -45,5 +48,10 @@ class StatisticsRemoteDataSourceImpl @Inject constructor(
         else
             listOf()
     }
+
+    override suspend fun registerWakeUp(wakeUp: WakeUp): Boolean {
+        return wakeUpService.registerWakeUp(wakeUp.toWakeUpRegisterRequest()).isSuccessful
+    }
+
 
 }

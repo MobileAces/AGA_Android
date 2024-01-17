@@ -1,6 +1,9 @@
 package com.aga.domain.model
 
+import java.io.Serializable
+
 data class AlarmDetail(
+    val dayOfWeek: Int,
     val id: Int,
     val hour: Int,
     val minute: Int,
@@ -12,4 +15,7 @@ data class AlarmDetail(
     val alarmId: Int,
     val userId: String,
     val userNickname: String,
-)
+    val isVibrateOn: Boolean,
+    val isRingtoneOn: Boolean,
+    val ringtoneUri: String?
+): Serializable

@@ -12,6 +12,8 @@ import com.aga.data.data.model.team.TeamInfoChangeDataResponse
 import com.aga.data.data.model.team.TeamResponse
 import com.aga.data.data.model.teamlist.TeamByUserResponse
 import com.aga.data.data.model.user.UserResponse
+import com.aga.data.data.model.weather.WeatherData
+import com.aga.data.data.model.weather.WeatherResponse
 import com.aga.domain.model.Alarm
 import com.aga.domain.model.DailyStatistics
 import com.aga.domain.model.DailyStatisticsDetail
@@ -23,6 +25,7 @@ import com.aga.domain.model.Team
 import com.aga.domain.model.TeamMember
 import com.aga.domain.model.TeamWithMember
 import com.aga.domain.model.User
+import com.aga.domain.model.Weather
 import java.time.DayOfWeek
 
 fun TeamResponse.toTeam(): Team {
@@ -140,6 +143,7 @@ fun StatisticsDailyDetail.toDailyStatisticsDetail(): DailyStatisticsDetail{
 
 fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
     return AlarmDetail(
+        -1,
         alarmDetailId,
         alarmDetailHour,
         alarmDetailMinute,
@@ -150,7 +154,10 @@ fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
         alarmDetailIsOn,
         alarmId,
         userId,
-        userNickname
+        userNickname,
+        true,
+        true,
+        ""
     )
 }
 
@@ -161,5 +168,12 @@ fun AlarmWithDetailListResponse.toAlarmWithDetailList(): AlarmWithDetailList {
         alarmDayStringToDayofWeekSet(alarmDay),
         teamId,
         alarmDetailList.map { it.toAlarmDetail() }
+    )
+}
+
+fun WeatherResponse.toWeather(): Weather{
+    return Weather(
+        this.weatherData.rainAmount,
+        this.message
     )
 }
