@@ -8,7 +8,7 @@ data class AlarmDetail(
     val memo: String,
     val forecast: Boolean,
     val memoVoice: Boolean,
-    val isOn: Boolean,
+    var isOn: Boolean,
     val alarmId: Int,
     val userId: String,
     val userNickname: String,

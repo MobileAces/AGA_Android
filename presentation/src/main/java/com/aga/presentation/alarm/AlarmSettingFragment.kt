@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import com.aga.presentation.MainActivity
+import com.aga.presentation.base.Constants
 import com.aga.presentation.databinding.FragmentAlarmSettingBinding
 
 class AlarmSettingFragment : Fragment() {
 
+    private lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentAlarmSettingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +29,14 @@ class AlarmSettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mainActivity = requireActivity() as MainActivity
         setNumberpicker()
+        mainActivity.onBackPressedDispatcher.addCallback(viewLifecycleOwner,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                mainActivity.navigate(Constants.ALARMSETTING_TO_ALARM)
+            }
+        })
     }
 
     private fun setNumberpicker(){

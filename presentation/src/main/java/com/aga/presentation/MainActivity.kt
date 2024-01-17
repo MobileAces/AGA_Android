@@ -2,16 +2,22 @@ package com.aga.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentManager
 import com.aga.presentation.alarm.AlarmFragment
+import com.aga.presentation.alarm.AlarmSettingFragment
 import com.aga.presentation.base.BaseActivity
 import com.aga.presentation.base.Constants
+import com.aga.presentation.base.Constants.ALARMSETTING_TO_ALARM
+import com.aga.presentation.base.Constants.ALARM_TO_ALARMSETTING
 import com.aga.presentation.base.Constants.SETTINGCHANGE_TO_SETTING
 import com.aga.presentation.base.Constants.SETTING_TO_SETTINGCHANGE
 import com.aga.presentation.databinding.ActivityMainBinding
 import com.aga.presentation.setting.SettingChangeFragment
 import com.aga.presentation.setting.SettingFragment
+import com.aga.presentation.util.collapse
+import com.aga.presentation.util.expand
 import com.aga.presentation.statistics.StatisticsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -78,6 +84,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
                     .replace(R.id.fl_main, SettingFragment())
                     .commitAllowingStateLoss()
             }
+            ALARM_TO_ALARMSETTING -> {
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        com.google.android.material.R.anim.abc_slide_in_top,
+                        com.google.android.material.R.anim.abc_slide_out_bottom
+                    )
+                    .replace(R.id.fl_main,AlarmSettingFragment())
+                    .commit()
+                changeBottomNavVisible(false)
+            }
+            ALARMSETTING_TO_ALARM -> {
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        com.google.android.material.R.anim.abc_slide_in_bottom,
+                        com.google.android.material.R.anim.abc_slide_out_top
+                    )
+                    .replace(R.id.fl_main,AlarmFragment())
+                    .commit()
+                changeBottomNavVisible(true)
+            }
+        }
+    }
+
+    private fun changeBottomNavVisible(state: Boolean){
+        if (state){
+            binding.bnvMain.expand()
+        } else {
+            binding.bnvMain.collapse()
         }
     }
 }
