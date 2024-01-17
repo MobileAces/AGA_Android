@@ -23,15 +23,7 @@ class AlarmViewModel @Inject constructor(
     private val modifyAlarmDetailUseCase: ModifyAlarmDetailUseCase
 ) : ViewModel() {
     // 알람 <-> 알람 세팅 간 사용 데이터
-    var selectedAlarmId: Int? = null
-        set(value) {
-            field = value
-            selectedAlarmName = alarmListResult.value?.getOrNull()?.find {
-                it.alarmId == value
-            }?.alarmName
-        }
-    var selectedAlarmName: String? = null
-        private set
+    var selectedAlarm: Alarm? = null
     var selectedAlarmDetail: AlarmDetail? = null
 
 
