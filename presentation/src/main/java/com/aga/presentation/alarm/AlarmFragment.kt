@@ -150,12 +150,13 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
     private var targetSwitch: AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper? = null
     private var targetAlarmDetail: AlarmDetail? = null
     private var alarmSwitchClickListener: (
-        AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper, AlarmDetail?
-    ) -> Unit = {switchWrapper, alarmDetail ->
+        AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper, AlarmDetail?, Int
+    ) -> Unit = {switchWrapper, alarmDetail, alarmId ->
         targetSwitch = switchWrapper
         if (alarmDetail == null){
             TwoButtonSnackBar(binding.root,"기존 알람이 없습니다. 생성하시겠습니까?",Snackbar.LENGTH_SHORT)
                 .setConfirmClickListener {
+                    alarmViewModel.selectedAlarmId = alarmId
                     mainActivity.navigate(Constants.ALARM_TO_ALARMSETTING)
                 }
                 .show()

@@ -25,7 +25,8 @@ class AlarmListAdapter(
     private var teamMemberList: List<TeamMember>,
     private var switchClickListener: (
         switchWrapper: AlarmListViewHolder.SwitchAccessWrapper,
-        alarmDetail: AlarmDetail?
+        alarmDetail: AlarmDetail?,
+        alarmId: Int
     ) -> Unit
 ) : RecyclerView.Adapter<AlarmListAdapter.AlarmListViewHolder>() {
 
@@ -81,7 +82,7 @@ class AlarmListAdapter(
             teamMemberList: List<TeamMember>,
             dayArray: Array<DayOfWeek>,
             myId: String,
-            switchClickListener: (switchWrapper: SwitchAccessWrapper, alarmDetail: AlarmDetail?) -> Unit
+            switchClickListener: (switchWrapper: SwitchAccessWrapper, alarmDetail: AlarmDetail?, alarmId: Int) -> Unit
         ) {
             binding.tvAlarmTitle.text = item.alarmName
             binding.tvApplyDay.text = getSelectedDaySpannableString(
@@ -90,7 +91,7 @@ class AlarmListAdapter(
                 binding.tvApplyDay.text.toString()
             )
             binding.viewSwitchWrapper.setOnClickListener {
-                switchClickListener(switchAccessWrapper,myAlarmDetail)
+                switchClickListener(switchAccessWrapper,myAlarmDetail,item.alarmId)
             }
             setMemberListAdapter(teamMemberList, item.alarmDetailList)
             setShowMemberButton()
