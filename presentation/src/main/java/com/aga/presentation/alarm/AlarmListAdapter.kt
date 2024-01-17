@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.aga.domain.model.Alarm
 import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.model.TeamMember
@@ -26,7 +27,7 @@ class AlarmListAdapter(
     private var switchClickListener: (
         switchWrapper: AlarmListViewHolder.SwitchAccessWrapper,
         alarmDetail: AlarmDetail?,
-        alarmId: Int
+        alarm: Alarm
     ) -> Unit
 ) : RecyclerView.Adapter<AlarmListAdapter.AlarmListViewHolder>() {
 
@@ -82,7 +83,7 @@ class AlarmListAdapter(
             teamMemberList: List<TeamMember>,
             dayArray: Array<DayOfWeek>,
             myId: String,
-            switchClickListener: (switchWrapper: SwitchAccessWrapper, alarmDetail: AlarmDetail?, alarmId: Int) -> Unit
+            switchClickListener: (switchWrapper: SwitchAccessWrapper, alarmDetail: AlarmDetail?, alarm: Alarm) -> Unit
         ) {
             binding.tvAlarmTitle.text = item.alarmName
             binding.tvApplyDay.text = getSelectedDaySpannableString(
@@ -91,7 +92,10 @@ class AlarmListAdapter(
                 binding.tvApplyDay.text.toString()
             )
             binding.viewSwitchWrapper.setOnClickListener {
-                switchClickListener(switchAccessWrapper,myAlarmDetail,item.alarmId)
+                switchClickListener(
+                    switchAccessWrapper,
+                    myAlarmDetail,
+                    Alarm(item.alarmId,item.alarmName,item.alarmDay.toSet(),item.teamId))
             }
             setMemberListAdapter(teamMemberList, item.alarmDetailList)
             setShowMemberButton()
