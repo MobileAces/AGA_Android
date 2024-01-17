@@ -2,6 +2,8 @@ package com.aga.data.data.repository.alarmdetail.local
 
 import com.aga.data.data.dao.AlarmDetailDao
 import com.aga.data.data.model.alarmdetail.AlarmDetailEntity
+import com.aga.data.data.model.mapper.toAlarmDetail
+import com.aga.domain.model.AlarmDetail
 import javax.inject.Inject
 
 class AlarmDetailLocalDataSourceImpl @Inject constructor(
@@ -11,8 +13,8 @@ class AlarmDetailLocalDataSourceImpl @Inject constructor(
         return alarmDetailDao.insertAlarmDetail(alarmDetailEntity)
     }
 
-    override suspend fun getAlarmDetailById(id: Int): AlarmDetailEntity {
-        return alarmDetailDao.getAlarmDetailById(id)
+    override suspend fun getAlarmDetailById(id: Int): AlarmDetail {
+        return alarmDetailDao.getAlarmDetailById(id).toAlarmDetail()
     }
 
     override suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetailEntity> {

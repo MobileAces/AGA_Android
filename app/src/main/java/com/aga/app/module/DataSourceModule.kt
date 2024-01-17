@@ -16,6 +16,8 @@ import com.aga.data.data.repository.teammember.remote.TeamMemberRemoteDataSource
 import com.aga.data.data.repository.teammember.remote.TeamMemberRemoteDataSourceImpl
 import com.aga.data.data.repository.user.remote.UserRemoteDataSource
 import com.aga.data.data.repository.user.remote.UserRemoteDataSourceImpl
+import com.aga.data.data.repository.weather.remote.WeatherRemoteDataSource
+import com.aga.data.data.repository.weather.remote.WeatherRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -55,6 +57,10 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun bindStatisticsRemoteDataSource(statisticsDataSourceImpl: StatisticsRemoteDataSourceImpl): StatisticsRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindWeatherRemoteDataSource(weatherRemoteDataSourceImpl: WeatherRemoteDataSourceImpl): WeatherRemoteDataSource
 
 
     /**

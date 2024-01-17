@@ -10,4 +10,8 @@ interface AlarmDetailRepository {
     suspend fun modifyPersonalAlarm(
         alarmDetail: AlarmDetail
     ): Result<AlarmDetail>
+
+    suspend fun getAlarmDetailFromLocal(
+        id: Int
+    ): AlarmDetail
 }
