@@ -48,7 +48,7 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
             }
 
             if (responsePermissions.filter { it.value }.size == LoginActivity.locationPermissions.size) {
-                Toast.makeText(this, "위치 기반 비 예보 서비스를 이용하실 수 있습니다.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "위치 기반 비 예보 서비스를 이용하실 수 있습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "위치 기반 비 예보 서비스를 이용하실 수 없습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -91,7 +91,7 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
             5-1 반복알람이면 원본 알람 조회 후 재등록(manager.cancelRepeatAlarm())
              */
             setMemoTTS()
-            stopAlarmAndFinishApp()
+            stopAlarm()
         }
 
         binding.btnPostpone.setOnClickListener {
@@ -111,6 +111,11 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
             }
             startTTS()
         }
+
+        viewModel.registerWakeUpResult.observe(this){
+            finishRingActivity()
+        }
+
     }
 
     private fun setMemoTTS(){
@@ -160,6 +165,8 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
     }
 
     private fun registerWakeUpOnServer(){
+        reScheduleAlarm()
+
         val curTime = Calendar.getInstance()
         val hour = curTime.get(Calendar.HOUR_OF_DAY)
         val min = curTime.get(Calendar.MINUTE)
@@ -184,7 +191,6 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
                 alarmDetail.id
             )
         )
-        reScheduleAlarm()
     }
 
     private fun reScheduleAlarm(){
@@ -192,13 +198,15 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
             AgaAlarmManager.cancelRepeatAlarm(alarmDetail, this)
             AgaAlarmManager.setNewAlarm(alarmDetail, this)
         }
-        stopAlarmAndFinishApp()
     }
 
-    private fun stopAlarmAndFinishApp() {
+    private fun stopAlarm() {
         val serviceIntent = Intent(this, AlarmService::class.java)
         stopService(serviceIntent)
         moveTaskToBack(false)
+    }
+
+    private fun finishRingActivity(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAndRemoveTask()
         } else {
@@ -209,7 +217,8 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
     @SuppressLint("ScheduleExactAlarm")
     fun postponeAlarm(){
         AgaAlarmManager.repeatAlarm(alarmDetail, this@AlarmRingActivity)
-        stopAlarmAndFinishApp()
+        stopAlarm()
+        finishRingActivity()
     }
 
     //뒤로가기 버튼 클릭 무시
