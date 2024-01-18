@@ -12,4 +12,8 @@ interface AlarmDetailRemoteDataSource {
     suspend fun modifyPersonalAlarm(
         alarmDetailModifyRequest: AlarmDetailModifyRequest
     ): Result<AlarmDetailResponse>
+
+    suspend fun getAlarmDetailById(
+        id: Int
+    ): Boolean
 }

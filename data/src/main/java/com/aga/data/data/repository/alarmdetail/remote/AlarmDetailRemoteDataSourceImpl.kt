@@ -28,4 +28,10 @@ class AlarmDetailRemoteDataSourceImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getAlarmDetailById(id: Int): Boolean {
+        return alarmDetailService.getAlarmDetailById(id).let {
+            it.isSuccessful && it.body() != null
+        }
+    }
 }

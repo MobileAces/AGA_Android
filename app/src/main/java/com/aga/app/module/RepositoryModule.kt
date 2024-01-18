@@ -8,6 +8,7 @@ import com.aga.data.data.repository.invite.InviteRepositoryImpl
 import com.aga.data.data.repository.team.TeamRepositoryImpl
 import com.aga.data.data.repository.teammember.TeamMemberRepositoryImpl
 import com.aga.data.data.repository.user.UserRepositoryImpl
+import com.aga.data.data.repository.weather.WeatherRepositoryImpl
 import com.aga.domain.repository.AlarmDetailRepository
 import com.aga.domain.repository.AlarmRepository
 import com.aga.domain.repository.StatisticsRepository
@@ -15,6 +16,7 @@ import com.aga.domain.repository.InviteRepository
 import com.aga.domain.repository.TeamMemberRepository
 import com.aga.domain.repository.TeamRepository
 import com.aga.domain.repository.UserRepository
+import com.aga.domain.repository.WeatherRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -52,4 +54,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindAlarmDetailRepository(alarmDetailRepositoryImpl: AlarmDetailRepositoryImpl): AlarmDetailRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindWeatherRepository(weatherRepositoryImpl: WeatherRepositoryImpl): WeatherRepository
 }

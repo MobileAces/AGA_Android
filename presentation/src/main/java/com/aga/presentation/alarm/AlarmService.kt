@@ -68,8 +68,8 @@ class AlarmService: Service() {
                 maxVol * volume / 100,
                 AudioManager.FLAG_PLAY_SOUND
             )
-          startRingtone()
         }
+        startRingtone()
     }
 
     private fun startRingtone() {

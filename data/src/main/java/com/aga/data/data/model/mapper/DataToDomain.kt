@@ -3,6 +3,7 @@ package com.aga.data.data.model.mapper
 import com.aga.data.data.model.alarm.AlarmDataResponse
 import com.aga.data.data.model.alarm.AlarmDetailResponse
 import com.aga.data.data.model.alarm.AlarmWithDetailListResponse
+import com.aga.data.data.model.alarmdetail.AlarmDetailEntity
 import com.aga.data.data.model.member.TeamMemberDataResponse
 import com.aga.data.data.model.statistics.StatisticsDailyData
 import com.aga.data.data.model.statistics.StatisticsDailyDetail
@@ -175,5 +176,25 @@ fun WeatherResponse.toWeather(): Weather{
     return Weather(
         this.weatherData.rainAmount,
         this.message
+    )
+}
+
+fun AlarmDetailEntity.toAlarmDetail(): AlarmDetail{
+    return AlarmDetail(
+        this.dayOfWeek,
+        this.id,
+        this.hour,
+        this.minute,
+        this.repeatTime,
+        this.memo,
+        this.forecast,
+        this.memoVoice,
+        this.isOn,
+        this.alarmId,
+        this.userId,
+        this.userNickname,
+        this.isVibrateOn,
+        this.isRingtoneOn,
+        this.ringtoneUri
     )
 }
