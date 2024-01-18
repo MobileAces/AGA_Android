@@ -31,4 +31,8 @@ class AlarmDetailRepositoryImpl @Inject constructor(
             it.toAlarmDetail()
         }
     }
+
+    override suspend fun getSavedAlarmDetailById(id: Int): AlarmDetail? {
+        return localDataSource.getAlarmDetailById(id)?.toAlarmDetail()
+    }
 }
