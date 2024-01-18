@@ -8,6 +8,7 @@ import com.aga.presentation.MainActivity
 import com.aga.presentation.R
 import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
+import com.aga.presentation.databinding.FragmentAlarmBinding
 import com.aga.presentation.databinding.FragmentAlarmSettingBinding
 
 class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
