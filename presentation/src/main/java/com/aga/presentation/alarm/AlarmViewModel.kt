@@ -24,7 +24,7 @@ class AlarmViewModel @Inject constructor(
 ) : ViewModel() {
     // 알람 <-> 알람 세팅 간 사용 데이터
     var selectedAlarm: Alarm? = null
-    var selectedAlarmDetail: AlarmDetail? = null
+    var selectedAlarmDetailId: Int? = null
 
 
     private var _alarmCreateResult = MutableLiveData<Event<Result<Alarm>>>()
