@@ -10,7 +10,7 @@ interface AlarmDetailLocalDataSource {
 
     suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetail>
 
-    suspend fun getAllAlarmDetail(): List<AlarmDetailEntity>
+    suspend fun getAllAlarmDetail(): List<AlarmDetail>
 
     suspend fun deleteAlarmDetailById(id: Int)
 
