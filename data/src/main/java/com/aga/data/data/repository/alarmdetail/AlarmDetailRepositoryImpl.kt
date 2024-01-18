@@ -11,12 +11,12 @@ import com.aga.domain.repository.AlarmDetailRepository
 import javax.inject.Inject
 
 class AlarmDetailRepositoryImpl @Inject constructor(
-    private val remoteDataSource: AlarmDetailRemoteDataSource,
-    private val localDataSource: AlarmDetailLocalDataSource
+    private val alarmDetailRemoteDataSource: AlarmDetailRemoteDataSource,
+    private val alarmDetailLocalDataSource: AlarmDetailLocalDataSource
 ) : AlarmDetailRepository {
     override suspend fun createNewPersonalAlarm(alarmDetail: AlarmDetail): Result<AlarmDetail> {
-        localDataSource.insertAlarmDetail(alarmDetail.toAlarmDetailEntity())
-        return remoteDataSource.createNewPersonalAlarm(
+        alarmDetailLocalDataSource.insertAlarmDetail(alarmDetail.toAlarmDetailEntity())
+        return alarmDetailRemoteDataSource.createNewPersonalAlarm(
             alarmDetail.toAlarmDetailRequest()
         ).map {
             it.toAlarmDetail()
@@ -24,15 +24,32 @@ class AlarmDetailRepositoryImpl @Inject constructor(
     }
 
     override suspend fun modifyPersonalAlarm(alarmDetail: AlarmDetail): Result<AlarmDetail> {
-        localDataSource.updateAlarmDetail(alarmDetail.toAlarmDetailEntity())
-        return remoteDataSource.modifyPersonalAlarm(
+        alarmDetailLocalDataSource.updateAlarmDetail(alarmDetail.toAlarmDetailEntity())
+        return alarmDetailRemoteDataSource.modifyPersonalAlarm(
             alarmDetail.toAlarmDetailModifyRequest()
         ).map {
             it.toAlarmDetail()
         }
     }
 
+    override suspend fun getAlarmDetailFromLocal(id: Int): AlarmDetail {
+        return alarmDetailLocalDataSource.getAlarmDetailById(id)
+    }
+
+    override suspend fun getAllAlarmFromLocal(): List<AlarmDetail> {
+        return alarmDetailLocalDataSource.getAllAlarmDetail()
+    }
+
+    override suspend fun isNotDeletedAlarm(id: Int): Boolean {
+        return alarmDetailRemoteDataSource.getAlarmDetailById(id)
+    }
+
+    override suspend fun deleteAlarmDetailInLocal(id: Int) {
+        alarmDetailLocalDataSource.deleteAlarmDetailById(id)
+    }
+
+
     override suspend fun getSavedAlarmDetailById(id: Int): AlarmDetail? {
-        return localDataSource.getAlarmDetailById(id)?.toAlarmDetail()
+        return alarmDetailLocalDataSource.getAlarmDetailById(id)?.toAlarmDetail()
     }
 }

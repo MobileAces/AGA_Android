@@ -11,6 +11,20 @@ interface AlarmDetailRepository {
         alarmDetail: AlarmDetail
     ): Result<AlarmDetail>
 
+    suspend fun getAlarmDetailFromLocal(
+        id: Int
+    ): AlarmDetail
+
+    suspend fun getAllAlarmFromLocal(): List<AlarmDetail>
+
+    suspend fun isNotDeletedAlarm(
+        id: Int
+    ): Boolean
+
+    suspend fun deleteAlarmDetailInLocal(
+        id: Int
+    )
+
     suspend fun getSavedAlarmDetailById(
         id: Int
     ): AlarmDetail?

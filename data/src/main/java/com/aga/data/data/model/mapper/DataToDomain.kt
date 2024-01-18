@@ -198,3 +198,23 @@ fun WeatherResponse.toWeather(): Weather{
         this.message
     )
 }
+
+fun AlarmDetailEntity.toAlarmDetail(): AlarmDetail{
+    return AlarmDetail(
+        this.dayOfWeek,
+        this.id,
+        this.hour,
+        this.minute,
+        this.repeatTime,
+        this.memo,
+        this.forecast,
+        this.memoVoice,
+        this.isOn,
+        this.alarmId,
+        this.userId,
+        this.userNickname,
+        this.isVibrateOn,
+        this.isRingtoneOn,
+        this.ringtoneUri
+    )
+}
