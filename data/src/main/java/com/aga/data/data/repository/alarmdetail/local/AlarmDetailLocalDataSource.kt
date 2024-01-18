@@ -5,7 +5,7 @@ import com.aga.data.data.model.alarmdetail.AlarmDetailEntity
 interface AlarmDetailLocalDataSource {
     suspend fun insertAlarmDetail(alarmDetailEntity: AlarmDetailEntity)
 
-    suspend fun getAlarmDetailById(id: Int): AlarmDetailEntity
+    suspend fun getAlarmDetailById(id: Int): AlarmDetailEntity?
 
     suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetailEntity>
 
