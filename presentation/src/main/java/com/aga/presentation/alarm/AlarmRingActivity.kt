@@ -196,6 +196,8 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
     private fun reScheduleAlarm(){
         if (isRepeatAlarm){
             AgaAlarmManager.cancelRepeatAlarm(alarmDetail, this)
+        }else{
+            AgaAlarmManager.cancelAlarm(alarmDetail, this)
             AgaAlarmManager.setNewAlarm(alarmDetail, this)
         }
     }
