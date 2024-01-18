@@ -24,7 +24,7 @@ object AgaAlarmManager {
     }
 
     fun setNewAlarm(alarmDetail: AlarmDetail, context: Context) {
-        val tk = StringTokenizer(alarmDetail.dayOfWeek)
+        val tk = StringTokenizer(alarmDetail.dayOfWeek, " ")
         while (tk.hasMoreTokens()){
             val calendar = Calendar.getInstance()
 
@@ -35,7 +35,7 @@ object AgaAlarmManager {
             calendar.set(Calendar.SECOND, 0)
             val timeDiff = calendar.timeInMillis - System.currentTimeMillis()
 
-            if (timeDiff < 0){
+            if (timeDiff <= 0){
                 calendar.add(Calendar.DATE, 7)
             }
             val alarmTime = calendar.timeInMillis

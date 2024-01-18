@@ -14,4 +14,8 @@ interface AlarmDetailRepository {
     suspend fun getAlarmDetailFromLocal(
         id: Int
     ): AlarmDetail
+
+    suspend fun getAllAlarmByUserIdFromLocal(
+        userId: String
+    ): List<AlarmDetail>
 }

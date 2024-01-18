@@ -17,8 +17,10 @@ class AlarmDetailLocalDataSourceImpl @Inject constructor(
         return alarmDetailDao.getAlarmDetailById(id).toAlarmDetail()
     }
 
-    override suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetailEntity> {
-        return alarmDetailDao.getAlarmDetailByUserId(userId)
+    override suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetail> {
+        return alarmDetailDao.getAlarmDetailByUserId(userId).map {
+            it.toAlarmDetail()
+        }
     }
 
     override suspend fun getAllAlarmDetail(): List<AlarmDetailEntity> {

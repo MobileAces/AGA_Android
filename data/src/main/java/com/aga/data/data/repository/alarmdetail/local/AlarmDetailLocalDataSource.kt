@@ -8,7 +8,7 @@ interface AlarmDetailLocalDataSource {
 
     suspend fun getAlarmDetailById(id: Int): AlarmDetail
 
-    suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetailEntity>
+    suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetail>
 
     suspend fun getAllAlarmDetail(): List<AlarmDetailEntity>
 

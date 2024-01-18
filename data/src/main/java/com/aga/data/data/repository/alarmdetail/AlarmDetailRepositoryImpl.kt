@@ -33,4 +33,8 @@ class AlarmDetailRepositoryImpl @Inject constructor(
         return alarmDetailLocalDataSource.getAlarmDetailById(id)
     }
 
+    override suspend fun getAllAlarmByUserIdFromLocal(userId: String): List<AlarmDetail> {
+        return alarmDetailLocalDataSource.getAlarmDetailByUserId(userId)
+    }
+
 }
