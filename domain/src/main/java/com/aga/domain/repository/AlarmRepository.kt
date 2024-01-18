@@ -8,4 +8,6 @@ interface AlarmRepository {
     suspend fun createNewAlarm(alarmName: String, alarmDay: Set<DayOfWeek>, teamId: Int): Result<Alarm>
 
     suspend fun getAlarmListByTeamId(teamId: Int): Result<List<AlarmWithDetailList>>
+
+    suspend fun deleteAlarmById(id: Int): Result<Boolean>
 }

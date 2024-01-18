@@ -33,4 +33,8 @@ class AlarmRepositoryImpl @Inject constructor(
             list.map { it.toAlarmWithDetailList() }
         }
     }
+
+    override suspend fun deleteAlarmById(id: Int): Result<Boolean> {
+        return alarmRemoteDataSource.deleteAlarmById(id)
+    }
 }

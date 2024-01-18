@@ -251,7 +251,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_nexon_lv2_gothic"
                         android:paddingHorizontal="4dp"
-                        tools:text="3회" />
+                        tools:text="3분" />
 
                     <ImageView
                         android:id="@+id/iv_repeat_plus"
