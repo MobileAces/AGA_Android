@@ -12,7 +12,7 @@ interface AlarmDetailDao {
     suspend fun insertAlarmDetail(alarmDetailEntity: AlarmDetailEntity)
 
     @Query("SELECT * FROM alarm_detail_table WHERE id = (:id)")
-    suspend fun getAlarmDetailById(id: Int): AlarmDetailEntity?
+    suspend fun getAlarmDetailById(id: Int): AlarmDetailEntity
 
     @Query("SELECT * FROM alarm_detail_table WHERE userId = (:userId)")
     suspend fun getAlarmDetailByUserId(userId: String): List<AlarmDetailEntity>
