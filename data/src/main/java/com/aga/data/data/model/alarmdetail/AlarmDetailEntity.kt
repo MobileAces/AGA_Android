@@ -5,7 +5,7 @@ import java.io.Serializable
 
 @Entity(tableName = "alarm_detail_table", primaryKeys = ["id"])
 data class AlarmDetailEntity(
-    val dayOfWeek: Int,
+    val dayOfWeek: String,
     val id: Int,
     val hour: Int,
     val minute: Int,
