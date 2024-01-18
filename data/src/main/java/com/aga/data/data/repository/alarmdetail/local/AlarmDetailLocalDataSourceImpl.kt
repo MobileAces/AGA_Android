@@ -8,7 +8,7 @@ class AlarmDetailLocalDataSourceImpl @Inject constructor(
     private val alarmDetailDao: AlarmDetailDao
 ): AlarmDetailLocalDataSource {
     override suspend fun insertAlarmDetail(alarmDetailEntity: AlarmDetailEntity) {
-        return alarmDetailDao.insertAlarmDetail(alarmDetailEntity)
+        alarmDetailDao.insertAlarmDetail(alarmDetailEntity)
     }
 
     override suspend fun getAlarmDetailById(id: Int): AlarmDetailEntity {
@@ -24,10 +24,14 @@ class AlarmDetailLocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteAlarmDetailById(id: Int) {
-        return alarmDetailDao.deleteAlarmDetailById(id)
+        alarmDetailDao.deleteAlarmDetailById(id)
     }
 
     override suspend fun deleteAllAlarmDetail() {
-        return alarmDetailDao.deleteAllAlarmDetail()
+        alarmDetailDao.deleteAllAlarmDetail()
+    }
+
+    override suspend fun updateAlarmDetail(alarmDetailEntity: AlarmDetailEntity) {
+        alarmDetailDao.updateAlarmDetail(alarmDetailEntity)
     }
 }

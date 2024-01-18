@@ -14,4 +14,6 @@ interface AlarmDetailLocalDataSource {
     suspend fun deleteAlarmDetailById(id: Int)
 
     suspend fun deleteAllAlarmDetail()
+
+    suspend fun updateAlarmDetail(alarmDetailEntity: AlarmDetailEntity)
 }
