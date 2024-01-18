@@ -37,4 +37,12 @@ class AlarmDetailRepositoryImpl @Inject constructor(
         return alarmDetailLocalDataSource.getAlarmDetailByUserId(userId)
     }
 
+    override suspend fun isNotDeletedAlarm(id: Int): Boolean {
+        return alarmDetailRemoteDataSource.getAlarmDetailById(id)
+    }
+
+    override suspend fun deleteAlarmDetailInLocal(id: Int) {
+        alarmDetailLocalDataSource.deleteAlarmDetailById(id)
+    }
+
 }

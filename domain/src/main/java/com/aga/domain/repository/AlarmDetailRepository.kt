@@ -18,4 +18,12 @@ interface AlarmDetailRepository {
     suspend fun getAllAlarmByUserIdFromLocal(
         userId: String
     ): List<AlarmDetail>
+
+    suspend fun isNotDeletedAlarm(
+        id: Int
+    ): Boolean
+
+    suspend fun deleteAlarmDetailInLocal(
+        id: Int
+    )
 }
