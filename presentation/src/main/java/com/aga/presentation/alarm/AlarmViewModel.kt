@@ -8,6 +8,7 @@ import com.aga.domain.model.Alarm
 import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.usecase.alarm.CreateAlarmUseCase
+import com.aga.domain.usecase.alarm.DeleteAlarmUseCase
 import com.aga.domain.usecase.alarm.GetAlarmWithDetailListByTeamIdUseCase
 import com.aga.domain.usecase.alarm.ModifyAlarmDetailUseCase
 import com.aga.presentation.util.Event
@@ -20,8 +21,14 @@ import javax.inject.Inject
 class AlarmViewModel @Inject constructor(
     private val createAlarmUseCase: CreateAlarmUseCase,
     private val getAlarmWithDetailListByTeamIdUseCase: GetAlarmWithDetailListByTeamIdUseCase,
-    private val modifyAlarmDetailUseCase: ModifyAlarmDetailUseCase
+    private val modifyAlarmDetailUseCase: ModifyAlarmDetailUseCase,
+    private val deleteAlarmUseCase: DeleteAlarmUseCase
 ) : ViewModel() {
+    // 알람 <-> 알람 세팅 간 사용 데이터
+    var selectedAlarm: Alarm? = null
+    var selectedAlarmDetailId: Int? = null
+
+
     private var _alarmCreateResult = MutableLiveData<Event<Result<Alarm>>>()
     val alarmCreateResult: LiveData<Event<Result<Alarm>>>
         get() = _alarmCreateResult
@@ -33,6 +40,10 @@ class AlarmViewModel @Inject constructor(
     private var _alarmDetailModifyResult = MutableLiveData<Result<AlarmDetail>>()
     val alarmDetailModifyResult: LiveData<Result<AlarmDetail>>
         get() = _alarmDetailModifyResult
+
+    private var _alarmDeleteResult = MutableLiveData<Result<Boolean>>()
+    val alarmDeleteResult: LiveData<Result<Boolean>>
+        get() = _alarmDeleteResult
 
 
     fun createAlarm(alarmName: String, alarmDay: Set<DayOfWeek>, teamId: Int) {
@@ -59,5 +70,12 @@ class AlarmViewModel @Inject constructor(
         }
     }
 
+    fun deleteAlarm(id: Int){
+        viewModelScope.launch {
+            deleteAlarmUseCase(id).let {
+                _alarmDeleteResult.postValue(it)
+            }
+        }
+    }
 
 }

@@ -43,14 +43,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             }
         }
 
-
-    init {
-        checkPermission()
-        permissionLauncher.launch(locationPermissions)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkPermission()
+        permissionLauncher.launch(locationPermissions)
 
         // 자동로그인 처리 부분이라 나중에 Splash로 빼주면 됩니다.
         if (PrefManager.read(PREF_AUTO_LOGIN, false)){
@@ -59,11 +56,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(
             this.finish()
         }
 
+
+
     }
 
     private fun checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
-            if (!Settings.canDrawOverlays(this)) {              // 다른앱 위에 그리기 체크
+            if (!Settings.canDrawOverlays(applicationContext)) {              // 다른앱 위에 그리기 체크
                 val uri = Uri.fromParts("package", packageName, null)
                 val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, uri)
                 startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE)

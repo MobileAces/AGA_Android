@@ -58,7 +58,7 @@ class AlarmMemberListAdapter(
             binding.tvName.text = teamMember.userNickname
             alarmTime?.let {
                 binding.tvAmPm.text = it.ampm
-                binding.tvTime.text = it.hour_12.toString() + ":" + it.minute.toString()
+                binding.tvTime.text = it.get12HourTimeString()
             } ?: run {
                 binding.tvAmPm.text = binding.root.context.getString(R.string.alarm_no_setting)
             }

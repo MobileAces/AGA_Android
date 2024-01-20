@@ -17,5 +17,6 @@ data class AlarmDetail(
     val userNickname: String,
     val isVibrateOn: Boolean,
     val isRingtoneOn: Boolean,
-    val ringtoneUri: String?
+    val ringtoneUri: String?,
+    val teamId: Int,
 ): Serializable

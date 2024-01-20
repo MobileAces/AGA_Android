@@ -1,5 +1,6 @@
 package com.aga.data.data.model.mapper
 
+import com.aga.data.data.model.alarmdetail.AlarmDetailEntity
 import com.aga.data.data.model.alarmdetail.AlarmDetailModifyRequest
 import com.aga.data.data.model.alarmdetail.AlarmDetailRequest
 import com.aga.data.data.model.member.AuthorityChangeRequest
@@ -99,6 +100,27 @@ fun AlarmDetail.toAlarmDetailModifyRequest(): AlarmDetailModifyRequest{
         forecast,
         memoVoice,
         isOn
+    )
+}
+
+fun AlarmDetail.toAlarmDetailEntity(): AlarmDetailEntity {
+    return AlarmDetailEntity(
+        dayOfWeek,
+        id,
+        hour,
+        minute,
+        repeatTime,
+        memo,
+        forecast,
+        memoVoice,
+        isOn,
+        alarmId,
+        userId,
+        userNickname,
+        isVibrateOn,
+        isRingtoneOn,
+        ringtoneUri,
+        teamId
     )
 }
 

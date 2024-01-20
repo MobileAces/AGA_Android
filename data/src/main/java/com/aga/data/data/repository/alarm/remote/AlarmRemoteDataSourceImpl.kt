@@ -28,4 +28,14 @@ class AlarmRemoteDataSourceImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun deleteAlarmById(id: Int): Result<Boolean> {
+        return alarmService.deleteAlarmById(id).let {
+            if (it.isSuccessful && it.body() != null){
+                Result.success(it.body()!!.data!!.result)
+            } else {
+                Result.failure(Exception(it.code().toString()))
+            }
+        }
+    }
 }

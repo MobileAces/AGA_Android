@@ -24,4 +24,8 @@ interface AlarmDetailRepository {
     suspend fun deleteAlarmDetailInLocal(
         id: Int
     )
+
+    suspend fun getSavedAlarmDetailById(
+        id: Int
+    ): AlarmDetail?
 }

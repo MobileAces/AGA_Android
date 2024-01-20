@@ -2,6 +2,7 @@ package com.aga.presentation.alarm
 
 import android.widget.ToggleButton
 import com.aga.presentation.databinding.LayoutSelectWeekdayBinding
+import java.lang.StringBuilder
 import java.time.DayOfWeek
 
 /**
@@ -55,7 +56,7 @@ class WeekDaySelectManager(
      */
     fun setSelectedDay(daySet: Set<DayOfWeek>){
         daySet.forEach {
-            weekdayViewList[dayOfWeekList.indexOf(it)].isSelected = true
+            weekdayViewList[dayOfWeekList.indexOf(it)].isChecked = true
         }
     }
 
@@ -65,6 +66,48 @@ class WeekDaySelectManager(
     fun setClickListener(dayClickListener: (weekday: DayOfWeek,isOn: Boolean)->Unit = {_,_->}){
         this.dayClickListener = dayClickListener
         applySetClickListener()
+    }
+
+    /**
+     * 알람 디테일 dayOfWeek: String 요구 포맷 반환 메서드
+     *
+     * 일요일 = 1 ~ 토요일 = 7
+     *
+     * 형식 : "1 2 3 4 5 6 7" (2개 이상일 때 사이 띄어쓰기로 구분)
+     */
+    fun getStringForAlarmDetailDayOfWeek(): String {
+        val sb = StringBuilder()
+
+        if (binding.toggleSunday.isChecked) {
+            sb.append("1").append(" ")
+        }
+        if (binding.toggleMonday.isChecked) {
+            sb.append("2").append(" ")
+        }
+        if (binding.toggleTuesday.isChecked) {
+            sb.append("3").append(" ")
+        }
+        if (binding.toggleWednesday.isChecked) {
+            sb.append("4").append(" ")
+        }
+        if (binding.toggleThursday.isChecked) {
+            sb.append("5").append(" ")
+        }
+        if (binding.toggleFriday.isChecked) {
+            sb.append("6").append(" ")
+        }
+        if (binding.toggleSaturday.isChecked) {
+            sb.append("7").append(" ")
+        }
+
+        return sb.toString().trim()
+    }
+
+
+    fun setAllEnable(boolean: Boolean){
+        weekdayViewList.forEach {
+            it.isEnabled = boolean
+        }
     }
 
     private fun applySetClickListener(){

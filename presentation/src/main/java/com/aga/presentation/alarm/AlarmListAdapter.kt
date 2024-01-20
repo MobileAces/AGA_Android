@@ -2,11 +2,13 @@ package com.aga.presentation.alarm
 
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.aga.domain.model.Alarm
 import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.domain.model.TeamMember
@@ -25,8 +27,10 @@ class AlarmListAdapter(
     private var teamMemberList: List<TeamMember>,
     private var switchClickListener: (
         switchWrapper: AlarmListViewHolder.SwitchAccessWrapper,
-        alarmDetail: AlarmDetail?
-    ) -> Unit
+        alarmDetail: AlarmDetail?,
+        alarm: Alarm
+    ) -> Unit,
+    private var alarmSettingClickListener: (View, Alarm, AlarmDetail?) -> Unit
 ) : RecyclerView.Adapter<AlarmListAdapter.AlarmListViewHolder>() {
 
     private val dayList = arrayOf(
@@ -55,7 +59,14 @@ class AlarmListAdapter(
     }
 
     override fun onBindViewHolder(holder: AlarmListViewHolder, position: Int) {
-        holder.bind(alarmList[position], teamMemberList, dayList, myId, switchClickListener)
+        holder.bind(
+            alarmList[position],
+            teamMemberList,
+            dayList,
+            myId,
+            switchClickListener,
+            alarmSettingClickListener
+        )
     }
 
     override fun getItemCount(): Int {
@@ -81,7 +92,8 @@ class AlarmListAdapter(
             teamMemberList: List<TeamMember>,
             dayArray: Array<DayOfWeek>,
             myId: String,
-            switchClickListener: (switchWrapper: SwitchAccessWrapper, alarmDetail: AlarmDetail?) -> Unit
+            switchClickListener: (switchWrapper: SwitchAccessWrapper, alarmDetail: AlarmDetail?, alarm: Alarm) -> Unit,
+            alarmSettingClickListener: (View, Alarm, AlarmDetail?) -> Unit
         ) {
             binding.tvAlarmTitle.text = item.alarmName
             binding.tvApplyDay.text = getSelectedDaySpannableString(
@@ -90,7 +102,18 @@ class AlarmListAdapter(
                 binding.tvApplyDay.text.toString()
             )
             binding.viewSwitchWrapper.setOnClickListener {
-                switchClickListener(switchAccessWrapper,myAlarmDetail)
+                switchClickListener(
+                    switchAccessWrapper,
+                    myAlarmDetail,
+                    Alarm(item.alarmId,item.alarmName,item.alarmDay.toSet(),item.teamId))
+            }
+            binding.ibAlarmSetting.setOnClickListener {
+                alarmSettingClickListener(
+                    it,
+                    Alarm(item.alarmId,item.alarmName,item.alarmDay.toSet(),item.teamId),
+                    myAlarmDetail
+                )
+                Log.d(TAG, "bind: setting clicked")
             }
             setMemberListAdapter(teamMemberList, item.alarmDetailList)
             setShowMemberButton()
@@ -112,7 +135,7 @@ class AlarmListAdapter(
             }
             myAlarmTime?.let {
                 binding.tvAmPm.text = it.ampm
-                binding.tvTime.text = it.hour_12.toString() + ":" + it.minute.toString()
+                binding.tvTime.text = it.get12HourTimeString()
             }
         }
 

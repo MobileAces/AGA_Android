@@ -3,6 +3,7 @@ package com.aga.data.data.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.aga.data.data.model.alarmdetail.AlarmDetailEntity
 
 @Dao
@@ -24,4 +25,7 @@ interface AlarmDetailDao {
 
     @Query("DELETE FROM alarm_detail_table")
     suspend fun deleteAllAlarmDetail()
+
+    @Update
+    suspend fun updateAlarmDetail(alarmDetailEntity: AlarmDetailEntity)
 }

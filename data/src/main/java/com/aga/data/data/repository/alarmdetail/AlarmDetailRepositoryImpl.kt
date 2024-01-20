@@ -1,6 +1,7 @@
 package com.aga.data.data.repository.alarmdetail
 
 import com.aga.data.data.model.mapper.toAlarmDetail
+import com.aga.data.data.model.mapper.toAlarmDetailEntity
 import com.aga.data.data.model.mapper.toAlarmDetailModifyRequest
 import com.aga.data.data.model.mapper.toAlarmDetailRequest
 import com.aga.data.data.repository.alarmdetail.local.AlarmDetailLocalDataSource
@@ -18,14 +19,26 @@ class AlarmDetailRepositoryImpl @Inject constructor(
             alarmDetail.toAlarmDetailRequest()
         ).map {
             it.toAlarmDetail()
+        }.also { result ->
+            result.getOrNull()?.also {
+                alarmDetailLocalDataSource.insertAlarmDetail(alarmDetail.copy(id = it.id).toAlarmDetailEntity())
+            }
         }
     }
 
     override suspend fun modifyPersonalAlarm(alarmDetail: AlarmDetail): Result<AlarmDetail> {
-        return alarmDetailRemoteDataSource.modifyPersonalAlarm(
-            alarmDetail.toAlarmDetailModifyRequest()
-        ).map {
-            it.toAlarmDetail()
+        return if (alarmDetail.teamId < 0){
+            alarmDetailLocalDataSource.getAlarmDetailById(alarmDetail.id).copy(isOn = alarmDetail.isOn)
+        } else {
+            alarmDetail
+        } .let {
+            alarmDetailRemoteDataSource.modifyPersonalAlarm(it.toAlarmDetailModifyRequest()).map {response ->
+                response.toAlarmDetail()
+            }.also {result ->
+                if (result.isSuccess){
+                    alarmDetailLocalDataSource.updateAlarmDetail(it.toAlarmDetailEntity())
+                }
+            }
         }
     }
 
@@ -45,4 +58,8 @@ class AlarmDetailRepositoryImpl @Inject constructor(
         alarmDetailLocalDataSource.deleteAlarmDetailById(id)
     }
 
+
+    override suspend fun getSavedAlarmDetailById(id: Int): AlarmDetail? {
+        return alarmDetailLocalDataSource.getAlarmDetailById(id)
+    }
 }

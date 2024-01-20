@@ -5,7 +5,7 @@ import java.io.Serializable
 
 @Entity(tableName = "alarm_detail_table", primaryKeys = ["id"])
 data class AlarmDetailEntity(
-    val dayOfWeek: Int,
+    val dayOfWeek: String,
     val id: Int,
     val hour: Int,
     val minute: Int,
@@ -13,11 +13,12 @@ data class AlarmDetailEntity(
     val memo: String,
     val forecast: Boolean,
     val memoVoice: Boolean,
-    val isOn: Boolean,
+    var isOn: Boolean,
     val alarmId: Int,
     val userId: String,
     val userNickname: String,
     val isVibrateOn: Boolean,
     val isRingtoneOn: Boolean,
-    val ringtoneUri: String?
+    val ringtoneUri: String?,
+    val teamId: Int,
 ): Serializable

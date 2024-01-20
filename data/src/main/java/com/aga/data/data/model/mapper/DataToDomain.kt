@@ -144,7 +144,7 @@ fun StatisticsDailyDetail.toDailyStatisticsDetail(): DailyStatisticsDetail{
 
 fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
     return AlarmDetail(
-        -1,
+        "",
         alarmDetailId,
         alarmDetailHour,
         alarmDetailMinute,
@@ -158,7 +158,29 @@ fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
         userNickname,
         true,
         true,
-        ""
+        "",
+        -1
+    )
+}
+
+fun AlarmDetailEntity.toAlarmDetail(): AlarmDetail{
+    return AlarmDetail(
+        dayOfWeek,
+        id,
+        hour,
+        minute,
+        repeatTime,
+        memo,
+        forecast,
+        memoVoice,
+        isOn,
+        alarmId,
+        userId,
+        userNickname,
+        isVibrateOn,
+        isRingtoneOn,
+        ringtoneUri,
+        teamId
     )
 }
 
@@ -176,25 +198,5 @@ fun WeatherResponse.toWeather(): Weather{
     return Weather(
         this.weatherData.rainAmount,
         this.message
-    )
-}
-
-fun AlarmDetailEntity.toAlarmDetail(): AlarmDetail{
-    return AlarmDetail(
-        this.dayOfWeek,
-        this.id,
-        this.hour,
-        this.minute,
-        this.repeatTime,
-        this.memo,
-        this.forecast,
-        this.memoVoice,
-        this.isOn,
-        this.alarmId,
-        this.userId,
-        this.userNickname,
-        this.isVibrateOn,
-        this.isRingtoneOn,
-        this.ringtoneUri
     )
 }

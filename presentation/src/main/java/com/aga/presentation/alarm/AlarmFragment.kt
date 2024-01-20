@@ -3,13 +3,16 @@ package com.aga.presentation.alarm
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.aga.domain.model.Alarm
 import com.aga.domain.model.AlarmDetail
 import com.aga.domain.model.AlarmWithDetailList
 import com.aga.presentation.MainActivity
 import com.aga.presentation.MainViewModel
 import com.aga.presentation.R
+import com.aga.presentation.base.AgaAlarmManager
 import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
 import com.aga.presentation.base.PrefManager
@@ -93,9 +96,23 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
                     }
                     targetAlarmDetail = null
                     targetSwitch = null
+                    if (alarmDetail.isOn){
+                        AgaAlarmManager.setNewAlarm(alarmDetail,requireContext())
+                    } else {
+                        AgaAlarmManager.cancelAlarm(alarmDetail,requireContext())
+                    }
                 }
             } else {
                 showToast("알람 수정에 실패했습니다.")
+            }
+        }
+
+        alarmViewModel.alarmDeleteResult.observe(viewLifecycleOwner){
+            if (it.isSuccess){
+                showToast("알람 삭제에 성공했습니다.")
+                alarmViewModel.getAlarmList(mainViewModel.teamId)
+            } else {
+                showToast("알람 삭제에 실패했습니다.")
             }
         }
     }
@@ -122,7 +139,9 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
         if (!myId.isNullOrBlank() && !teamMemberList.isNullOrEmpty()){
             if (binding.rvAlarmList.adapter == null){
                 if (alarmListAdapter == null){
-                    alarmListAdapter = AlarmListAdapter(myId,alarmWithDetailLists,teamMemberList,alarmSwitchClickListener)
+                    alarmListAdapter = AlarmListAdapter(
+                        myId,alarmWithDetailLists,teamMemberList,alarmSwitchClickListener,alarmSettingClickListener
+                    )
                 }
                 binding.rvAlarmList.adapter = alarmListAdapter
             } else {
@@ -150,12 +169,14 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
     private var targetSwitch: AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper? = null
     private var targetAlarmDetail: AlarmDetail? = null
     private var alarmSwitchClickListener: (
-        AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper, AlarmDetail?
-    ) -> Unit = {switchWrapper, alarmDetail ->
+        AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper, AlarmDetail?, Alarm
+    ) -> Unit = {switchWrapper, alarmDetail, alarm ->
         targetSwitch = switchWrapper
+        targetAlarmDetail = alarmDetail
         if (alarmDetail == null){
             TwoButtonSnackBar(binding.root,"기존 알람이 없습니다. 생성하시겠습니까?",Snackbar.LENGTH_SHORT)
                 .setConfirmClickListener {
+                    alarmViewModel.selectedAlarm = alarm
                     mainActivity.navigate(Constants.ALARM_TO_ALARMSETTING)
                 }
                 .show()
@@ -163,5 +184,37 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
             alarmViewModel.modifyAlarmDetail(alarmDetail.copy(isOn = !alarmDetail.isOn))
         }
     }
+
+    /**
+     * 알람 설정 클릭 리스너
+     */
+    private val alarmSettingClickListener: (View, Alarm, AlarmDetail?) -> Unit =
+        { view, alarm, alarmDetail ->
+            Log.d(TAG, "popmenu: called")
+            val popupMenu = PopupMenu(requireContext(),view)
+            popupMenu.menuInflater.inflate(R.menu.menu_alarm_setting,popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener {item ->
+                when(item.itemId){
+                    R.id.item_setting_personal_alarm -> {
+                        alarmViewModel.selectedAlarm = alarm
+                        alarmViewModel.selectedAlarmDetailId = alarmDetail?.id
+                        mainActivity.navigate(Constants.ALARM_TO_ALARMSETTING)
+                        true
+                    }
+                    R.id.item_delete_alarm -> {
+                        val userId = PrefManager.read(Constants.PREF_USER_ID,null)
+                        if (userId != null && mainViewModel.isAuthorizedMember(userId)){
+                            alarmViewModel.deleteAlarm(alarm.alarmId)
+                        } else {
+                            showToast("올바르지 않은 접근입니다.")
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.show()
+        }
+
 
 }
