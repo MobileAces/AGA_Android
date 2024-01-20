@@ -1,6 +1,7 @@
 package com.aga.presentation.alarm
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
@@ -8,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.aga.domain.model.AlarmDetail
 import com.aga.presentation.MainActivity
 import com.aga.presentation.R
+import com.aga.presentation.base.AgaAlarmManager
 import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
 import com.aga.presentation.base.PrefManager
@@ -15,6 +17,7 @@ import com.aga.presentation.databinding.FragmentAlarmSettingBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
+private val TAG = "AlarmSettingFragment_awesome"
 @AndroidEntryPoint
 class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
     FragmentAlarmSettingBinding::bind, R.layout.fragment_alarm_setting
@@ -26,7 +29,7 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
     private lateinit var weekDaySelectManager: WeekDaySelectManager
     private lateinit var alarmTime: AlarmTime
 
-    private var repeat: Int = 0;
+    private var repeat: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,12 +51,23 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
 
     private fun initUi() {
         setNumberpicker()
-        weekDaySelectManager.setAllEnable(false)
         // Alarm 관련
         alarmViewModel.selectedAlarm?.let {alarm ->
             binding.tvAlarmTitle.text = alarm.alarmName
             weekDaySelectManager.setSelectedDay(alarm.alarmDay)
+            Log.d(TAG, "initUi: ${alarm.alarmDay}")
         }
+        weekDaySelectManager.setAllEnable(false)
+
+        alarmTime = AlarmTime(6,0)
+        binding.npHour.value = alarmTime.hour_12
+        binding.npMinute.value = alarmTime.minute
+        binding.npAmpm.value =
+            if (alarmTime.ampm == "오전") {
+                0
+            } else {
+                1
+            }
 
         alarmViewModel.selectedAlarmDetailId?.let {
             alarmSettingViewModel.getAlarmDetailById(it)
@@ -97,8 +111,9 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
                             "",
                             binding.switchVibrate.isChecked,
                             binding.switchRing.isChecked,
-                            ""
-                        )
+                            "",
+                            alarmViewModel.selectedAlarm!!.teamId
+                        ).also { AgaAlarmManager.setNewAlarm(it,requireContext()) }
                     )
                 } ?: run {
                     alarmSettingViewModel.createNewAlarm(
@@ -117,10 +132,13 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
                             "",
                             binding.switchVibrate.isChecked,
                             binding.switchRing.isChecked,
-                            ""
-                        )
+                            "",
+                            alarmViewModel.selectedAlarm!!.teamId
+                        ).also { AgaAlarmManager.setNewAlarm(it,requireContext()) }
                     )
                 }
+            } else {
+                showToast("올바르지 않은 접근입니다.")
             }
 
         }
@@ -144,6 +162,9 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
             if (it.isSuccess){
 
                 Snackbar.make(binding.root,"개인 알람 저장에 성공했습니다.",Snackbar.LENGTH_SHORT).show()
+                alarmViewModel.selectedAlarm?.let { alarm ->
+                    alarmViewModel.getAlarmList(alarm.teamId)
+                }
                 mainActivity.navigate(Constants.ALARMSETTING_TO_ALARM)
             } else {
                 Snackbar.make(binding.root,"개인 알람 저장에 실패했습니다.",Snackbar.LENGTH_SHORT).show()
@@ -161,8 +182,8 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
                     } else {
                         1
                     }
-                binding.switchRing.isChecked = alarmDetail.isOn
-                binding.switchVibrate.isChecked = alarmDetail.isOn
+                binding.switchRing.isChecked = alarmDetail.isRingtoneOn
+                binding.switchVibrate.isChecked = alarmDetail.isVibrateOn
                 binding.switchRainVoice.isChecked = alarmDetail.forecast
                 binding.switchMemoVoice.isChecked = alarmDetail.memoVoice
                 binding.tilMemo.editText!!.setText(alarmDetail.memo)

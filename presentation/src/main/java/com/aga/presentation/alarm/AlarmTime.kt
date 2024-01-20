@@ -38,4 +38,16 @@ class AlarmTime private constructor(){
             if (hour_12 == 12) 12 else hour_12 + 12
         }
     }
+
+    fun get12HourTimeString():String{
+        return if (hour_12 < 10){
+            "0$hour_12"
+        } else {
+            hour_12.toString()
+        } + ":" + if (minute<10){
+            "0$minute"
+        } else {
+            minute.toString()
+        }
+    }
 }

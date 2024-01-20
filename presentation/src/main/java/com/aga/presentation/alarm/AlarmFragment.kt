@@ -12,6 +12,7 @@ import com.aga.domain.model.AlarmWithDetailList
 import com.aga.presentation.MainActivity
 import com.aga.presentation.MainViewModel
 import com.aga.presentation.R
+import com.aga.presentation.base.AgaAlarmManager
 import com.aga.presentation.base.BaseFragment
 import com.aga.presentation.base.Constants
 import com.aga.presentation.base.PrefManager
@@ -95,6 +96,11 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
                     }
                     targetAlarmDetail = null
                     targetSwitch = null
+                    if (alarmDetail.isOn){
+                        AgaAlarmManager.setNewAlarm(alarmDetail,requireContext())
+                    } else {
+                        AgaAlarmManager.cancelAlarm(alarmDetail,requireContext())
+                    }
                 }
             } else {
                 showToast("알람 수정에 실패했습니다.")
@@ -133,7 +139,9 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
         if (!myId.isNullOrBlank() && !teamMemberList.isNullOrEmpty()){
             if (binding.rvAlarmList.adapter == null){
                 if (alarmListAdapter == null){
-                    alarmListAdapter = AlarmListAdapter(myId,alarmWithDetailLists,teamMemberList,alarmSwitchClickListener)
+                    alarmListAdapter = AlarmListAdapter(
+                        myId,alarmWithDetailLists,teamMemberList,alarmSwitchClickListener,alarmSettingClickListener
+                    )
                 }
                 binding.rvAlarmList.adapter = alarmListAdapter
             } else {
@@ -164,6 +172,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
         AlarmListAdapter.AlarmListViewHolder.SwitchAccessWrapper, AlarmDetail?, Alarm
     ) -> Unit = {switchWrapper, alarmDetail, alarm ->
         targetSwitch = switchWrapper
+        targetAlarmDetail = alarmDetail
         if (alarmDetail == null){
             TwoButtonSnackBar(binding.root,"기존 알람이 없습니다. 생성하시겠습니까?",Snackbar.LENGTH_SHORT)
                 .setConfirmClickListener {
@@ -179,15 +188,16 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
     /**
      * 알람 설정 클릭 리스너
      */
-    private val alarmSettingClickListener: (View, Alarm, AlarmDetail) -> Unit =
+    private val alarmSettingClickListener: (View, Alarm, AlarmDetail?) -> Unit =
         { view, alarm, alarmDetail ->
+            Log.d(TAG, "popmenu: called")
             val popupMenu = PopupMenu(requireContext(),view)
             popupMenu.menuInflater.inflate(R.menu.menu_alarm_setting,popupMenu.menu)
             popupMenu.setOnMenuItemClickListener {item ->
                 when(item.itemId){
                     R.id.item_setting_personal_alarm -> {
                         alarmViewModel.selectedAlarm = alarm
-                        alarmViewModel.selectedAlarmDetailId = alarmDetail.id
+                        alarmViewModel.selectedAlarmDetailId = alarmDetail?.id
                         mainActivity.navigate(Constants.ALARM_TO_ALARMSETTING)
                         true
                     }
@@ -203,6 +213,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(
                     else -> false
                 }
             }
+            popupMenu.show()
         }
 
 

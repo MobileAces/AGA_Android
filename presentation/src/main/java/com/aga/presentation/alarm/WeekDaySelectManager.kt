@@ -56,7 +56,7 @@ class WeekDaySelectManager(
      */
     fun setSelectedDay(daySet: Set<DayOfWeek>){
         daySet.forEach {
-            weekdayViewList[dayOfWeekList.indexOf(it)].isSelected = true
+            weekdayViewList[dayOfWeekList.indexOf(it)].isChecked = true
         }
     }
 
@@ -78,25 +78,25 @@ class WeekDaySelectManager(
     fun getStringForAlarmDetailDayOfWeek(): String {
         val sb = StringBuilder()
 
-        if (binding.toggleSunday.isSelected) {
+        if (binding.toggleSunday.isChecked) {
             sb.append("1").append(" ")
         }
-        if (binding.toggleMonday.isSelected) {
+        if (binding.toggleMonday.isChecked) {
             sb.append("2").append(" ")
         }
-        if (binding.toggleTuesday.isSelected) {
+        if (binding.toggleTuesday.isChecked) {
             sb.append("3").append(" ")
         }
-        if (binding.toggleWednesday.isSelected) {
+        if (binding.toggleWednesday.isChecked) {
             sb.append("4").append(" ")
         }
-        if (binding.toggleThursday.isSelected) {
+        if (binding.toggleThursday.isChecked) {
             sb.append("5").append(" ")
         }
-        if (binding.toggleFriday.isSelected) {
+        if (binding.toggleFriday.isChecked) {
             sb.append("6").append(" ")
         }
-        if (binding.toggleSaturday.isSelected) {
+        if (binding.toggleSaturday.isChecked) {
             sb.append("7").append(" ")
         }
 

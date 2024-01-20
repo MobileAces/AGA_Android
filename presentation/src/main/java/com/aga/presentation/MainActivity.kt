@@ -86,20 +86,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
             }
             ALARM_TO_ALARMSETTING -> {
                 supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        com.google.android.material.R.anim.abc_slide_in_top,
-                        com.google.android.material.R.anim.abc_slide_out_bottom
-                    )
                     .replace(R.id.fl_main,AlarmSettingFragment())
                     .commit()
                 changeBottomNavVisible(false)
             }
             ALARMSETTING_TO_ALARM -> {
                 supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        com.google.android.material.R.anim.abc_slide_in_bottom,
-                        com.google.android.material.R.anim.abc_slide_out_top
-                    )
                     .replace(R.id.fl_main,AlarmFragment())
                     .commit()
                 changeBottomNavVisible(true)

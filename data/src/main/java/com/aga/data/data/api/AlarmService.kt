@@ -26,6 +26,6 @@ interface AlarmService {
 
     @DELETE("alarms/{alarmId}")
     suspend fun deleteAlarmById(
-        id: Int
+        @Path("alarmId") id: Int
     ): Response<DefaultResponse<DefaultBooleanData>>
 }

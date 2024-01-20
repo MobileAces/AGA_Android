@@ -119,7 +119,8 @@ fun AlarmDetail.toAlarmDetailEntity(): AlarmDetailEntity {
         userNickname,
         isVibrateOn,
         isRingtoneOn,
-        ringtoneUri
+        ringtoneUri,
+        teamId
     )
 }
 

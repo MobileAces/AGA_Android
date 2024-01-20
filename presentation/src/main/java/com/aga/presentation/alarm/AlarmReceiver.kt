@@ -14,11 +14,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AlarmReceiver @Inject constructor(
-    private val getLocalAlarmDetailUseCase: GetLocalAlarmDetailUseCase,
-    private val checkNotDeletedAlarmUseCase: CheckNotDeletedAlarmUseCase,
-    private val deleteAlarmDetailFromLocal: DeleteAlarmDetailFromLocalUseCase
-): BroadcastReceiver() {
+class AlarmReceiver: BroadcastReceiver() {
+    @Inject
+    lateinit var getLocalAlarmDetailUseCase: GetLocalAlarmDetailUseCase
+    @Inject
+    lateinit var checkNotDeletedAlarmUseCase: CheckNotDeletedAlarmUseCase
+    @Inject
+    lateinit var deleteAlarmDetailFromLocal: DeleteAlarmDetailFromLocalUseCase
+
     override fun onReceive(context: Context?, intent: Intent?) {
         val id = intent?.getIntExtra("alarm_detail_id", -1)!!
         val isRepeat = intent.getBooleanExtra("isRepeatAlarm", false)

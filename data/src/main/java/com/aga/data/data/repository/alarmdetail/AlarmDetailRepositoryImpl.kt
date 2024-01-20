@@ -15,20 +15,30 @@ class AlarmDetailRepositoryImpl @Inject constructor(
     private val alarmDetailLocalDataSource: AlarmDetailLocalDataSource
 ) : AlarmDetailRepository {
     override suspend fun createNewPersonalAlarm(alarmDetail: AlarmDetail): Result<AlarmDetail> {
-        alarmDetailLocalDataSource.insertAlarmDetail(alarmDetail.toAlarmDetailEntity())
         return alarmDetailRemoteDataSource.createNewPersonalAlarm(
             alarmDetail.toAlarmDetailRequest()
         ).map {
             it.toAlarmDetail()
+        }.also { result ->
+            result.getOrNull()?.also {
+                alarmDetailLocalDataSource.insertAlarmDetail(alarmDetail.copy(id = it.id).toAlarmDetailEntity())
+            }
         }
     }
 
     override suspend fun modifyPersonalAlarm(alarmDetail: AlarmDetail): Result<AlarmDetail> {
-        alarmDetailLocalDataSource.updateAlarmDetail(alarmDetail.toAlarmDetailEntity())
-        return alarmDetailRemoteDataSource.modifyPersonalAlarm(
-            alarmDetail.toAlarmDetailModifyRequest()
-        ).map {
-            it.toAlarmDetail()
+        return if (alarmDetail.teamId < 0){
+            alarmDetailLocalDataSource.getAlarmDetailById(alarmDetail.id).copy(isOn = alarmDetail.isOn)
+        } else {
+            alarmDetail
+        } .let {
+            alarmDetailRemoteDataSource.modifyPersonalAlarm(it.toAlarmDetailModifyRequest()).map {response ->
+                response.toAlarmDetail()
+            }.also {result ->
+                if (result.isSuccess){
+                    alarmDetailLocalDataSource.updateAlarmDetail(it.toAlarmDetailEntity())
+                }
+            }
         }
     }
 

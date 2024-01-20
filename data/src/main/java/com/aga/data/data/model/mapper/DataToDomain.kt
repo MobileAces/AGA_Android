@@ -158,7 +158,8 @@ fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
         userNickname,
         true,
         true,
-        ""
+        "",
+        -1
     )
 }
 
@@ -178,7 +179,8 @@ fun AlarmDetailEntity.toAlarmDetail(): AlarmDetail{
         userNickname,
         isVibrateOn,
         isRingtoneOn,
-        ringtoneUri
+        ringtoneUri,
+        teamId
     )
 }
 

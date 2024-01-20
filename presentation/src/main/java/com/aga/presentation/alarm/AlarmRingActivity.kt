@@ -186,7 +186,7 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
                 alarmDetail.forecast,
                 alarmDetail.memoVoice,
                 PrefManager.read(Constants.PREF_USER_ID, "")!!,
-                1,
+                alarmDetail.teamId,
                 alarmDetail.alarmId,
                 alarmDetail.id
             )
