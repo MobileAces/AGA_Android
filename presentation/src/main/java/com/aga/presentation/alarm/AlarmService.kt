@@ -41,6 +41,7 @@ class AlarmService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d("awesome", "onStartCommand: ${intent}")
         isRepeatAlarm = intent?.getBooleanExtra("isRepeatAlarm", false)!!
         alarmDetail = intent?.getSerializableExtra("alarm_detail") as AlarmDetail
 
@@ -76,6 +77,7 @@ class AlarmService: Service() {
         if(alarmDetail.isRingtoneOn){
             val basicUri = Uri.parse(alarmDetail.ringtoneUri)
             try {
+                mediaPlayer = MediaPlayer()
                 mediaPlayer!!.setDataSource(applicationContext, basicUri)
                 mediaPlayer!!.isLooping = true
                 mediaPlayer!!.setOnPreparedListener { mp: MediaPlayer -> mp.start() }

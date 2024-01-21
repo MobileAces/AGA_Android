@@ -1,5 +1,6 @@
 package com.aga.data.data.model.mapper
 
+import android.util.Log
 import com.aga.data.data.model.alarm.AlarmDataResponse
 import com.aga.data.data.model.alarm.AlarmDetailResponse
 import com.aga.data.data.model.alarm.AlarmWithDetailListResponse
@@ -164,6 +165,7 @@ fun AlarmDetailResponse.toAlarmDetail(): AlarmDetail {
 }
 
 fun AlarmDetailEntity.toAlarmDetail(): AlarmDetail{
+    Log.d("awesome", "toAlarmDetail: $this")
     return AlarmDetail(
         dayOfWeek,
         id,
@@ -196,7 +198,7 @@ fun AlarmWithDetailListResponse.toAlarmWithDetailList(): AlarmWithDetailList {
 
 fun WeatherResponse.toWeather(): Weather{
     return Weather(
-        this.weatherData.rainAmount,
+        this.weather.rainAmount,
         this.message
     )
 }

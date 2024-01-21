@@ -8,6 +8,9 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -71,6 +74,9 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
         alarmDetail = intent.getSerializableExtra("alarm_detail") as AlarmDetail
         binding.tvDate.text = formatter.format(today)
         binding.tvAlarmTime.text = "${alarmDetail.hour}:${alarmDetail.minute}"
+        if (alarmDetail.repeatTime == 0)
+            binding.btnPostpone.visibility = View.GONE
+        binding.btnPostpone.text = "${alarmDetail.repeatTime}분 뒤 다시 울림"
 
         registerListener()
         registerObserver()
@@ -91,7 +97,6 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
             5-1 반복알람이면 원본 알람 조회 후 재등록(manager.cancelRepeatAlarm())
              */
             setMemoTTS()
-            stopAlarm()
         }
 
         binding.btnPostpone.setOnClickListener {
@@ -113,7 +118,8 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
         }
 
         viewModel.registerWakeUpResult.observe(this){
-            finishRingActivity()
+//            finishRingActivity()
+            stopAlarm()
         }
 
     }
@@ -144,8 +150,8 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
             }
 
             // 위도, 경도 (순서대로)
-            val longitude = current?.longitude
-            val latitude = current?.latitude
+            val longitude = (current!!.longitude * 1000.0).toInt() / 1000.0
+            val latitude = (current.latitude * 1000.0).toInt() / 1000.0
 
             if (longitude != null && latitude != null){
                 viewModel.getWeatherInfo(latitude, longitude)
@@ -153,15 +159,34 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
         }else{
             startTTS()
         }
+
     }
 
     private fun startTTS(){
-        tts = TextToSpeech(this) { p0 ->
-            if (p0 != TextToSpeech.ERROR)
+        tts = TextToSpeech(baseContext) { p0 ->
+            Log.d("awesome", "startTTS: init")
+            if (p0 != TextToSpeech.ERROR){
+                tts.setOnUtteranceProgressListener(object : UtteranceProgressListener(){
+                    override fun onStart(utteranceId: String?) {
+
+                    }
+
+                    override fun onDone(utteranceId: String?) {
+                        finishRingActivity()
+                    }
+
+                    override fun onError(utteranceId: String?) {
+
+                    }
+
+                })
                 tts.language = Locale.KOREAN
+                tts.speak(ttsContent, TextToSpeech.QUEUE_FLUSH, null, TTS_ID).also {
+                    Log.d("awesome", "startTTS: speak $it")
+                }
+            }
+            registerWakeUpOnServer()
         }
-        tts.speak(ttsContent, TextToSpeech.QUEUE_FLUSH, null, TTS_ID)
-        registerWakeUpOnServer()
     }
 
     private fun registerWakeUpOnServer(){
@@ -178,7 +203,7 @@ class AlarmRingActivity : BaseActivity<ActivityAlarmRingBinding>(
         // 현재 시간과 알람 설정 시간 비교, 30분 이상 지났으면 success를 false로
         viewModel.registerWakeUp(
             WakeUp(
-                pastMin > 30,
+                pastMin < 30,
                 dateFormat.format(System.currentTimeMillis()),
                 hour,
                 min,

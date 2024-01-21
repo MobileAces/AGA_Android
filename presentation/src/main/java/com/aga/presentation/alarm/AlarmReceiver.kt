@@ -3,6 +3,7 @@ package com.aga.presentation.alarm
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.aga.domain.usecase.alarmdetail.CheckNotDeletedAlarmUseCase
 import com.aga.domain.usecase.alarmdetail.DeleteAlarmDetailFromLocalUseCase
 import com.aga.domain.usecase.alarmdetail.GetLocalAlarmDetailUseCase
@@ -23,6 +24,7 @@ class AlarmReceiver: BroadcastReceiver() {
     lateinit var deleteAlarmDetailFromLocal: DeleteAlarmDetailFromLocalUseCase
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d("awesome", "onReceive: $intent")
         val id = intent?.getIntExtra("alarm_detail_id", -1)!!
         val isRepeat = intent.getBooleanExtra("isRepeatAlarm", false)
         CoroutineScope(Dispatchers.IO).launch {
@@ -34,7 +36,7 @@ class AlarmReceiver: BroadcastReceiver() {
                     removeAlarmInLocal(id, context)
                 }
             }catch (e: Exception){
-                getAlarmDetail(id, isRepeat, context)
+//                getAlarmDetail(id, isRepeat, context)
             }
         }
     }

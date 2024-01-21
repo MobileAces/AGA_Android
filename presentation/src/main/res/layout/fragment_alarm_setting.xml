@@ -170,6 +170,18 @@
                         android:layout_height="wrap_content"
                         android:text="@string/alarm_setting_sound" />
 
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:rotation="90"/>
+
+                    <TextView
+                        android:id="@+id/tv_alarm_ring_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/alarm_setting_no_ring"
+                        android:textColor="@color/text_gray"/>
+
                     <View
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
