@@ -1,9 +1,16 @@
 package com.aga.presentation.alarm
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.aga.domain.model.AlarmDetail
@@ -30,6 +37,7 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
     private lateinit var alarmTime: AlarmTime
 
     private var repeat: Int = 0
+    private var ringtoneUri: Uri? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,7 +119,7 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
                             "",
                             binding.switchVibrate.isChecked,
                             binding.switchRing.isChecked,
-                            "",
+                            ringtoneUri?.toString() ?: "",
                             alarmViewModel.selectedAlarm!!.teamId
                         ).also { AgaAlarmManager.setNewAlarm(it,requireContext()) }
                     )
@@ -132,7 +140,7 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
                             "",
                             binding.switchVibrate.isChecked,
                             binding.switchRing.isChecked,
-                            "",
+                            ringtoneUri?.toString() ?: "",
                             alarmViewModel.selectedAlarm!!.teamId
                         ).also { AgaAlarmManager.setNewAlarm(it,requireContext()) }
                     )
@@ -140,7 +148,30 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
             } else {
                 showToast("올바르지 않은 접근입니다.")
             }
+        }
 
+        // 알람 벨소리 설정 텍스트 뷰
+        binding.tvAlarmRingName.setOnClickListener {
+            Log.d(TAG, "registerListener: alarmName clicked")
+            setAlarmRingtone()
+        }
+
+        // 알람 벨소리 스위치
+        binding.switchRing.setOnCheckedChangeListener { buttonView, isChecked ->
+            Log.d(TAG, "registerListener: switch clicked")
+            if (isChecked && ringtoneUri == null){
+                AlertDialog.Builder(requireContext())
+                    .setMessage("알람음이 설정 되지 않았습니다.\n설정하시겠습니까?")
+                    .setNegativeButton("취소"){dialog,which ->
+                        binding.switchRing.isChecked = false
+                    }
+                    .setPositiveButton("확인"){dialog,which ->
+                        setAlarmRingtone()
+                    }
+                    .create()
+                    .show()
+
+            }
         }
 
         binding.npAmpm.setOnValueChangedListener { picker, oldVal, newVal ->
@@ -182,6 +213,10 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
                     } else {
                         1
                     }
+                if (!it.ringtoneUri.isNullOrBlank()){
+                    this.ringtoneUri = Uri.parse(it.ringtoneUri)
+                    binding.tvAlarmRingName.text = getRingtoneName(this.ringtoneUri!!)
+                }
                 binding.switchRing.isChecked = alarmDetail.isRingtoneOn
                 binding.switchVibrate.isChecked = alarmDetail.isVibrateOn
                 binding.switchRainVoice.isChecked = alarmDetail.forecast
@@ -224,6 +259,32 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
             }.toTypedArray()
             wrapSelectorWheel = true
         }
+    }
+
+    private fun setAlarmRingtone(){
+        val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "알람음 설정")
+            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, null as Uri?)
+        }
+        ringtoneActivityResultLauncher.launch(intent)
+    }
+
+    private val ringtoneActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val ringtoneUri: Uri? = result.data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+            if (ringtoneUri != null) {
+                this.ringtoneUri = ringtoneUri
+                binding.tvAlarmRingName.text = getRingtoneName(ringtoneUri)
+                binding.switchRing.isChecked = true
+            }
+        }
+    }
+
+    private fun getRingtoneName(uri: Uri): String{
+        return RingtoneManager.getRingtone(requireContext(),uri).getTitle(requireContext())
     }
 
 }
